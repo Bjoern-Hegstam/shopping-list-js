@@ -1,12 +1,19 @@
 'use strict';
 
+// Modules
 var express = require('express');
-var app = express();
 
 var port = 3000;
+var app = express();
 
+// Routes
 require('./config/routes.js')(app)
 
-app.listen(port, function() {
-	console.log('App listening on port ' + port);
-});
+// Run server
+startApp();
+
+// Util
+function startApp() {
+  app.listen(port);
+  console.log('App started on port ' + port);
+}
