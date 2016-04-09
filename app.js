@@ -14,6 +14,6 @@ startApp();
 
 // Util
 function startApp() {
-  app.listen(port);
-  console.log('App started on port ' + port);
+	app.listen(port);
+	console.log('App started on port ' + port);
 }
