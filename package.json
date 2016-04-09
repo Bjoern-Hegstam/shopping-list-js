@@ -1,0 +1,17 @@
+{
+  "name": "shopping-list-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Björn Hegstam (bjorn.hegstam@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
