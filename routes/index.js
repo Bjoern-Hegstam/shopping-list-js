@@ -13,16 +13,14 @@ router.get("/", function(req, res) {
 
 	itemType
 	.save()
-	.then(
+	.then(function(obj) {
 		models
 		.ItemType
 		.findAll()
-		.then(
-			function(itemTypes) {
-				res.send(itemTypes);
-			}
-			)
-		);
+		.then(function(itemTypes) {
+            res.send(itemTypes);
+        })
+    });
 });
 
 module.exports = router;
