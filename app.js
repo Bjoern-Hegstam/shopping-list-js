@@ -2,15 +2,20 @@
 
 // Modules
 var express = require('express');
+var models = require('./models');
 
 var port = 3000;
 var app = express();
 
 // Routes
-require('./config/routes.js')(app)
+var routes = require('./routes/index');
+app.use('/', routes);
 
 // Run server
-startApp();
+models
+	.sequelize
+	.sync()
+	.then(startApp);
 
 // Util
 function startApp() {
