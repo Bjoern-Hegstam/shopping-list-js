@@ -1,16 +1,18 @@
 var models = require('./../models');
 
-module.exports = {
-    setUp: function(callback) {
-        models
+function forceSyncDb(onSuccess) {
+    models
         .sequelize
         .sync({force: true})
         .then(function() {
-            callback();
+            onSuccess();
         }, function(err) {
             throw err;
         });
-    },
+}
+
+module.exports = {
+    setUp: forceSyncDb,
     test: function(test) {
         models
         .ItemType
