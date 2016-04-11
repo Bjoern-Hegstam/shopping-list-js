@@ -10,6 +10,10 @@ var app = express();
 var routes = require('./routes/index');
 app.use('/', routes);
 
+// Other conf
+app.set('view engine', 'pug');
+app.use('/static', express.static(__dirname + '/public'));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

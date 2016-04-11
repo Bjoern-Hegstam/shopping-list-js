@@ -1,0 +1,32 @@
+/* Remove all default styling */
+* {
+    margin: 0;
+}
+
+
+/* Datatable styles */
+.datatable {
+    background-color: black;
+    border-radius: 10px;
+    font-family: arial;
+}
+
+.datatable th {
+    padding: 10px 0 10px 0;
+}
+
+.datatable tr:nth-of-type(odd) {
+    background-color: #cccccc;
+}
+
+.datatable tr:nth-of-type(even) {
+    background-color: white;
+}
+
+.datatable td:nth-of-type(1) {
+    text-align: right;
+;}
+
+.datatable td {
+    padding: 5px;
+}

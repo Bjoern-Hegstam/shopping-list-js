@@ -5,22 +5,12 @@ var express = require("express");
 var router = express.Router();
 
 router.get("/", function(req, res) {
-	var itemType = models
+	models
 	.ItemType
-	.build({
-		name: 'MyItemType'
+	.findAll()
+	.then(function(itemTypes) {
+		res.render('itemType',  {'itemTypes': itemTypes});
 	});
-
-	itemType
-	.save()
-	.then(function(obj) {
-		models
-		.ItemType
-		.findAll()
-		.then(function(itemTypes) {
-            res.send(itemTypes);
-        })
-    });
 });
 
 module.exports = router;
