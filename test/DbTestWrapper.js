@@ -1,12 +1,12 @@
 var models = require('./../models');
 
 module.exports = {
-    init: function(onSuccess) {
+    setUp: function(callback) {
         models
         .sequelize
         .sync({force: true})
         .then(function() {
-            onSuccess();
+            callback();
         }, function(err) {
             throw err;
         });

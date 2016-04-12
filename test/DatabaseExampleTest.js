@@ -1,8 +1,8 @@
 var models = require('./../models');
-var dbUtil = require('./DbTestUtil');
+var dbTestWrapper = require('./DbTestWrapper');
 
-module.exports = {
-    setUp: dbUtil.init,
+module.exports = dbTestWrapper;
+dbTestWrapper.databaseExampleTest = {
     test: function(test) {
         models
         .ItemType
