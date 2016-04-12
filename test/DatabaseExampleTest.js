@@ -1,18 +1,8 @@
 var models = require('./../models');
-
-function forceSyncDb(onSuccess) {
-    models
-        .sequelize
-        .sync({force: true})
-        .then(function() {
-            onSuccess();
-        }, function(err) {
-            throw err;
-        });
-}
+var dbUtil = require('./DbTestUtil');
 
 module.exports = {
-    setUp: forceSyncDb,
+    setUp: dbUtil.init,
     test: function(test) {
         models
         .ItemType
