@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "set NODE_ENV=development&&set DEBUG=nodetest:server models:index&&node ./bin/www",
-    "test": "set NODE_ENV=test&&set DEBUG='*'&&grunt nodeunit"
+    "test": "set NODE_ENV=test&&set DEBUG=&&grunt nodeunit"
   },
   "author": "Björn Hegstam (bjorn.hegstam@gmail.com)",
   "license": "ISC",
