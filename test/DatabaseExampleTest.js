@@ -3,27 +3,21 @@ var dbScaffolding = require('./DbScaffolding');
 
 module.exports = dbScaffolding;
 dbScaffolding.databaseExampleTest = {
-    test: function(test) {
-        models
-        .ItemType
-        .findAll()
-        .then(function(itemTypes) {
-            test.equal(itemTypes.length, 0, 'Num existing item types');
-
-            models
-            .ItemType
-            .create({
-                name: 'TestItemType42'
-            })
-            .then(function(itemType) {
-                models
-                .ItemType
-                .findAll()
-                .then(function(postItemTypes) {
-                    test.equal(1, postItemTypes.length);
-                    test.done();
-                });
-            });
+    createAndVerifyItemType: function(test) {
+        createItemType({
+            name: 'TestItemType42'
+        },
+        function verify(itemType) {
+            test.ok(itemType.id);
+            test.equal(itemType.name, 'TestItemType42');
+            test.done();
         });
     }
 };
+
+function createItemType(values, callback) {
+    models
+    .ItemType
+    .create(values)
+    .then(callback);
+}
