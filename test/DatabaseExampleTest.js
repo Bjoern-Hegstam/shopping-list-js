@@ -1,8 +1,8 @@
 var models = require('./../models');
-var dbTestWrapper = require('./DbTestWrapper');
+var dbScaffolding = require('./DbScaffolding');
 
-module.exports = dbTestWrapper;
-dbTestWrapper.databaseExampleTest = {
+module.exports = dbScaffolding;
+dbScaffolding.databaseExampleTest = {
     test: function(test) {
         models
         .ItemType
