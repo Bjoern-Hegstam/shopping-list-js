@@ -27,6 +27,7 @@
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-nodeunit": "^1.0.0",
+    "jshint": "^2.9.1",
     "nodeunit": "^0.9.1"
   }
 }
