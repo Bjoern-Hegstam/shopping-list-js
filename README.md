@@ -1,8 +1,4 @@
 Next step
-* Define model for ShoppingList and ItemInShoppingList
-** Create domain objects for working with a shopping list (add/remove item type)
-** Write tests
-
 * Start on shopping list view
 ** Show shopping list with contents
 ** Tap on item in list to toggle status (in basked/not in basket)
