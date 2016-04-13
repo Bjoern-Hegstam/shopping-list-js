@@ -13,8 +13,7 @@ module.exports = function (grunt) {
             'test/*.js'
             ],
             options: {
-                node: true,
-                ignores: ['./node_modules']
+                jshintrc: '.jshintrc'
             }
         }
     });
