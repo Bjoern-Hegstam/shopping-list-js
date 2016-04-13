@@ -6,7 +6,7 @@ var router = express.Router();
 
 router.get("/", function(req, res) {
 	models
-	.ItemType
+	.itemType
 	.findAll()
 	.then(function(itemTypes) {
 		res.render('itemType',  {'itemTypes': itemTypes});

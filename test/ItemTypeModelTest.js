@@ -1,12 +1,12 @@
 var models = require('./../models');
 var dbScaffolding = require('./DbScaffolding');
 
+var ItemType = models.itemType;
+
 module.exports = dbScaffolding;
 dbScaffolding.itemTypeModelTest = {
     createAndVerifyItemType: function(test) {
-        models
-        .ItemType
-        .create({
+        ItemType.create({
             name: 'TestItemType42'
         })
         .then(function verify(itemType) {

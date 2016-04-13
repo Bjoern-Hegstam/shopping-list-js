@@ -1,15 +1,14 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define("ShoppingList", {
+    var ShoppingList = sequelize.define("shoppingList", {
         name: DataTypes.STRING
     },{
         classMethods: {
             associate: function(models) {
-                models
-                .ShoppingList
-                .hasMany(models.ShoppingListItem, {foreignKey: 'shoppingListId'});
+                ShoppingList.hasMany(models.shoppingListItem);
             }
         }
     });
+    return ShoppingList;
 };
