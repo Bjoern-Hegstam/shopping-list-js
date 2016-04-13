@@ -39,7 +39,7 @@ dbScaffolding.shoppingListDbTest = {
                 shoppingListId: shoppingList.id,
                 itemType: self.itemType,
                 quantity: '2'
-            })
+            });
         })
         .then(function(shoppingListItem) {
             test.ok(shoppingListItem.id);
