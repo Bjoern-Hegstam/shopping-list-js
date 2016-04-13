@@ -2,7 +2,7 @@ var models = require('./../models');
 var dbScaffolding = require('./DbScaffolding');
 
 module.exports = dbScaffolding;
-dbScaffolding.databaseExampleTest = {
+dbScaffolding.itemTypeModelTest = {
     createAndVerifyItemType: function(test) {
         models
         .ItemType
