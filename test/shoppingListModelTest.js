@@ -1,5 +1,5 @@
 var models = require('./../models');
-var dbScaffolding = require('./DbScaffolding');
+var dbScaffolding = require('./dbScaffolding');
 
 var ItemType = models.itemType;
 var ShoppingList = models.shoppingList;
