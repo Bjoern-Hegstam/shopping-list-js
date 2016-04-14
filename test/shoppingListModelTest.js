@@ -35,11 +35,7 @@ dbScaffolding.shoppingListDbTest = {
             name: 'ShoppingList'
         })
         .then(function(shoppingList) {
-            return ShoppingListItem.create({
-                shoppingListId: shoppingList.id,
-                itemType: self.itemType,
-                quantity: '2'
-            });
+            return shoppingList.add(self.itemType.id, 2);
         })
         .then(function(shoppingListItem) {
             test.ok(shoppingListItem.id);
