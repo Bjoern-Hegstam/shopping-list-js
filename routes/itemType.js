@@ -19,16 +19,15 @@ router.get('/', function(req, res) {
     });
 });
 
-router.get('/:id', function(req, res) {
+router.get('/:id', function(req, res, next) {
     ItemType
     .findById(req.params.id)
     .then(function(itemType) {
+        if (!itemType) {
+            return next();
+        };
+
         res.send(itemType.toJSON());
-    }, function(err) {
-        res.render('error', {
-            'message': err.name,
-            'error': err.message
-        });
     });
 });
 
