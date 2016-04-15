@@ -12,10 +12,7 @@ router.get('/', function(req, res) {
     .then(function(itemTypes) {
         res.send(itemTypes);
     }, function(err) {
-        res.render('error', {
-            'message': err.name,
-            'error': err.message
-        });
+        res.render('error', {'message': err.message});
     });
 });
 
@@ -37,10 +34,7 @@ router.post('/', function(req, res) {
     .then(function(itemType) {
         res.send(itemType.toJSON());
     }, function(err) {
-        res.render('error', {
-            'message': err.name,
-            'error': err.message
-        });
+        res.render('error', {'message': err.message});
     });
 });
 
