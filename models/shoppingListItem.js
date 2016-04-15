@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
     },{
         classMethods: {
             associate: function(models) {
-                ShoppingListItem.hasOne(models.itemType);
+                ShoppingListItem.belongsTo(models.itemType);
                 ShoppingListItem.belongsTo(models.shoppingList);
             }
         }
