@@ -3,12 +3,18 @@
 // Modules
 var express = require('express');
 var models = require('./models');
+var bodyParser = require('body-parser');
 
 var app = express();
 
+app.use(bodyParser.json());
+
 // Routes
 var routes = require('./routes/index');
+var itemTypeRoutes = require('./routes/itemType.js');
+
 app.use('/', routes);
+app.use('/itemtype', itemTypeRoutes);
 
 // Other conf
 app.set('view engine', 'pug');
