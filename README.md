@@ -7,3 +7,5 @@ Next step
 * Add option to add item type to shopping list
   * from existing item types
   * or from a newly created item type
+
+* Move config for starting webapp in development mode from npm start to grunt
