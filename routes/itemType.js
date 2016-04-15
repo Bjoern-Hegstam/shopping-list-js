@@ -38,4 +38,19 @@ router.post('/', function(req, res) {
     });
 });
 
+router.delete('/:id', function(req, res) {
+    ItemType
+    .findById(req.params.id)
+    .then(function(itemType) {
+        if (!itemType) {
+            return next();
+        }
+
+        itemType.destroy();
+        res.status(204); // Delete, no content in response
+        res.send();
+    });
+});
+
+
 module.exports = router;
