@@ -2,6 +2,6 @@
 
 module.exports = function(sequelize, DataTypes) {
 	return sequelize.define("itemType", {
-		name: DataTypes.STRING
+		name: {type: DataTypes.STRING, allowNull: false}
 	});
 };
