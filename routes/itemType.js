@@ -38,7 +38,7 @@ router.post('/', function(req, res) {
     });
 });
 
-router.delete('/:id', function(req, res) {
+router.delete('/:id', function(req, res, next) {
     ItemType
     .findById(req.params.id)
     .then(function(itemType) {
