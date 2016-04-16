@@ -13,7 +13,7 @@ module.exports = function(routePrefix) {
         ItemType
         .findAll()
         .then(function(itemTypes) {
-            res.send(itemTypes);
+            res.send(formatCollectionResponse(itemTypes));
         }, function(err) {
             res.sendStatus(404);
         });
@@ -84,6 +84,23 @@ module.exports = function(routePrefix) {
             },
             routePrefix + "itemtype/" + itemType.id
             );
+    }
+
+    function formatCollectionResponse(itemTypes) {
+        return {
+            links: {
+                self: routePrefix + "itemtype"
+            },
+            data: itemTypes.map(function(itemType) {
+                return responseFormatter.formatData(
+                    itemType.Model.name.toLowerCase(),
+                    itemType.id,
+                    {
+                        name: itemType.name
+                    }
+                    );
+            })
+        };
     }
 
     return router;
