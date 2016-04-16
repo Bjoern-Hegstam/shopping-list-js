@@ -15,9 +15,11 @@ exports.getById = function (res, model, id, link) {
     });
 };
 
-exports.findAll = function(res, model, link) {
+exports.findAll = function(res, model, link, searchOptions) {
+    searchOptions = searchOptions || {};
+
     model
-    .findAll()
+    .findAll(searchOptions)
     .then(function(objects) {
         res
         .status(HttpStatus.OK)

@@ -33,20 +33,15 @@ module.exports = function(routePrefix) {
     });
 
     router.get('/:id/item', function(req, res) {
-        ShoppingListItem
-        .findAll({
-            where: {
-                shoppingListId: req.params.id
-            }
-        })
-        .then(function(items) {
-            res
-            .status(HttpStatus.OK)
-            .send(responseFormatter.formatCollectionResponse(
-                routePrefix + req.params.id + "/item",
-                items
-                ));
-        });
+        getters.findAll(
+            res,
+            ShoppingListItem,
+            routePrefix + req.params.id + "/item",
+            {
+                where: {
+                    shoppingListId: req.params.id
+                }
+            });
     });
 
     router.get('/:id/item/:itemId', function(req, res) {
