@@ -13,7 +13,9 @@ module.exports = function(routePrefix) {
         ItemType
         .findAll()
         .then(function(itemTypes) {
-            res.send(formatCollectionResponse(itemTypes));
+            res
+            .status(200)
+            .send(formatCollectionResponse(itemTypes));
         }, function(err) {
             res.sendStatus(404);
         });
@@ -26,7 +28,9 @@ module.exports = function(routePrefix) {
             if (!itemType) {
                 res.sendStatus(404);
             } else {
-                res.send(formatSingleItemTypeResponse(itemType));
+                res
+                .status(200)
+                .send(formatSingleItemTypeResponse(itemType));
             }
         });
     });
@@ -35,7 +39,9 @@ module.exports = function(routePrefix) {
         ItemType
         .create(req.body.data.attributes)
         .then(function(itemType) {
-            res.status(201).send(formatSingleItemTypeResponse(itemType));
+            res
+            .status(201)
+            .send(formatSingleItemTypeResponse(itemType));
         }, function(err) {
             res.sendStatus(404);
         });
@@ -53,7 +59,9 @@ module.exports = function(routePrefix) {
                 itemType
                 .update({name: newName})
                 .then(function(savedItemType) {
-                    res.status(200).send(formatSingleItemTypeResponse(savedItemType));
+                    res
+                    .status(200)
+                    .send(formatSingleItemTypeResponse(savedItemType));
                 });
             }
         });

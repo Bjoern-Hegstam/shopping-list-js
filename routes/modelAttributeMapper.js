@@ -14,4 +14,12 @@ mappings[models.shoppingList.name] = function(shoppingList) {
     };
 };
 
+mappings[models.shoppingListItem.name] = function(item) {
+    return {
+        shoppingListId: item.shoppingListId,
+        itemTypeId: item.itemTypeId,
+        quantity: item.quantity
+    };
+}
+
 module.exports = mappings;

@@ -3,7 +3,7 @@ var modelAttributeMapper = require('./modelAttributeMapper.js');
 function formatModelInstance(instance) {
     return {
         type: instance.Model.name.toLowerCase(),
-        id: instance.id,
+        id: instance.id.toString(),
         attributes: modelAttributeMapper[instance.Model.name](instance)
     };
 }
