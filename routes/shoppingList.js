@@ -66,6 +66,20 @@ module.exports = function(routePrefix) {
         });
     });
 
+    router.get('/:id/item/:itemId', function(req, res) {
+        ShoppingListItem
+        .findById(req.params.itemId)
+        .then(function(item) {
+            if (!item) {
+                res.sendStatus(HttpStatus.NOT_FOUND);
+            } else {
+                res
+                .status(HttpStatus.OK)
+                .send(responseFormatter.formatSingleItemResponse(routePrefix + item.id, item));
+            }
+        });
+    });
+
     router.post('/:id/item', function(req, res) {
         var data = req.body.data;
 
