@@ -84,7 +84,7 @@ module.exports = function(routePrefix) {
     });
 
     function shoppingListItemLink(item) {
-        return routePrefix + item.shoppingListId + "/item/" + item.id;        
+        return routePrefix + item.shoppingListId + "/item/" + item.id;
     }
 
     return router;
