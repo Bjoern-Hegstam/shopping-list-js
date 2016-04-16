@@ -23,6 +23,20 @@ module.exports = function(routePrefix) {
         });
     });
 
+    router.get('/:id', function(req, res) {
+        ShoppingList
+        .findById(req.params.id)
+        .then(function(shoppingList) {
+            if (!shoppingList) {
+                res.sendStatus(HttpStatus.NOT_FOUND);
+            } else {
+                res
+                .status(HttpStatus.OK)
+                .send(responseFormatter.formatSingleItemResponse(routePrefix + shoppingList.id, shoppingList));
+            }
+        });
+    });
+
     router.post('/', function(req, res) {
         ShoppingList
         .create(req.body.data.attributes)
