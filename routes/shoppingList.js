@@ -13,15 +13,7 @@ var ShoppingListItem = models.shoppingListItem;
 
 module.exports = function(routePrefix) {
     router.get('/', function(req, res) {
-        ShoppingList
-        .findAll()
-        .then(function(shoppingLists) {
-            res
-            .status(HttpStatus.OK)
-            .send(responseFormatter.formatCollectionResponse(routePrefix, shoppingLists));
-        }, function(err) {
-            res.sendStatus(HttpStatus.NOT_FOUND);
-        });
+        getters.findAll(res, ShoppingList, routePrefix);
     });
 
     router.get('/:id', function(req, res) {

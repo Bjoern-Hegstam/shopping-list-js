@@ -12,15 +12,7 @@ var ItemType = models.itemType;
 
 module.exports = function(routePrefix) {
     router.get('/', function(req, res) {
-        ItemType
-        .findAll()
-        .then(function(itemTypes) {
-            res
-            .status(HttpStatus.OK)
-            .send(responseFormatter.formatCollectionResponse(routePrefix,itemTypes));
-        }, function(err) {
-            res.sendStatus(HttpStatus.NOT_FOUND);
-        });
+        getters.findAll(res, ItemType, routePrefix);
     });
 
     router.get('/:id', function(req, res, next) {

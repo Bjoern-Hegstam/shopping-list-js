@@ -13,4 +13,16 @@ exports.getById = function (res, model, id, link) {
             .send(responseFormatter.formatSingleItemResponse(link, object));
         }
     });
-}
+};
+
+exports.findAll = function(res, model, link) {
+    model
+    .findAll()
+    .then(function(objects) {
+        res
+        .status(HttpStatus.OK)
+        .send(responseFormatter.formatCollectionResponse(link, objects));
+    }, function(err) {
+        res.sendStatus(HttpStatus.NOT_FOUND);
+    });
+};
