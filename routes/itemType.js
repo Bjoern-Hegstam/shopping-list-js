@@ -26,7 +26,7 @@ module.exports = function(routePrefix) {
             if (!itemType) {
                 res.sendStatus(404);
             } else {
-                res.send(formatGetItemTypeResponse(itemType));
+                res.send(formatSingleItemTypeResponse(itemType));
             }
         });
     });
@@ -35,7 +35,7 @@ module.exports = function(routePrefix) {
         ItemType
         .create(req.body.data.attributes)
         .then(function(itemType) {
-            res.status(201).send(formatCreatedItemTypeResponse(itemType));
+            res.status(201).send(formatSingleItemTypeResponse(itemType));
         }, function(err) {
             res.sendStatus(404);
         });
@@ -53,9 +53,7 @@ module.exports = function(routePrefix) {
                 itemType
                 .update({name: newName})
                 .then(function(savedItemType) {
-                    console.log(savedItemType);
-
-                    res.status(200).send(formatGetItemTypeResponse(savedItemType));
+                    res.status(200).send(formatSingleItemTypeResponse(savedItemType));
                 });
             }
         });
@@ -68,25 +66,17 @@ module.exports = function(routePrefix) {
             if (!itemType) {
                 res.sendStatus(404);
             } else {
-                itemType.destroy();
-                res.sendStatus(204);
+                itemType
+                .destroy()
+                .then(function() {
+                    res.sendStatus(204);
+                });
             }
         });
     });
 
-    function formatGetItemTypeResponse(itemType) {
-        return responseFormatter.formatGetResponse(
-            itemType.Model.name.toLowerCase(),
-            itemType.id,
-            {
-                name: itemType.name
-            },
-            routePrefix + "itemtype/" + itemType.id
-            );
-    }
-
-    function formatCreatedItemTypeResponse(itemType) {
-        return responseFormatter.formatCreatedResponse(
+    function formatSingleItemTypeResponse(itemType) {
+        return responseFormatter.formatSingleItemResponse(
             itemType.Model.name.toLowerCase(),
             itemType.id,
             {
