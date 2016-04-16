@@ -91,12 +91,17 @@ module.exports = function(routePrefix) {
         var newQuantity = req.body.data.quantity;
 
         ShoppingListItem
-        .findById(req.params.itemId)
-        .then(function(item) {
-            if (!item) {
+        .findAll({
+            where: {
+                shoppingListId: req.params.listId,
+                id: req.params.itemId
+            }
+        })
+        .then(function(items) {
+            if (items.length === 0) {
                 res.sendStatus(HttpStatus.NOT_FOUND);
             } else {
-                item
+                items[0]
                 .update({quantity: newQuantity})
                 .then(function(savedItem) {
                     res
