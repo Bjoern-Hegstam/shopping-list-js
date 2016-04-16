@@ -1,18 +1,27 @@
-function formatData(type, id, attributes) {
+var modelAttributeMapper = require('./modelAttributeMapper.js');
+
+function formatModelInstance(instance) {
     return {
-        type: type,
-        id: id,
-        attributes: attributes
+        type: instance.Model.name.toLowerCase(),
+        id: instance.id,
+        attributes: modelAttributeMapper[instance.Model.name](instance)
     };
 }
 
-exports.formatSingleItemResponse = function(type, id, attributes, selfLink) {
+exports.formatSingleItemResponse = function(selfLink, instance) {
     return {
         links: {
             self: selfLink
         },
-        data: formatData(type, id, attributes)
+        data: formatModelInstance(instance)
     };
 };
 
-exports.formatData = formatData;
+exports.formatCollectionResponse = function(selfLink, instances) {
+    return {
+        links: {
+            self: selfLink
+        },
+        data: instances.map(formatModelInstance)
+    };
+};

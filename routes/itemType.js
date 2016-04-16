@@ -77,30 +77,16 @@ module.exports = function(routePrefix) {
 
     function formatSingleItemTypeResponse(itemType) {
         return responseFormatter.formatSingleItemResponse(
-            itemType.Model.name.toLowerCase(),
-            itemType.id,
-            {
-                name: itemType.name
-            },
-            routePrefix + "itemtype/" + itemType.id
+            routePrefix + "itemtype/" + itemType.id,
+            itemType
             );
     }
 
     function formatCollectionResponse(itemTypes) {
-        return {
-            links: {
-                self: routePrefix + "itemtype"
-            },
-            data: itemTypes.map(function(itemType) {
-                return responseFormatter.formatData(
-                    itemType.Model.name.toLowerCase(),
-                    itemType.id,
-                    {
-                        name: itemType.name
-                    }
-                    );
-            })
-        };
+        return responseFormatter.formatCollectionResponse(
+            routePrefix + "itemtype",
+            itemTypes
+            );
     }
 
     return router;
