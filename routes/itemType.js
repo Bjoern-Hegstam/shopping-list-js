@@ -13,7 +13,7 @@ module.exports = function(routePrefix) {
         ItemType
         .findAll(req.params.id)
         .then(function(itemTypes) {
-            res.send(itemTypes);
+            res.send(itemTypes.toJSON());
         }, function(err) {
             res.render('error', {'message': err.message});
         });
@@ -27,7 +27,7 @@ module.exports = function(routePrefix) {
                 return next();
             }
 
-            res.send(itemType.toJSON());
+            res.send(formatGetItemTypeResponse(itemType));
         });
     });
 
@@ -54,6 +54,17 @@ module.exports = function(routePrefix) {
             res.send();
         });
     });
+
+    function formatGetItemTypeResponse(itemType) {
+        return responseFormatter.formatGetResponse(
+            itemType.Model.name.toLowerCase(),
+            itemType.id,
+            {
+                name: itemType.name
+            },
+            routePrefix + "itemtype/" + itemType.id
+            );
+    }
 
     function formatCreatedItemTypeResponse(itemType) {
         return responseFormatter.formatCreatedResponse(
