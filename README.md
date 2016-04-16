@@ -7,6 +7,8 @@ Doc
 Next step
 ---------
 
+* Keep extracting common actions
+
 * Continue on REST API
   * Continue API for shopping list
   * Add API for working with shopping list items, e.g. api/shoppinglist/2/item
