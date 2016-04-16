@@ -20,6 +20,6 @@ mappings[models.shoppingListItem.name] = function(item) {
         itemTypeId: item.itemTypeId,
         quantity: item.quantity
     };
-}
+};
 
 module.exports = mappings;

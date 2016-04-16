@@ -15,7 +15,7 @@ module.exports = function(routePrefix) {
         .then(function(itemTypes) {
             res
             .status(200)
-            .send(formatCollectionResponse(itemTypes));
+            .send(responseFormatter.formatCollectionResponse(routePrefix,itemTypes));
         }, function(err) {
             res.sendStatus(404);
         });
@@ -30,7 +30,7 @@ module.exports = function(routePrefix) {
             } else {
                 res
                 .status(200)
-                .send(formatSingleItemTypeResponse(itemType));
+                .send(responseFormatter.formatSingleItemResponse(routePrefix + itemType.id, itemType));
             }
         });
     });
@@ -41,7 +41,7 @@ module.exports = function(routePrefix) {
         .then(function(itemType) {
             res
             .status(201)
-            .send(formatSingleItemTypeResponse(itemType));
+            .send(responseFormatter.formatSingleItemResponse(routePrefix + itemType.id, itemType));
         }, function(err) {
             res.sendStatus(404);
         });
@@ -61,7 +61,7 @@ module.exports = function(routePrefix) {
                 .then(function(savedItemType) {
                     res
                     .status(200)
-                    .send(formatSingleItemTypeResponse(savedItemType));
+                    .send(responseFormatter.formatSingleItemResponse(routePrefix + savedItemType.id, savedItemType));
                 });
             }
         });
@@ -82,20 +82,6 @@ module.exports = function(routePrefix) {
             }
         });
     });
-
-    function formatSingleItemTypeResponse(itemType) {
-        return responseFormatter.formatSingleItemResponse(
-            routePrefix + itemType.id,
-            itemType
-            );
-    }
-
-    function formatCollectionResponse(itemTypes) {
-        return responseFormatter.formatCollectionResponse(
-            routePrefix,
-            itemTypes
-            );
-    }
 
     return router;
 };
