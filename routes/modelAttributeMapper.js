@@ -8,4 +8,10 @@ mappings[models.itemType.name] = function(itemType) {
     };
 };
 
+mappings[models.shoppingList.name] = function(shoppingList) {
+    return {
+        name: shoppingList.name
+    };
+};
+
 module.exports = mappings;

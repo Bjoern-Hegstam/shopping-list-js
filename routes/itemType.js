@@ -77,14 +77,14 @@ module.exports = function(routePrefix) {
 
     function formatSingleItemTypeResponse(itemType) {
         return responseFormatter.formatSingleItemResponse(
-            routePrefix + "itemtype/" + itemType.id,
+            routePrefix + itemType.id,
             itemType
             );
     }
 
     function formatCollectionResponse(itemTypes) {
         return responseFormatter.formatCollectionResponse(
-            routePrefix + "itemtype",
+            routePrefix,
             itemTypes
             );
     }

@@ -12,9 +12,11 @@ app.use(bodyParser.json());
 // Routes
 var routes = require('./routes/index');
 var itemTypeRoutes = require('./routes/itemType.js');
+var shoppingListRoutes = require('./routes/shoppingList.js');
 
 app.use('/', routes);
-app.use('/api/itemtype', itemTypeRoutes('/api/'));
+app.use('/api/itemtype', itemTypeRoutes('/api/itemtype/'));
+app.use('/api/shoppinglist', shoppingListRoutes('/api/shoppinglist/'));
 
 // Other conf
 app.set('view engine', 'pug');
