@@ -41,6 +41,25 @@ module.exports = function(routePrefix) {
         });
     });
 
+    router.patch('/:id', function(req, res) {
+        var newName = req.body.data.attributes.name;
+
+        ItemType
+        .findById(req.params.id)
+        .then(function(itemType) {
+            if (!itemType) {
+                res.sendStatus(404);
+            } else {
+                itemType.name = newName;
+                itemType.save(function(savedItemType) {
+                    console.log(savedItemType);
+
+                    res.setStatus(200).send(formatGetItemTypeResponse(savedItemType));
+                });
+            }
+        });
+    });
+
     router.delete('/:id', function(req, res, next) {
         ItemType
         .findById(req.params.id)
