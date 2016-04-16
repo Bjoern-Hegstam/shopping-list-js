@@ -57,7 +57,9 @@ module.exports = function(routePrefix) {
         return formatCreatedResponse(
             itemType.Model.name.toLowerCase(),
             itemType.id,
-            itemType.toJSON(),
+            {
+                name: itemType.name
+            },
             routePrefix + "itemtype/" + itemType.id
             );
     }
