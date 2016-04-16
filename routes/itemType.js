@@ -2,6 +2,8 @@
 
 var models = require("../models");
 var express = require("express");
+var responseFormatter = require("./responseFormatter.js");
+
 var router = express.Router();
 
 var ItemType = models.itemType;
@@ -54,7 +56,7 @@ module.exports = function(routePrefix) {
     });
 
     function formatCreatedItemTypeResponse(itemType) {
-        return formatCreatedResponse(
+        return responseFormatter.formatCreatedResponse(
             itemType.Model.name.toLowerCase(),
             itemType.id,
             {
@@ -62,19 +64,6 @@ module.exports = function(routePrefix) {
             },
             routePrefix + "itemtype/" + itemType.id
             );
-    }
-
-    function formatCreatedResponse(type, id, attributes, link) {
-        return {
-            data: {
-                type: type,
-                id: id,
-                attributes: attributes,
-                links: {
-                    self: link
-                }
-            }
-        };
     }
 
     return router;
