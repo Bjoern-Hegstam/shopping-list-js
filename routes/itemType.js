@@ -70,8 +70,8 @@ module.exports = function(routePrefix) {
             }
 
             itemType.destroy();
-            res.status(204); // Delete, no content in response
-            res.send();
+
+            res.sendStatus(204);
         });
     });
 
