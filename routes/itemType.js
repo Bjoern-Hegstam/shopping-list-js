@@ -4,6 +4,7 @@ var models = require("../models");
 var express = require("express");
 var HttpStatus = require('http-status-codes');
 var responseFormatter = require("./responseFormatter.js");
+var getters = require('./getters.js');
 
 var router = express.Router();
 
@@ -23,17 +24,7 @@ module.exports = function(routePrefix) {
     });
 
     router.get('/:id', function(req, res, next) {
-        ItemType
-        .findById(req.params.id)
-        .then(function(itemType) {
-            if (!itemType) {
-                res.sendStatus(HttpStatus.NOT_FOUND);
-            } else {
-                res
-                .status(HttpStatus.OK)
-                .send(responseFormatter.formatSingleItemResponse(routePrefix + itemType.id, itemType));
-            }
-        });
+        getters.getById(res, ItemType, req.params.id, routePrefix + req.params.id);
     });
 
     router.post('/', function(req, res) {

@@ -4,6 +4,7 @@ var models = require("../models");
 var express = require("express");
 var HttpStatus = require('http-status-codes');
 var responseFormatter = require("./responseFormatter.js");
+var getters = require('./getters.js');
 
 var router = express.Router();
 
@@ -24,17 +25,7 @@ module.exports = function(routePrefix) {
     });
 
     router.get('/:id', function(req, res) {
-        ShoppingList
-        .findById(req.params.id)
-        .then(function(shoppingList) {
-            if (!shoppingList) {
-                res.sendStatus(HttpStatus.NOT_FOUND);
-            } else {
-                res
-                .status(HttpStatus.OK)
-                .send(responseFormatter.formatSingleItemResponse(routePrefix + shoppingList.id, shoppingList));
-            }
-        });
+        getters.getById(res, ShoppingList, req.params.id, routePrefix + req.params.id);
     });
 
     router.post('/', function(req, res) {
@@ -67,17 +58,7 @@ module.exports = function(routePrefix) {
     });
 
     router.get('/:id/item/:itemId', function(req, res) {
-        ShoppingListItem
-        .findById(req.params.itemId)
-        .then(function(item) {
-            if (!item) {
-                res.sendStatus(HttpStatus.NOT_FOUND);
-            } else {
-                res
-                .status(HttpStatus.OK)
-                .send(responseFormatter.formatSingleItemResponse(routePrefix + item.id, item));
-            }
-        });
+        getters.getById(res, ShoppingListItem, req.params.itemId, routePrefix + req.params.id + '/item/' + req.params.itemId);
     });
 
     router.post('/:id/item', function(req, res) {
