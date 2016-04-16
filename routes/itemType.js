@@ -15,7 +15,7 @@ module.exports = function(routePrefix) {
         .then(function(itemTypes) {
             res.send(itemTypes.toJSON());
         }, function(err) {
-            res.render('error', {'message': err.message});
+            res.sendStatus(404);
         });
     });
 
@@ -24,10 +24,10 @@ module.exports = function(routePrefix) {
         .findById(req.params.id)
         .then(function(itemType) {
             if (!itemType) {
-                return next();
+                res.sendStatus(404);
+            } else {
+                res.send(formatGetItemTypeResponse(itemType));
             }
-
-            res.send(formatGetItemTypeResponse(itemType));
         });
     });
 
@@ -37,7 +37,7 @@ module.exports = function(routePrefix) {
         .then(function(itemType) {
             res.status(201).send(formatCreatedItemTypeResponse(itemType));
         }, function(err) {
-            res.render('error', {'message': err.message});
+            res.sendStatus(404);
         });
     });
 
