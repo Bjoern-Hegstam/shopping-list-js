@@ -16,8 +16,8 @@ module.exports = function(routePrefix) {
         getters.findAll(res, ShoppingList, routePrefix);
     });
 
-    router.get('/:id', function(req, res) {
-        getters.getById(res, ShoppingList, req.params.id, routePrefix + req.params.id);
+    router.get('/:listId', function(req, res) {
+        getters.getById(res, ShoppingList, req.params.listId, routePrefix + req.params.listId);
     });
 
     router.post('/', function(req, res) {
@@ -32,29 +32,29 @@ module.exports = function(routePrefix) {
         });
     });
 
-    router.get('/:id/item', function(req, res) {
+    router.get('/:listId/item', function(req, res) {
         getters.findAll(
             res,
             ShoppingListItem,
-            routePrefix + req.params.id + "/item",
+            routePrefix + req.params.listId + "/item",
             {
                 where: {
-                    shoppingListId: req.params.id
+                    shoppingListId: req.params.listId
                 }
             });
     });
 
-    router.get('/:id/item/:itemId', function(req, res) {
-        getters.getById(res, ShoppingListItem, req.params.itemId, routePrefix + req.params.id + '/item/' + req.params.itemId);
+    router.get('/:listId/item/:itemId', function(req, res) {
+        getters.getById(res, ShoppingListItem, req.params.itemId, routePrefix + req.params.listId + '/item/' + req.params.itemId);
     });
 
-    router.post('/:id/item', function(req, res) {
+    router.post('/:listId/item', function(req, res) {
         var data = req.body.data;
 
         ShoppingListItem
         .findAll({
             where: {
-                shoppingListId: req.params.id,
+                shoppingListId: req.params.listId,
                 itemTypeId: data.itemTypeId
             }
         })
@@ -64,7 +64,7 @@ module.exports = function(routePrefix) {
             } else {
                 return ShoppingListItem
                 .create({
-                    shoppingListId: req.params.id,
+                    shoppingListId: req.params.listId,
                     itemTypeId: data.itemTypeId,
                     quantity: data.quantity
                 })
@@ -77,7 +77,7 @@ module.exports = function(routePrefix) {
         });
     });
 
-    router.patch('/:id/item/:itemId', function(req, res) {
+    router.patch('/:listId/item/:itemId', function(req, res) {
         var newQuantity = req.body.data.quantity;
 
         ShoppingListItem
