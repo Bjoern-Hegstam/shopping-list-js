@@ -8,10 +8,8 @@ Next step
 ---------
 
 * Continue on REST API
-  * Implement PATCH for item type (change name)
-  * Add Postman tests for DELETE response
-  * Refactor responseFormatter (move?)
-  * Start on API for shopping list
+  * Continue API for shopping list
+  * Add API for working with shopping list items, e.g. api/shoppinglist/2/item
 
 * Start on shopping list view
   * Show shopping list with contents
