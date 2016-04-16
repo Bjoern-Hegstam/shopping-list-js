@@ -1,4 +1,18 @@
+Doc
+---
+
+* API based on JSON API specification (http://jsonapi.org/)
+
+
 Next step
+---------
+
+* Continue on REST API
+  * Implement PATCH for item type (change name)
+  * Add Postman tests for DELETE response
+  * Refactor responseFormatter (move?)
+  * Start on API for shopping list
+
 * Start on shopping list view
   * Show shopping list with contents
   * Tap on item in list to toggle status (in basked/not in basket)
