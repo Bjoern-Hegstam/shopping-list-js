@@ -38,21 +38,54 @@ module.exports = function(routePrefix) {
         var data = req.body.data;
 
         ShoppingListItem
-        .create({
-            shoppingListId: req.params.id,
-            itemTypeId: data.itemTypeId,
-            quantity: data.quantity
+        .findAll({
+            where: {
+                shoppingListId: req.params.id,
+                itemTypeId: data.itemTypeId
+            }
         })
-        .then(function(item) {
-            var selfLink = routePrefix + item.shoppingListId + "/item/" + item.id;
-            
-            res
-            .status(201)
-            .send(responseFormatter.formatSingleItemResponse(selfLink, item));
-        }, function(err) {
-            res.sendStatus(404);
+        .then(function(items) {
+            if (items.length > 0) {
+                res.sendStatus(409);
+            } else {
+                return ShoppingListItem
+                .create({
+                    shoppingListId: req.params.id,
+                    itemTypeId: data.itemTypeId,
+                    quantity: data.quantity
+                })
+                .then(function(item) {
+                    res
+                    .status(201)
+                    .send(responseFormatter.formatSingleItemResponse(shoppingListItemLink(item), item));
+                });
+            }
         });
     });
+
+    router.patch('/:id/item/:itemId', function(req, res) {
+        var newQuantity = req.body.data.quantity;
+
+        ShoppingListItem
+        .findById(req.params.itemId)
+        .then(function(item) {
+            if (!item) {
+                res.sendStatus(404);
+            } else {
+                item
+                .update({quantity: newQuantity})
+                .then(function(savedItem) {
+                    res
+                    .status(200)
+                    .send(responseFormatter.formatSingleItemResponse(shoppingListItemLink(savedItem), savedItem));
+                });
+            }
+        });
+    });
+
+    function shoppingListItemLink(item) {
+        return routePrefix + item.shoppingListId + "/item/" + item.id;        
+    }
 
     return router;
 };
