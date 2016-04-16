@@ -14,7 +14,7 @@ var routes = require('./routes/index');
 var itemTypeRoutes = require('./routes/itemType.js');
 
 app.use('/', routes);
-app.use('/api/itemtype', itemTypeRoutes);
+app.use('/api/itemtype', itemTypeRoutes('/api/'));
 
 // Other conf
 app.set('view engine', 'pug');
