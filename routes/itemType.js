@@ -2,6 +2,7 @@
 
 var models = require("../models");
 var express = require("express");
+var HttpStatus = require('http-status-codes');
 var responseFormatter = require("./responseFormatter.js");
 
 var router = express.Router();
@@ -14,10 +15,10 @@ module.exports = function(routePrefix) {
         .findAll()
         .then(function(itemTypes) {
             res
-            .status(200)
+            .status(HttpStatus.OK)
             .send(responseFormatter.formatCollectionResponse(routePrefix,itemTypes));
         }, function(err) {
-            res.sendStatus(404);
+            res.sendStatus(HttpStatus.NOT_FOUND);
         });
     });
 
@@ -26,10 +27,10 @@ module.exports = function(routePrefix) {
         .findById(req.params.id)
         .then(function(itemType) {
             if (!itemType) {
-                res.sendStatus(404);
+                res.sendStatus(HttpStatus.NOT_FOUND);
             } else {
                 res
-                .status(200)
+                .status(HttpStatus.OK)
                 .send(responseFormatter.formatSingleItemResponse(routePrefix + itemType.id, itemType));
             }
         });
@@ -40,10 +41,10 @@ module.exports = function(routePrefix) {
         .create(req.body.data.attributes)
         .then(function(itemType) {
             res
-            .status(201)
+            .status(HttpStatus.CREATED)
             .send(responseFormatter.formatSingleItemResponse(routePrefix + itemType.id, itemType));
         }, function(err) {
-            res.sendStatus(404);
+            res.sendStatus(HttpStatus.NOT_FOUND);
         });
     });
 
@@ -54,13 +55,13 @@ module.exports = function(routePrefix) {
         .findById(req.params.id)
         .then(function(itemType) {
             if (!itemType) {
-                res.sendStatus(404);
+                res.sendStatus(HttpStatus.NOT_FOUND);
             } else {
                 itemType
                 .update({name: newName})
                 .then(function(savedItemType) {
                     res
-                    .status(200)
+                    .status(HttpStatus.OK)
                     .send(responseFormatter.formatSingleItemResponse(routePrefix + savedItemType.id, savedItemType));
                 });
             }
@@ -72,12 +73,12 @@ module.exports = function(routePrefix) {
         .findById(req.params.id)
         .then(function(itemType) {
             if (!itemType) {
-                res.sendStatus(404);
+                res.sendStatus(HttpStatus.NOT_FOUND);
             } else {
                 itemType
                 .destroy()
                 .then(function() {
-                    res.sendStatus(204);
+                    res.sendStatus(HttpStatus.NO_CONTENT);
                 });
             }
         });

@@ -2,6 +2,7 @@
 
 var models = require("../models");
 var express = require("express");
+var HttpStatus = require('http-status-codes');
 var responseFormatter = require("./responseFormatter.js");
 
 var router = express.Router();
@@ -15,10 +16,10 @@ module.exports = function(routePrefix) {
         .findAll()
         .then(function(shoppingLists) {
             res
-            .status(200)
+            .status(HttpStatus.OK)
             .send(responseFormatter.formatCollectionResponse(routePrefix, shoppingLists));
         }, function(err) {
-            res.sendStatus(404);
+            res.sendStatus(HttpStatus.NOT_FOUND);
         });
     });
 
@@ -27,10 +28,10 @@ module.exports = function(routePrefix) {
         .create(req.body.data.attributes)
         .then(function(shoppingList) {
             res
-            .status(201)
+            .status(HttpStatus.CREATED)
             .send(responseFormatter.formatSingleItemResponse(routePrefix + shoppingList.id, shoppingList));
         }, function(err) {
-            res.sendStatus(404);
+            res.sendStatus(HttpStatus.NOT_FOUND);
         });
     });
 
@@ -46,7 +47,7 @@ module.exports = function(routePrefix) {
         })
         .then(function(items) {
             if (items.length > 0) {
-                res.sendStatus(409);
+                res.sendStatus(HttpStatus.CONFLICT);
             } else {
                 return ShoppingListItem
                 .create({
@@ -56,7 +57,7 @@ module.exports = function(routePrefix) {
                 })
                 .then(function(item) {
                     res
-                    .status(201)
+                    .status(HttpStatus.CREATED)
                     .send(responseFormatter.formatSingleItemResponse(shoppingListItemLink(item), item));
                 });
             }
@@ -70,13 +71,13 @@ module.exports = function(routePrefix) {
         .findById(req.params.itemId)
         .then(function(item) {
             if (!item) {
-                res.sendStatus(404);
+                res.sendStatus(HttpStatus.NOT_FOUND);
             } else {
                 item
                 .update({quantity: newQuantity})
                 .then(function(savedItem) {
                     res
-                    .status(200)
+                    .status(HttpStatus.OK)
                     .send(responseFormatter.formatSingleItemResponse(shoppingListItemLink(savedItem), savedItem));
                 });
             }
