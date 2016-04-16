@@ -66,12 +66,11 @@ module.exports = function(routePrefix) {
         .findById(req.params.id)
         .then(function(itemType) {
             if (!itemType) {
-                return next();
+                res.sendStatus(404);
+            } else {
+                itemType.destroy();
+                res.sendStatus(204);
             }
-
-            itemType.destroy();
-
-            res.sendStatus(204);
         });
     });
 
