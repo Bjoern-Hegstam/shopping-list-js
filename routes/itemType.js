@@ -4,7 +4,7 @@ var models = require("../models");
 var express = require("express");
 var HttpStatus = require('http-status-codes');
 var responseFormatter = require("./responseFormatter.js");
-var getters = require('./getters.js');
+var actions = require('./actions.js');
 
 var router = express.Router();
 
@@ -12,11 +12,11 @@ var ItemType = models.itemType;
 
 module.exports = function(routePrefix) {
     router.get('/', function(req, res) {
-        getters.findAll(res, ItemType, routePrefix);
+        actions.findAll(res, ItemType, routePrefix);
     });
 
     router.get('/:id', function(req, res, next) {
-        getters.getById(res, ItemType, req.params.id, routePrefix + req.params.id);
+        actions.getById(res, ItemType, req.params.id, routePrefix + req.params.id);
     });
 
     router.post('/', function(req, res) {

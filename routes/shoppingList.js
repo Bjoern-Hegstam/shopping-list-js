@@ -4,7 +4,7 @@ var models = require("../models");
 var express = require("express");
 var HttpStatus = require('http-status-codes');
 var responseFormatter = require("./responseFormatter.js");
-var getters = require('./getters.js');
+var actions = require('./actions.js');
 
 var router = express.Router();
 
@@ -13,11 +13,11 @@ var ShoppingListItem = models.shoppingListItem;
 
 module.exports = function(routePrefix) {
     router.get('/', function(req, res) {
-        getters.findAll(res, ShoppingList, routePrefix);
+        actions.findAll(res, ShoppingList, routePrefix);
     });
 
     router.get('/:listId', function(req, res) {
-        getters.getById(res, ShoppingList, req.params.listId, routePrefix + req.params.listId);
+        actions.getById(res, ShoppingList, req.params.listId, routePrefix + req.params.listId);
     });
 
     router.post('/', function(req, res) {
@@ -33,7 +33,7 @@ module.exports = function(routePrefix) {
     });
 
     router.get('/:listId/item', function(req, res) {
-        getters.findAll(
+        actions.findAll(
             res,
             ShoppingListItem,
             routePrefix + req.params.listId + "/item",
@@ -45,7 +45,7 @@ module.exports = function(routePrefix) {
     });
 
     router.get('/:listId/item/:itemId', function(req, res) {
-        getters.findOne(
+        actions.findOne(
             res,
             ShoppingListItem,
             routePrefix + req.params.listId + '/item/' + req.params.itemId,
