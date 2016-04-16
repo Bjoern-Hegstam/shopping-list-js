@@ -50,11 +50,12 @@ module.exports = function(routePrefix) {
             if (!itemType) {
                 res.sendStatus(404);
             } else {
-                itemType.name = newName;
-                itemType.save(function(savedItemType) {
+                itemType
+                .update({name: newName})
+                .then(function(savedItemType) {
                     console.log(savedItemType);
 
-                    res.setStatus(200).send(formatGetItemTypeResponse(savedItemType));
+                    res.status(200).send(formatGetItemTypeResponse(savedItemType));
                 });
             }
         });
