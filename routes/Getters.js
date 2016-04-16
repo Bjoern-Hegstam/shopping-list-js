@@ -28,3 +28,20 @@ exports.findAll = function(res, model, link, searchOptions) {
         res.sendStatus(HttpStatus.NOT_FOUND);
     });
 };
+
+exports.findOne = function(res, model, link, searchOptions) {
+    searchOptions = searchOptions || {};
+
+    model
+    .findAll(searchOptions)
+    .then(function(objects) {
+        if (objects.length === 0) {
+            res.sendStatus(HttpStatus.NOT_FOUND);
+        } else {
+
+            res
+            .status(HttpStatus.OK)
+            .send(responseFormatter.formatCollectionResponse(link, objects));
+        }
+    });
+};

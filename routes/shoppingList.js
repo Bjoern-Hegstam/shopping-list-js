@@ -45,7 +45,17 @@ module.exports = function(routePrefix) {
     });
 
     router.get('/:listId/item/:itemId', function(req, res) {
-        getters.getById(res, ShoppingListItem, req.params.itemId, routePrefix + req.params.listId + '/item/' + req.params.itemId);
+        getters.findOne(
+            res,
+            ShoppingListItem,
+            routePrefix + req.params.listId + '/item/' + req.params.itemId,
+            {
+                where: {
+                    shoppingListId: req.params.listId,
+                    id: req.params.itemId
+                }
+            }
+            );
     });
 
     router.post('/:listId/item', function(req, res) {
