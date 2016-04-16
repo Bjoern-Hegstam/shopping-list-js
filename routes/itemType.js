@@ -11,7 +11,7 @@ var ItemType = models.itemType;
 module.exports = function(routePrefix) {
     router.get('/', function(req, res) {
         ItemType
-        .findAll(req.params.id)
+        .findAll()
         .then(function(itemTypes) {
             res.send(itemTypes.toJSON());
         }, function(err) {
