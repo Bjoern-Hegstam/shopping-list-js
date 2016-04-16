@@ -13,7 +13,7 @@ module.exports = function(routePrefix) {
         ItemType
         .findAll()
         .then(function(itemTypes) {
-            res.send(itemTypes.toJSON());
+            res.send(itemTypes);
         }, function(err) {
             res.sendStatus(404);
         });
