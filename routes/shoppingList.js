@@ -49,6 +49,23 @@ module.exports = function(routePrefix) {
         });
     });
 
+    router.get('/:id/item', function(req, res) {
+        ShoppingListItem
+        .findAll({
+            where: {
+                shoppingListId: req.params.id
+            }
+        })
+        .then(function(items) {
+            res
+            .status(HttpStatus.OK)
+            .send(responseFormatter.formatCollectionResponse(
+                routePrefix + req.params.id + "/item",
+                items
+                ));
+        });
+    });
+
     router.post('/:id/item', function(req, res) {
         var data = req.body.data;
 
