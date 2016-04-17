@@ -10,14 +10,14 @@ var sequelize = new Sequelize(config.database, config.username, config.password,
 var db        = {};
 
 fs
-  .readdirSync(__dirname)
-  .filter(isModelFile)
-  .forEach(loadModel);
+.readdirSync(__dirname)
+.filter(isModelFile)
+.forEach(loadModel);
 
 Object.keys(db).forEach(function(modelName) {
   if ("associate" in db[modelName]) {
     db[modelName].associate(db);
-  }
+}
 });
 
 db.sequelize = sequelize;
