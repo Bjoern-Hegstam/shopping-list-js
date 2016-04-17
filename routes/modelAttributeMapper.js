@@ -19,7 +19,7 @@ mappings[models.shoppingListItem.name] = function(item) {
         shopping_list_id: item.shoppingListId.toString(),
         item_type_id: item.itemTypeId.toString(),
         quantity: item.quantity.toString(),
-        in_cart: item.inCart
+        in_cart: item.inCart.toString()
     };
 };
 
