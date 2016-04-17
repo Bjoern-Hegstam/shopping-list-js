@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
     var ShoppingListItem = sequelize.define("shoppingListItem", {
         quantity: DataTypes.INTEGER,
-        inCart: DataTypes.BOOLEAN
+        inCart: {type: DataTypes.BOOLEAN, defaultValue: false}
     },{
         classMethods: {
             associate: function(models) {
