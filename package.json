@@ -2,9 +2,11 @@
   "name": "shopping-list-js",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
-  "directories": {
-    "test": "test"
+  "main": "bin/www",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bjoern-Hegstam/shopping-list-js",
+    "private": true
   },
   "scripts": {
     "start": "set NODE_ENV=development&&set DEBUG=nodetest:server models:index&&nodemon ./bin/www",
