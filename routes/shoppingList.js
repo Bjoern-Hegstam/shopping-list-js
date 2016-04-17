@@ -106,6 +106,23 @@ module.exports = function(routePrefix) {
             );
     });
 
+    router.post('/:listId/item/:itemId/cart', function(req, res) {
+        var listId = req.params.listId;
+        var itemId = req.params.itemId;
+
+        actions.findAndUpdate(
+            res,
+            ShoppingListItem,
+            routePrefix + listId + "/item/" + itemId,
+            {
+                where: {
+                    shoppingListId: listId,
+                    id: itemId,
+                    inCart: false
+                }
+            },
+            {inCart: true}
+            );
     });
 
     function shoppingListItemLink(item) {
