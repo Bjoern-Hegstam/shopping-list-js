@@ -15,8 +15,8 @@ var itemTypeRoutes = require('./routes/itemType.js');
 var shoppingListRoutes = require('./routes/shoppingList.js');
 
 app.use('/', routes);
-app.use('/api/itemtype', itemTypeRoutes('/api/itemtype/'));
-app.use('/api/shoppinglist', shoppingListRoutes('/api/shoppinglist/'));
+app.use('/api/item_type', itemTypeRoutes('/api/item_type/'));
+app.use('/api/shopping_list', shoppingListRoutes('/api/shopping_list/'));
 
 // Other conf
 app.set('view engine', 'pug');
@@ -34,7 +34,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (app.get('env') === 'development' || app.get('env') === 'test') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {

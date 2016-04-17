@@ -88,28 +88,41 @@ module.exports = function(routePrefix) {
     });
 
     router.patch('/:listId/item/:itemId', function(req, res) {
-        var newQuantity = req.body.data.quantity;
+        var listId = req.params.listId;
+        var itemId = req.params.itemId;
+        var newQuantity = req.body.data.attributes.quantity;
 
-        ShoppingListItem
-        .findAll({
-            where: {
-                shoppingListId: req.params.listId,
-                id: req.params.itemId
-            }
-        })
-        .then(function(items) {
-            if (items.length === 0) {
-                res.sendStatus(HttpStatus.NOT_FOUND);
-            } else {
-                items[0]
-                .update({quantity: newQuantity})
-                .then(function(savedItem) {
-                    res
-                    .status(HttpStatus.OK)
-                    .send(responseFormatter.formatSingleItemResponse(shoppingListItemLink(savedItem), savedItem));
-                });
-            }
-        });
+        actions.findAndUpdate(
+            res,
+            ShoppingListItem,
+            routePrefix + listId + "/item/" + itemId,
+            {
+                where: {
+                    shoppingListId: req.params.listId,
+                    id: req.params.itemId
+                }
+            },
+            {quantity: newQuantity}
+            );
+    });
+
+    router.post('/:listId/item/:itemId/cart', function(req, res) {
+        var listId = req.params.listId;
+        var itemId = req.params.itemId;
+
+        actions.findAndUpdate(
+            res,
+            ShoppingListItem,
+            routePrefix + listId + "/item/" + itemId,
+            {
+                where: {
+                    shoppingListId: listId,
+                    id: itemId,
+                    inCart: false
+                }
+            },
+            {inCart: true}
+            );
     });
 
     function shoppingListItemLink(item) {
