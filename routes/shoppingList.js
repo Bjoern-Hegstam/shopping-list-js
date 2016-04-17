@@ -88,7 +88,7 @@ module.exports = function(routePrefix) {
     });
 
     router.patch('/:listId/item/:itemId', function(req, res) {
-        var newQuantity = req.body.data.quantity;
+        var newQuantity = req.body.data.attributes.quantity;
 
         ShoppingListItem
         .findAll({
