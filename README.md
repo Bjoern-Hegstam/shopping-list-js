@@ -42,14 +42,11 @@ API
 Next step
 ---------
 
+* Implement DELETE /api/shopping_list/1/cart
+
 * Keep extracting common actions
   * delete
   * patch
-
-* Continue on REST API
-  * Continue API for shopping list
-  * Add API for working with shopping list items, e.g. api/shoppinglist/2/item
-    * Missing: delete and some getters
 
 * Start on shopping list view
   * Show shopping list with contents
