@@ -18,7 +18,8 @@ mappings[models.shoppingListItem.name] = function(item) {
     return {
         shoppingListId: item.shoppingListId.toString(),
         itemTypeId: item.itemTypeId.toString(),
-        quantity: item.quantity.toString()
+        quantity: item.quantity.toString(),
+        inCart: item.inCart
     };
 };
 
