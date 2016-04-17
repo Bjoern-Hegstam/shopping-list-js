@@ -45,3 +45,21 @@ exports.findOne = function(res, model, link, searchOptions) {
         }
     });
 };
+
+exports.findAndUpdate = function(res, model, link, searchOptions, updateAttributes) {
+    model
+    .findAll(searchOptions)
+    .then(function(objects) {
+        if (objects.length === 0) {
+            res.sendStatus(HttpStatus.NOT_FOUND);
+        } else {
+            objects[0]
+            .update(updateAttributes)
+            .then(function(savedObject) {
+                res
+                .status(HttpStatus.OK)
+                .send(responseFormatter.formatSingleItemResponse(link, savedObject));
+            });
+        }
+    });
+};
