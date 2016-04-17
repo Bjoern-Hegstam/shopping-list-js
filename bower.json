@@ -1,0 +1,18 @@
+{
+  "name": "shopping-list-js",
+  "description": "",
+  "main": "bin/www",
+  "authors": [
+    "Björn Hegstam (bjorn.hegstam@gmail.com)"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Bjoern-Hegstam/shopping-list-js",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
