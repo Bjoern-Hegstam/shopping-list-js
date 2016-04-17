@@ -2,12 +2,14 @@ Doc
 ---
 
 * API based on JSON API specification (http://jsonapi.org/)
-
+* URI:s use snake_case
 
 Next step
 ---------
 
 * Keep extracting common actions
+  * delete
+  * patch
 
 * Continue on REST API
   * Continue API for shopping list
