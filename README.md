@@ -47,6 +47,8 @@ Next step
 
 * Checkout frisby for migrating postman tests to pure code
 
+* Convert server-side code to ES6, checkout babel for client-side js
+
 * Implement DELETE /api/shopping_list/1/cart
 
 * Keep extracting common actions
