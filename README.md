@@ -42,6 +42,9 @@ API
 Next step
 ---------
 
+* pug/jade situation seems to be fubar. Move to different template engine.
+  * Mustache? Essential that templates can be reused on the client to avoid duplicated code.
+
 * Implement DELETE /api/shopping_list/1/cart
 
 * Keep extracting common actions
