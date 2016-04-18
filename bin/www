@@ -10,6 +10,12 @@
  var http = require('http');
 
 /**
+* Debug info
+*/
+debug('NODE_ENV: ' + process.env.NODE_ENV);
+debug('DEBUG: ' + process.env.DEBUG);
+
+/**
  * Get port from environment and store in Express.
  */
 

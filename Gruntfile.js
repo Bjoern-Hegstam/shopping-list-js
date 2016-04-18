@@ -1,9 +1,22 @@
 module.exports = function (grunt) {
 	grunt.initConfig({
         env: {
+            dev: {
+                NODE_ENV: 'development',
+                DEBUG: 'nodetest:server models:index'
+            },
             test: {
                 NODE_ENV: 'test',
                 DEBUG: ''
+            }
+        },
+        shell: {
+            nodemon: {
+                command: 'nodemon ./bin/www',
+                options: {
+                    stdout: true,
+                    stderr: true
+                }
             }
         },
 		nodeunit: {
@@ -27,6 +40,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-env');
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-shell');
 
     grunt.registerTask('test', ['env:test', 'nodeunit:all']);
+    grunt.registerTask('dev', ['env:dev', 'shell:nodemon']);
 };

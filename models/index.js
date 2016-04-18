@@ -9,6 +9,8 @@ var config    = require(path.join(__dirname, '..', 'config', 'config.json'))[env
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
 var db        = {};
 
+debug('db config: ' + JSON.stringify(config, null, 2));
+
 fs
 .readdirSync(__dirname)
 .filter(isModelFile)
