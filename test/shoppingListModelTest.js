@@ -11,35 +11,35 @@ dbScaffolding.shoppingListDbTest = {
         var self = this;
 
         ItemType.create({
-            name: 'TestItemType'
-        })
-        .then(function (itemType) {
-            self.itemType = itemType;
-            callback();
-        });
+                name: 'TestItemType'
+            })
+            .then(function(itemType) {
+                self.itemType = itemType;
+                callback();
+            });
     },
     createEmptyShoppingList: function(test) {
         ShoppingList.create({
-            name: 'TestShoppingList',
-        })
-        .then(function verify(shoppingList) {
-            test.ok(shoppingList.id);
-            test.equal(shoppingList.name, 'TestShoppingList');
-            test.done();
-        });
+                name: 'TestShoppingList',
+            })
+            .then(function verify(shoppingList) {
+                test.ok(shoppingList.id);
+                test.equal(shoppingList.name, 'TestShoppingList');
+                test.done();
+            });
     },
     addItemToShoppingList: function(test) {
         var self = this;
 
         ShoppingList.create({
-            name: 'ShoppingList'
-        })
-        .then(function(shoppingList) {
-            return shoppingList.add(self.itemType.id, 2);
-        })
-        .then(function(shoppingListItem) {
-            test.ok(shoppingListItem.id);
-            test.done();
-        });
+                name: 'ShoppingList'
+            })
+            .then(function(shoppingList) {
+                return shoppingList.add(self.itemType.id, 2);
+            })
+            .then(function(shoppingListItem) {
+                test.ok(shoppingListItem.id);
+                test.done();
+            });
     }
 };

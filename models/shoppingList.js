@@ -6,12 +6,12 @@ var instanceMethodsDb = function(models) {
     return {
         add: function(itemTypeId, quantity) {
             return models
-            .shoppingListItem
-            .create({
-                shoppingListId: this.id,
-                itemTypeId: itemTypeId,
-                quantity: quantity
-            });
+                .shoppingListItem
+                .create({
+                    shoppingListId: this.id,
+                    itemTypeId: itemTypeId,
+                    quantity: quantity
+                });
         }
     };
 };
@@ -19,7 +19,7 @@ var instanceMethodsDb = function(models) {
 module.exports = function(sequelize, DataTypes) {
     var ShoppingList = sequelize.define("shoppingList", {
         name: DataTypes.STRING
-    },{
+    }, {
         classMethods: {
             associate: function(models) {
                 ShoppingList.hasMany(models.shoppingListItem);

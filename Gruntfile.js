@@ -1,5 +1,5 @@
-module.exports = function (grunt) {
-	grunt.initConfig({
+module.exports = function(grunt) {
+    grunt.initConfig({
         env: {
             dev: {
                 NODE_ENV: 'development',
@@ -19,17 +19,17 @@ module.exports = function (grunt) {
                 }
             }
         },
-		nodeunit: {
-			all: ['./test/**/*Test.js']
-		},
+        nodeunit: {
+            all: ['./test/**/*Test.js']
+        },
         jshint: {
             all: [
-            'Gruntfile.js',
-            'app.js',
-            'package.json',
-            'models/*.js',
-            'routes/*.js',
-            'test/*.js'
+                'Gruntfile.js',
+                'app.js',
+                'package.json',
+                'models/*.js',
+                'routes/*.js',
+                'test/*.js'
             ],
             options: {
                 jshintrc: '.jshintrc'
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-env');
-	grunt.loadNpmTasks('grunt-contrib-nodeunit');
+    grunt.loadNpmTasks('grunt-contrib-nodeunit');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-shell');
 

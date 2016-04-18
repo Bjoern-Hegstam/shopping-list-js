@@ -22,22 +22,21 @@ module.exports = function(routePrefix) {
 
     router.post('/', function(req, res) {
         ShoppingList
-        .create(req.body.data.attributes)
-        .then(function(shoppingList) {
-            res
-            .status(HttpStatus.CREATED)
-            .send(responseFormatter.formatSingleItemResponse(routePrefix + shoppingList.id, shoppingList));
-        }, function(err) {
-            res.sendStatus(HttpStatus.NOT_FOUND);
-        });
+            .create(req.body.data.attributes)
+            .then(function(shoppingList) {
+                res
+                    .status(HttpStatus.CREATED)
+                    .send(responseFormatter.formatSingleItemResponse(routePrefix + shoppingList.id, shoppingList));
+            }, function(err) {
+                res.sendStatus(HttpStatus.NOT_FOUND);
+            });
     });
 
     router.get('/:listId/item', function(req, res) {
         actions.findAll(
             res,
             ShoppingListItem,
-            routePrefix + req.params.listId + "/item",
-            {
+            routePrefix + req.params.listId + "/item", {
                 where: {
                     shoppingListId: req.params.listId
                 }
@@ -48,43 +47,42 @@ module.exports = function(routePrefix) {
         actions.findOne(
             res,
             ShoppingListItem,
-            routePrefix + req.params.listId + '/item/' + req.params.itemId,
-            {
+            routePrefix + req.params.listId + '/item/' + req.params.itemId, {
                 where: {
                     shoppingListId: req.params.listId,
                     id: req.params.itemId
                 }
             }
-            );
+        );
     });
 
     router.post('/:listId/item', function(req, res) {
         var data = req.body.data;
 
         ShoppingListItem
-        .findAll({
-            where: {
-                shoppingListId: req.params.listId,
-                itemTypeId: data.itemTypeId
-            }
-        })
-        .then(function(items) {
-            if (items.length > 0) {
-                res.sendStatus(HttpStatus.CONFLICT);
-            } else {
-                return ShoppingListItem
-                .create({
+            .findAll({
+                where: {
                     shoppingListId: req.params.listId,
-                    itemTypeId: data.itemTypeId,
-                    quantity: data.quantity
-                })
-                .then(function(item) {
-                    res
-                    .status(HttpStatus.CREATED)
-                    .send(responseFormatter.formatSingleItemResponse(shoppingListItemLink(item), item));
-                });
-            }
-        });
+                    itemTypeId: data.itemTypeId
+                }
+            })
+            .then(function(items) {
+                if (items.length > 0) {
+                    res.sendStatus(HttpStatus.CONFLICT);
+                } else {
+                    return ShoppingListItem
+                        .create({
+                            shoppingListId: req.params.listId,
+                            itemTypeId: data.itemTypeId,
+                            quantity: data.quantity
+                        })
+                        .then(function(item) {
+                            res
+                                .status(HttpStatus.CREATED)
+                                .send(responseFormatter.formatSingleItemResponse(shoppingListItemLink(item), item));
+                        });
+                }
+            });
     });
 
     router.patch('/:listId/item/:itemId', function(req, res) {
@@ -95,15 +93,15 @@ module.exports = function(routePrefix) {
         actions.findAndUpdate(
             res,
             ShoppingListItem,
-            routePrefix + listId + "/item/" + itemId,
-            {
+            routePrefix + listId + "/item/" + itemId, {
                 where: {
                     shoppingListId: req.params.listId,
                     id: req.params.itemId
                 }
-            },
-            {quantity: newQuantity}
-            );
+            }, {
+                quantity: newQuantity
+            }
+        );
     });
 
     router.post('/:listId/item/:itemId/cart', function(req, res) {
@@ -113,16 +111,16 @@ module.exports = function(routePrefix) {
         actions.findAndUpdate(
             res,
             ShoppingListItem,
-            routePrefix + listId + "/item/" + itemId,
-            {
+            routePrefix + listId + "/item/" + itemId, {
                 where: {
                     shoppingListId: listId,
                     id: itemId,
                     inCart: false
                 }
-            },
-            {inCart: true}
-            );
+            }, {
+                inCart: true
+            }
+        );
     });
 
     function shoppingListItemLink(item) {

@@ -1,37 +1,37 @@
 {
-  "name": "shopping-list-js",
-  "version": "1.0.0",
-  "description": "",
-  "main": "bin/www",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Bjoern-Hegstam/shopping-list-js",
-    "private": true
-  },
-  "author": "Björn Hegstam (bjorn.hegstam@gmail.com)",
-  "license": "ISC",
-  "dependencies": {
-    "async": "^2.0.0-rc.3",
-    "body-parser": "^1.15.0",
-    "debug": "^2.2.0",
-    "express": "^4.13.4",
-    "fs": "0.0.2",
-    "http": "0.0.0",
-    "http-status-codes": "^1.0.6",
-    "path": "^0.12.7",
-    "pug": "^2.0.0-alpha3",
-    "sequelize": "^3.21.0",
-    "sqlite3": "^3.1.3",
-    "underscore": "^1.8.3",
-    "uuid": "^2.0.1"
-  },
-  "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-contrib-nodeunit": "^1.0.0",
-    "grunt-env": "^0.4.4",
-    "grunt-shell": "^1.3.0",
-    "jshint": "^2.9.1",
-    "nodeunit": "^0.9.1"
-  }
+    "name": "shopping-list-js",
+    "version": "1.0.0",
+    "description": "",
+    "main": "bin/www",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Bjoern-Hegstam/shopping-list-js",
+        "private": true
+    },
+    "author": "Björn Hegstam (bjorn.hegstam@gmail.com)",
+    "license": "ISC",
+    "dependencies": {
+        "async": "^2.0.0-rc.3",
+        "body-parser": "^1.15.0",
+        "debug": "^2.2.0",
+        "express": "^4.13.4",
+        "fs": "0.0.2",
+        "http": "0.0.0",
+        "http-status-codes": "^1.0.6",
+        "path": "^0.12.7",
+        "pug": "^2.0.0-alpha3",
+        "sequelize": "^3.21.0",
+        "sqlite3": "^3.1.3",
+        "underscore": "^1.8.3",
+        "uuid": "^2.0.1"
+    },
+    "devDependencies": {
+        "grunt": "^1.0.1",
+        "grunt-contrib-jshint": "^1.0.0",
+        "grunt-contrib-nodeunit": "^1.0.0",
+        "grunt-env": "^0.4.4",
+        "grunt-shell": "^1.3.0",
+        "jshint": "^2.9.1",
+        "nodeunit": "^0.9.1"
+    }
 }
