@@ -21,6 +21,7 @@ app.use('/api/shopping_list', shoppingListRoutes('/api/shopping_list/'));
 // Other conf
 app.set('view engine', 'pug');
 app.use('/static', express.static(__dirname + '/public'));
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 
 // catch 404 and forward to error handler
