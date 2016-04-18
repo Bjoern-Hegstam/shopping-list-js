@@ -8,10 +8,6 @@
     "url": "https://github.com/Bjoern-Hegstam/shopping-list-js",
     "private": true
   },
-  "scripts": {
-    "start": "set NODE_ENV=development&&set DEBUG=nodetest:server models:index&&nodemon ./bin/www",
-    "test": "set NODE_ENV=test&&set DEBUG=nodetest:server models:index&&nodemon ./bin/www"
-  },
   "author": "Björn Hegstam (bjorn.hegstam@gmail.com)",
   "license": "ISC",
   "dependencies": {
