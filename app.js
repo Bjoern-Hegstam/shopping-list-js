@@ -4,6 +4,7 @@
 var express = require('express');
 var models = require('./models');
 var bodyParser = require('body-parser');
+var mustacheExpress = require('mustache-express');
 
 var app = express();
 
@@ -18,8 +19,12 @@ app.use('/', routes);
 app.use('/api/item_type', itemTypeRoutes('/api/item_type/'));
 app.use('/api/shopping_list', shoppingListRoutes('/api/shopping_list/'));
 
-// Other conf
-app.set('view engine', 'pug');
+// views
+app.engine('mustache', mustacheExpress());
+app.set('view engine', 'mustache');
+app.set('views', __dirname + '/views');
+
+// static
 app.use('/static', express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
