@@ -37,7 +37,7 @@ module.exports = function(grunt) {
         },
         wiredep: {
             task: {
-                src: ['views/**/*.mustache']
+                src: ['views/**/*.handlebars']
             }
         }
     });

@@ -4,7 +4,7 @@
 var express = require('express');
 var models = require('./models');
 var bodyParser = require('body-parser');
-var mustacheExpress = require('mustache-express');
+var exphbs = require('express-handlebars');
 
 var app = express();
 
@@ -20,9 +20,8 @@ app.use('/api/item_type', itemTypeRoutes('/api/item_type/'));
 app.use('/api/shopping_list', shoppingListRoutes('/api/shopping_list/'));
 
 // views
-app.engine('mustache', mustacheExpress());
-app.set('view engine', 'mustache');
-app.set('views', __dirname + '/views');
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
 // static
 app.use('/static', express.static(__dirname + '/public'));
