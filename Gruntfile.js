@@ -34,13 +34,20 @@ module.exports = function(grunt) {
             options: {
                 jshintrc: '.jshintrc'
             }
+        },
+        wiredep: {
+            task: {
+                src: ['views/**/*.mustache']
+            }
         }
     });
 
-    grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+
+    grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-wiredep');
 
     grunt.registerTask('test', ['env:test', 'nodeunit:all']);
     grunt.registerTask('dev', ['env:dev', 'shell:nodemon']);
