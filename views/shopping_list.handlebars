@@ -1,0 +1,12 @@
+<div class="shopping-list">
+    <p>
+        {{data.attributes.name}}
+    </p>
+    {{#each included}}
+    <div class="shopping-list-item">
+        <p>
+            Item=[id: {{id}}, quantity: {{attributes.quantity}}, itemType: {{attributes.item_type_id}}]
+        </p>
+    </div>
+    {{/each}}
+</div>
