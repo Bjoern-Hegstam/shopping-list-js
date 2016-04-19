@@ -8,11 +8,14 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-8">
+        {{#each data}}
+        <div class="col-sm-4">
             <div class="shopping-list">
-                <p>Hello World!
-                </p>
+                <h2>
+                    {{attributes.name}}
+                </h2>
             </div>
         </div>
+        {{/each}}
     </div>
 </div>
