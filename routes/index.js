@@ -5,14 +5,7 @@ var express = require("express");
 var router = express.Router();
 
 router.get("/", function(req, res) {
-    models
-        .itemType
-        .findAll()
-        .then(function(itemTypes) {
-            res.render('itemType', {
-                'itemTypes': itemTypes
-            });
-        });
+    res.render('main');
 });
 
 module.exports = router;
