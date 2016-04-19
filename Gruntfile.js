@@ -12,7 +12,7 @@ module.exports = function(grunt) {
         },
         shell: {
             nodemon: {
-                command: 'nodemon -e handlebars ./bin/www',
+                command: 'nodemon -e js,handlebars ./bin/www',
                 options: {
                     stdout: true,
                     stderr: true
