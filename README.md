@@ -42,9 +42,6 @@ API
 Next step
 ---------
 
-* pug/jade situation seems to be fubar. Move to different template engine.
-  * Mustache? Essential that templates can be reused on the client to avoid duplicated code.
-
 * Checkout frisby for migrating postman tests to pure code
 
 * Convert server-side code to ES6, checkout babel for client-side js
