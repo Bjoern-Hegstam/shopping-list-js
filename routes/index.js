@@ -5,8 +5,10 @@ var express = require("express");
 var router = express.Router();
 
 var ShoppingList = models.shoppingList;
+var ShoppingListItem = models.shoppingListItem;
+var ItemType = models.itemType;
 
-var responseFormatter = require("./responseFormatter.js");
+var modelAttributeMapper = require('./modelAttributeMapper.js');
 
 router.get("/", (req, res) => {
     ShoppingList
@@ -20,22 +22,36 @@ router.get("/", (req, res) => {
 router.get("/shopping_list/:id", (req, res) => {
     var respData;
 
-    //TODO: Need to get all used ItemTypes so we can show their names
-
     ShoppingList
         .findById(req.params.id)
         .then(shoppingList => {
-            respData = responseFormatter.formatSingleItemResponse('', shoppingList);
+            respData = {
+                shopping_list: modelAttributeMapper[ShoppingList.name](shoppingList)
+            };
 
-            return shoppingList.getShoppingListItems();
+            respData.shopping_list.id = shoppingList.id;
+
+            return shoppingList
+                .getShoppingListItems({
+                    include: {
+                        model: ItemType
+                    }
+                });
         })
         .then(items => {
-            respData.included = responseFormatter
-                .formatCollectionResponse('', items)
-                .data;
+            respData.shopping_list.items = items.map(item => {
+                var itemData = modelAttributeMapper[ShoppingListItem.name](item);
+                itemData.id = item.id;
+
+                var itemType = item.itemType;
+                itemData.item_type = modelAttributeMapper[ItemType.name](itemType);
+                itemData.item_type.id = itemType;
+
+                return itemData;
+            });
 
             res.render("shopping_list", respData);
-        });
+        })
 });
 
 module.exports = router;
