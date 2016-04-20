@@ -26,6 +26,14 @@ module.exports = function(sequelize, DataTypes) {
 
                 ShoppingList.Instance.prototype = _.extend(ShoppingList.Instance.prototype, instanceMethodsDb(models));
             }
+        },
+        instanceMethods: {
+            toSimpleJSON: function() {
+                return {
+                    id: this.id,
+                    name: this.name
+                };
+            }
         }
     });
     return ShoppingList;

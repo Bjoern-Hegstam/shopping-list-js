@@ -6,5 +6,14 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         }
+    }, {
+        instanceMethods: {
+            toSimpleJSON: function() {
+                return {
+                    id: this.id,
+                    name: this.name
+                };
+            }
+        }
     });
 };
