@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
     ShoppingList
         .findAll()
         .then(shopppingLists => {
-            res.render('home', responseFormatter.formatCollectionResponse('', shopppingLists));
+            res.render('home', responseFormatter.formatCollectionResponse(ShoppingList, shopppingLists));
         });
 
 });

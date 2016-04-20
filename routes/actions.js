@@ -1,7 +1,7 @@
 var HttpStatus = require('http-status-codes');
 var responseFormatter = require("./responseFormatter.js");
 
-exports.getById = function(res, model, id, link) {
+exports.getById = function(res, model, id) {
     model
         .findById(id)
         .then(function(object) {
@@ -10,12 +10,12 @@ exports.getById = function(res, model, id, link) {
             } else {
                 res
                     .status(HttpStatus.OK)
-                    .send(responseFormatter.formatSingleItemResponse(link, object));
+                    .send(responseFormatter.formatSingleItemResponse(object));
             }
         });
 };
 
-exports.findAll = function(res, model, link, searchOptions) {
+exports.findAll = function(res, model, searchOptions) {
     searchOptions = searchOptions || {};
 
     model
@@ -23,13 +23,13 @@ exports.findAll = function(res, model, link, searchOptions) {
         .then(function(objects) {
             res
                 .status(HttpStatus.OK)
-                .send(responseFormatter.formatCollectionResponse(link, objects));
+                .send(responseFormatter.formatCollectionResponse(model, objects));
         }, function(err) {
             res.sendStatus(HttpStatus.NOT_FOUND);
         });
 };
 
-exports.findOne = function(res, model, link, searchOptions) {
+exports.findOne = function(res, model, searchOptions) {
     searchOptions = searchOptions || {};
 
     model
@@ -41,12 +41,12 @@ exports.findOne = function(res, model, link, searchOptions) {
 
                 res
                     .status(HttpStatus.OK)
-                    .send(responseFormatter.formatCollectionResponse(link, objects));
+                    .send(responseFormatter.formatCollectionResponse(model, objects));
             }
         });
 };
 
-exports.findAndUpdate = function(res, model, link, searchOptions, updateAttributes) {
+exports.findAndUpdate = function(res, model, searchOptions, updateAttributes) {
     model
         .findAll(searchOptions)
         .then(function(objects) {
@@ -58,7 +58,7 @@ exports.findAndUpdate = function(res, model, link, searchOptions, updateAttribut
                     .then(function(savedObject) {
                         res
                             .status(HttpStatus.OK)
-                            .send(responseFormatter.formatSingleItemResponse(link, savedObject));
+                            .send(responseFormatter.formatSingleItemResponse(savedObject));
                     });
             }
         });

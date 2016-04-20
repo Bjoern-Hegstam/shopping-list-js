@@ -16,8 +16,8 @@ var itemTypeRoutes = require('./routes/itemType.js');
 var shoppingListRoutes = require('./routes/shoppingList.js');
 
 app.use('/', routes);
-app.use('/api/item_type', itemTypeRoutes('/api/item_type/'));
-app.use('/api/shopping_list', shoppingListRoutes('/api/shopping_list/'));
+app.use('/api/item_type', itemTypeRoutes);
+app.use('/api/shopping_list', shoppingListRoutes);
 
 // views
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));

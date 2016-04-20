@@ -1,27 +1,17 @@
 var stringUtil = require('./../util/stringUtil.js');
 
-function formatModelInstance(instance) {
-    return {
-        type: stringUtil.camelCaseToSnakeCase(instance.Model.name),
-        id: instance.id.toString(),
-        attributes: instance.toSimpleJSON()
-    };
+function getKey(Model) {
+    return stringUtil.camelCaseToSnakeCase(Model.name);
 }
 
-exports.formatSingleItemResponse = function(selfLink, instance) {
-    return {
-        links: {
-            self: selfLink
-        },
-        data: formatModelInstance(instance)
-    };
+exports.formatSingleItemResponse = function(instance) {
+    var data = {};
+    data[getKey(model)] = instance.toSimpleJSON();
+    return data;
 };
 
-exports.formatCollectionResponse = function(selfLink, instances) {
-    return {
-        links: {
-            self: selfLink
-        },
-        data: instances.map(formatModelInstance)
-    };
+exports.formatCollectionResponse = function(model, instances) {
+    var data = {};
+    data[getKey(model)] = instances.map(instance => instance.toSimpleJSON());
+    return data;
 };

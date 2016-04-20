@@ -1,7 +1,6 @@
 API
 ---
 
-* API based on JSON API specification (http://jsonapi.org/)
 * URI:s use snake_case
 
 /api/item_type
