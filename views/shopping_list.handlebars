@@ -1,12 +1,50 @@
-<div class="shopping-list">
-    <p>
-        {{shopping_list.name}} ({{shopping_list.id}})
-    </p>
-    {{#each shopping_list.items}}
-    <div class="shopping-list-item">
-        <p>
-            Item=[id: {{id}}, quantity: {{quantity}}, itemType: {{item_type.name}}]
-        </p>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="shopping-list">
+                <div class="shopping-list-header">
+                    <div class="shopping-list-title">
+                        <span class="name">
+                            {{shopping_list.name}}
+                        </span>
+                    </div>
+
+                    <div class="shopping-list-btns">
+                        <button type="button" class="btn btn-success">
+                            Add item
+                        </button>
+                    </div>
+                </div>
+
+                <div class="shopping-list-items">
+                    <ul>
+                        {{#each shopping_list.items}}
+
+                        <li class="shopping-list-item">
+                            <span class="quantity">
+                                {{quantity}}
+                            </span>
+
+                            <span class="item-type-name">
+                               {{item_type.name}}
+                            </span>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success">
+                                    <span class="glyphicon glyphicon-plus" />
+                                </button>
+                                <button type="button" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-minus" />
+                                </button>
+                            </div>
+                        </li>
+
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
     </div>
-    {{/each}}
 </div>
