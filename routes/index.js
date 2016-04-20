@@ -8,7 +8,6 @@ var ShoppingList = models.shoppingList;
 var ShoppingListItem = models.shoppingListItem;
 var ItemType = models.itemType;
 
-var modelAttributeMapper = require('./modelAttributeMapper.js');
 var responseFormatter = require("./responseFormatter.js");
 
 router.get("/", (req, res) => {
@@ -27,7 +26,7 @@ router.get("/shopping_list/:id", (req, res) => {
         .findById(req.params.id)
         .then(shoppingList => {
             respData = {
-                shopping_list: modelAttributeMapper[ShoppingList.name](shoppingList)
+                shopping_list: shoppingList.toSimpleJSON()
             };
 
             return shoppingList
@@ -39,8 +38,8 @@ router.get("/shopping_list/:id", (req, res) => {
         })
         .then(items => {
             respData.shopping_list.items = items.map(item => {
-                var itemData = modelAttributeMapper[ShoppingListItem.name](item);
-                itemData.item_type = modelAttributeMapper[ItemType.name](item.itemType);
+                var itemData = item.toSimpleJSON();
+                itemData.item_type = item.itemType.toSimpleJSON();
 
                 return itemData;
             });

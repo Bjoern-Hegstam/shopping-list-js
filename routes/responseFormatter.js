@@ -1,11 +1,10 @@
-var modelAttributeMapper = require('./modelAttributeMapper.js');
 var stringUtil = require('./../util/stringUtil.js');
 
 function formatModelInstance(instance) {
     return {
         type: stringUtil.camelCaseToSnakeCase(instance.Model.name),
         id: instance.id.toString(),
-        attributes: modelAttributeMapper[instance.Model.name](instance)
+        attributes: instance.toSimpleJSON()
     };
 }
 
