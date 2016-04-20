@@ -29,8 +29,6 @@ router.get("/shopping_list/:id", (req, res) => {
                 shopping_list: modelAttributeMapper[ShoppingList.name](shoppingList)
             };
 
-            respData.shopping_list.id = shoppingList.id;
-
             return shoppingList
                 .getShoppingListItems({
                     include: {
@@ -40,12 +38,8 @@ router.get("/shopping_list/:id", (req, res) => {
         })
         .then(items => {
             respData.shopping_list.items = items.map(item => {
-                var itemData = modelAttributeMapper[ShoppingListItem.name](item);
-                itemData.id = item.id;
-
-                var itemType = item.itemType;
-                itemData.item_type = modelAttributeMapper[ItemType.name](itemType);
-                itemData.item_type.id = itemType;
+                var itemData = modelAttributeMapper[ShoppingListItem.name](item);;
+                itemData.item_type = modelAttributeMapper[ItemType.name](item.itemType);
 
                 return itemData;
             });
