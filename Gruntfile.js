@@ -9,17 +9,6 @@ module.exports = function(grunt) {
     ];
 
     grunt.initConfig({
-        env: {
-            dev: {
-                NODE_ENV: 'development',
-                DEBUG: 'nodetest:server models:index'
-            },
-            test: {
-                NODE_ENV: 'test',
-                DEBUG: ''
-            }
-        },
-
         concurrent: {
             target: {
                 tasks: [
@@ -31,14 +20,15 @@ module.exports = function(grunt) {
             }
         },
 
-        watch: {
-            scripts: {
-                files: scriptPaths,
-                tasks: 'jshint'
+        env: {
+            dev: {
+                NODE_ENV: 'development',
+                DEBUG: 'nodetest:server models:index'
             },
-            styles: {
-                files: 'public/less/*.less',
-                tasks: 'less'
+
+            test: {
+                NODE_ENV: 'test',
+                DEBUG: ''
             }
         },
 
@@ -52,8 +42,16 @@ module.exports = function(grunt) {
             }
         },
 
-        nodeunit: {
-            all: ['./test/**/*Test.js']
+        watch: {
+            scripts: {
+                files: scriptPaths,
+                tasks: 'jshint'
+            },
+
+            styles: {
+                files: 'public/less/*.less',
+                tasks: 'less'
+            }
         },
 
         jshint: {
@@ -63,17 +61,22 @@ module.exports = function(grunt) {
             }
         },
 
-        wiredep: {
-            task: {
-                src: ['views/**/*.handlebars']
-            }
-        },
-
         less: {
             development: {
                 files: {
                     "./public/css/styles.css": "./public/less/styles.less"
                 }
+            }
+        },
+
+        nodeunit: {
+            all: ['./test/**/*Test.js']
+        },
+
+
+        wiredep: {
+            task: {
+                src: ['views/**/*.handlebars']
             }
         }
     });
@@ -89,6 +92,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-concurrent');
 
     grunt.registerTask('test', ['env:test', 'nodeunit:all']);
-
     grunt.registerTask('default', 'concurrent');
 };
