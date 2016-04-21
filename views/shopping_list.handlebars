@@ -4,11 +4,9 @@
 
             <div class="shopping-list">
                 <div class="shopping-list-header">
-                    <div class="shopping-list-title">
-                        <span class="name">
-                            {{shopping_list.name}}
-                        </span>
-                    </div>
+                    <span class="name">
+                        {{shopping_list.name}}
+                    </span>
 
                     <div class="shopping-list-btns">
                         <button type="button" class="btn btn-lg btn-success">
@@ -17,13 +15,11 @@
                     </div>
                 </div>
 
-                <div class="shopping-list-items">
-                    <ul>
-                        {{#each shopping_list.items}}
-                            {{> shoppingListItem}}
-                        {{/each}}
-                    </ul>
-                </div>
+                <ul class="shopping-list-items">
+                    {{#each shopping_list.items}}
+                        {{> shoppingListItem}}
+                    {{/each}}
+                </ul>
             </div>
 
         </div>
