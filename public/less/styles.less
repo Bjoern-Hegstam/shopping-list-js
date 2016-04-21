@@ -1,10 +1,12 @@
-@list-radius: 5px;
-@row-color-odd: #f2f2f2;
-@row-color-even: #ffffff;
+@list-radius: 10px;
+@base-color: black;
+@row-color-odd: lighten(@base-color, 75%);
+@row-color-even: lighten(@base-color, 100%);
 
 .shopping-list {
     border: 1px solid black;
     border-radius: @list-radius;
+    background-color: lighten(@base-color, 100%)
 }
 
 .shopping-list-title {
@@ -19,7 +21,6 @@
 
 .shopping-list-header {
     padding: 15px 20px 15px 15px;
-    border-bottom: 1px solid black;
     overflow: auto;
 }
 
@@ -46,9 +47,12 @@
 }
 
 .shopping-list-item {
-    border-radius: @list-radius;
     list-style-type: none;
     padding: 20px 0 20px 0;
+}
+
+li.shopping-list-item:last-of-type {
+    border-radius: 0 0 @list-radius @list-radius;
 }
 
 .shopping-list-item .item-type-name {
