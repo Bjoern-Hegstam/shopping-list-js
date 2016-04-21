@@ -27,8 +27,29 @@ $(document).ready(function() {
     $shoppingListItems
         .find('.btn-item-inc')
         .click(function incrementQuantity() {
-            var id = $(this).parents('.shopping-list-item').attr('data-id');
-            console.log('Increment quantity: ' + id);
+            var $shoppingListItem = $(this).parents('.shopping-list-item');
+            var id = $shoppingListItem.attr('data-id');
+            var $quantity = $shoppingListItem.find('.quantity');
+            var quantity = +($quantity.text());
+
+            $.ajax({
+                url: '../api/shopping_list/' + $shoppingList.attr('data-id') + '/item/' + id,
+                type: 'PATCH',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    data: {
+                        attributes: {
+                            quantity: quantity + 1
+                        }
+                    }
+                }),
+                success: function(result) {
+                    $quantity.html(result.shopping_list_item.quantity);
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                }
+            });
         });
 
     $shoppingListItems

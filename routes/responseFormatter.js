@@ -1,12 +1,12 @@
 var stringUtil = require('./../util/stringUtil.js');
 
-function getKey(Model) {
-    return stringUtil.camelCaseToSnakeCase(Model.name);
+function getKey(model) {
+    return stringUtil.camelCaseToSnakeCase(model.name);
 }
 
 exports.formatSingleItemResponse = function(instance) {
     var data = {};
-    data[getKey(model)] = instance.toSimpleJSON();
+    data[getKey(instance.Model)] = instance.toSimpleJSON();
     return data;
 };
 
