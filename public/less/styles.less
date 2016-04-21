@@ -3,71 +3,63 @@
 @row-color-odd: lighten(@base-color, 75%);
 @row-color-even: lighten(@base-color, 100%);
 
+
 .shopping-list {
     border: 1px solid black;
     border-radius: @list-radius;
-    background-color: lighten(@base-color, 100%)
+    background-color: lighten(@base-color, 100%);
+
+    .name {
+        float: left;
+        font-weight: bold;
+        font-size: 18pt;
+    }
+
+    .shopping-list-btns {
+        float: right;
+    }
+
+    .shopping-list-header {
+        padding: 15px 20px 15px 15px;
+    }
 }
 
-.shopping-list-title {
-    float: left;
-    font-weight: bold;
-    font-size: 18pt;
-}
 
-.shopping-list-btns {
-    float: right;
-}
-
-.shopping-list-header {
-    padding: 15px 20px 15px 15px;
-    overflow: auto;
-}
-
-.shopping-list-header::after {
-    content: '.';
-    display: both;
-    clear: both;
-    height: 0;
-    visibility: hidden;
-}
-
-.shopping-list-item:nth-of-type(odd) {
-    background-color: @row-color-odd;
-}
-
-.shopping-list-item:nth-of-type(even) {
-    background-color: @row-color-even;
-}
-
-.shopping-list-items ul {
+.shopping-list-items {
     padding: 0;
-    margin: 0;
-    overflow: auto;
 }
+
 
 .shopping-list-item {
     list-style-type: none;
     padding: 20px 0 20px 0;
-}
 
-li.shopping-list-item:last-of-type {
-    border-radius: 0 0 @list-radius @list-radius;
-}
+    &:nth-of-type(odd) {
+        background-color: @row-color-odd;
+    }
 
-.shopping-list-item .item-type-name {
-    font-size: 16px;
-    text-transform: uppercase;
-    margin: 0 0 0 40px;
-}
+    &:nth-of-type(even) {
+        background-color: @row-color-even;
+    }
 
-.shopping-list-item .quantity {
-    font-size: 12pt;
-    font-weight: bold;
-    margin: 0 0 0 15px;
-}
+    &:last-of-type {
+        border-radius: 0 0 @list-radius @list-radius;
+    }
 
-.shopping-list-item .btn-group {
-    margin: 0 20px 0 0;
-    font-weight: bold;
+    .item-type-name {
+        font-size: 16px;
+        text-transform: uppercase;
+        margin: 0 0 0 40px;
+    }
+
+    .quantity {
+        font-size: 12pt;
+        font-weight: bold;
+        margin: 0 0 0 15px;
+    }
+
+    .btn-group {
+        margin: 0 20px 0 0;
+        font-weight: bold;
+    }
 }
