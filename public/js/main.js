@@ -71,13 +71,22 @@ $(document).ready(function() {
             success: function(result) {
                 $quantity.html(result.shopping_list_item.quantity);
             },
-            error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-            }
+            error: ajaxErrorHandler
         });
     }
 
     function deleteShoppingListItem($shoppingListItem) {
+        $.ajax({
+            url: shoppingListItemApiLink($shoppingListItem),
+            type: 'DELETE',
+            success: function(result) {
+                $shoppingListItem.remove();
+            },
+            error: ajaxErrorHandler
+        });
+    }
 
+    function ajaxErrorHandler(xhr, status, error) {
+        console.log(xhr.responseText);
     }
 });
