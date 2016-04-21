@@ -20,7 +20,7 @@ app.use('/api/item_type', itemTypeRoutes);
 app.use('/api/shopping_list', shoppingListRoutes);
 
 // views
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 // static
@@ -41,22 +41,14 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development' || app.get('env') === 'test') {
     app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
+        res.status(err.status || 500).send(JSON.stringify(err));
     });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+    res.status(err.status || 500).send(err.message);
 });
 
 module.exports = app;
