@@ -1,6 +1,10 @@
+@list-radius: 5px;
+@row-color-odd: #f2f2f2;
+@row-color-even: #ffffff;
+
 .shopping-list {
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: @list-radius;
 }
 
 .shopping-list-title {
@@ -28,11 +32,11 @@
 }
 
 .shopping-list-item:nth-of-type(odd) {
-    background-color: #f2f2f2;
+    background-color: @row-color-odd;
 }
 
 .shopping-list-item:nth-of-type(even) {
-    background-color: #ffffff;
+    background-color: @row-color-even;
 }
 
 .shopping-list-items ul {
@@ -42,7 +46,7 @@
 }
 
 .shopping-list-item {
-    border-radius: 5px;
+    border-radius: @list-radius;
     list-style-type: none;
     padding: 20px 0 20px 0;
 }
