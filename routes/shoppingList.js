@@ -83,9 +83,11 @@ router.post('/:listId/item', function(req, res) {
 });
 
 router.patch('/:listId/item/:itemId', function(req, res) {
+    console.log(JSON.stringify(req.body, null, 2));
+
     var listId = req.params.listId;
     var itemId = req.params.itemId;
-    var newQuantity = req.body.data.attributes.quantity;
+    var newQuantity = req.body.shopping_list_item.quantity;
 
     actions.findAndUpdate(
         res,

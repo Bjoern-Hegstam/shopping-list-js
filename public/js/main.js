@@ -37,10 +37,8 @@ $(document).ready(function() {
                 type: 'PATCH',
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    data: {
-                        attributes: {
-                            quantity: quantity + 1
-                        }
+                    shopping_list_item: {
+                        quantity: quantity + 1
                     }
                 }),
                 success: function(result) {
