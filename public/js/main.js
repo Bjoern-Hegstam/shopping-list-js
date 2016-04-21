@@ -28,26 +28,8 @@ $(document).ready(function() {
         .find('.btn-item-inc')
         .click(function incrementQuantity() {
             var $shoppingListItem = $(this).parents('.shopping-list-item');
-            var id = $shoppingListItem.attr('data-id');
-            var $quantity = $shoppingListItem.find('.quantity');
-            var quantity = +($quantity.text());
 
-            $.ajax({
-                url: '../api/shopping_list/' + $shoppingList.attr('data-id') + '/item/' + id,
-                type: 'PATCH',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    shopping_list_item: {
-                        quantity: quantity + 1
-                    }
-                }),
-                success: function(result) {
-                    $quantity.html(result.shopping_list_item.quantity);
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                }
-            });
+            updateItemQuantity($shoppingListItem, 1);
         });
 
     $shoppingListItems
@@ -56,4 +38,49 @@ $(document).ready(function() {
             var id = $(this).parents('.shopping-list-item').attr('data-id');
             console.log('Decrement quantity: ' + id);
         });
+
+    function shoppingListItemApiLink($shoppingListItem) {
+        return '../api/shopping_list/' +
+            getId($shoppingList) +
+            '/item/' +
+            getId($shoppingListItem);
+    }
+
+    function getId($object) {
+        return $object.attr('data-id');
+    }
+
+    function updateItemQuantity($shoppingListItem, dQuantity) {
+        var id = getId($shoppingListItem);
+        var $quantity = $shoppingListItem.find('.quantity');
+        var quantity = +($quantity.text());
+
+        if (quantity + dQuantity <= 0) {
+            deleteShoppingListItem($shoppingListItem);
+            return;
+        }
+
+        var data = {
+            shopping_list_item: {
+                quantity: quantity + dQuantity
+            }
+        };
+
+        $.ajax({
+            url: shoppingListItemApiLink($shoppingListItem),
+            type: 'PATCH',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(result) {
+                $quantity.html(result.shopping_list_item.quantity);
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+    }
+
+    function deleteShoppingListItem($shoppingListItem) {
+
+    }
 });
