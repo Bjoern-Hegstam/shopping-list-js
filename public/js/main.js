@@ -27,16 +27,13 @@ $(document).ready(function() {
     $shoppingListItems
         .find('.btn-item-inc')
         .click(function incrementQuantity() {
-            var $shoppingListItem = $(this).parents('.shopping-list-item');
-
-            updateItemQuantity($shoppingListItem, 1);
+            updateItemQuantity($(this).parents('.shopping-list-item'), 1);
         });
 
     $shoppingListItems
         .find('.btn-item-dec')
         .click(function decrementQuantity() {
-            var id = $(this).parents('.shopping-list-item').attr('data-id');
-            console.log('Decrement quantity: ' + id);
+            updateItemQuantity($(this).parents('.shopping-list-item'), -1);
         });
 
     function shoppingListItemApiLink($shoppingListItem) {
