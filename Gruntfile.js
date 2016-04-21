@@ -5,7 +5,8 @@ module.exports = function(grunt) {
         'package.json',
         'models/*.js',
         'routes/*.js',
-        'test/*.js'
+        'test/*.js',
+        'public/js/**/*.js'
     ];
 
     grunt.initConfig({
