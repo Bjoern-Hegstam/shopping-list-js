@@ -47,8 +47,18 @@
     padding: 20px 0 20px 0;
 }
 
+.shopping-list-item .item-type-name {
+    font-size: 16px;
+    text-transform: uppercase;
+    margin: 0 0 0 40px;
+}
+
 .shopping-list-item .quantity {
     font-size: 12pt;
     font-weight: bold;
-    margin: 0 15px 0 15px;
+    margin: 0 0 0 15px;
+}
+
+.shopping-list-item .btn-group {
+    margin: 0 20px 0 0;
 }
