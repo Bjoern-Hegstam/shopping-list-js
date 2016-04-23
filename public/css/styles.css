@@ -46,22 +46,6 @@
   margin: 0 20px 0 0;
   font-weight: bold;
 }
-.overlay {
-  display: none;
-  background-color: rgba(0, 0, 0, 0.5);
-  height: 100%;
-  left: 0;
-  position: absolute;
-  width: 100%;
-  top: 0;
-}
-.add-item-form {
-  position: relative;
-  top: 400px;
-}
-.add-item-form #name {
-  display: inline;
-}
 .item-types {
   padding: 0;
   margin: 0;

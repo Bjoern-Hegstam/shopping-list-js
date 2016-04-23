@@ -1,7 +1,6 @@
 $(document).ready(function() {
     var setActiveNavItem = function() {
         var url = window.location;
-        console.log(url);
 
         $('ul.nav a')
             .filter(function() {
@@ -14,10 +13,10 @@ $(document).ready(function() {
     };
     setActiveNavItem();
 
+
     // Wire up shopping list buttons
     var $shoppingList = $('.shopping-list');
-    var $overlay = $('.overlay');
-    var $nameInput = $overlay.find('#nameInput');
+    var $nameInput = $('#addItemModal').find('#nameInput');
 
     $shoppingList
         .find('.btn-finish-shopping')
@@ -29,24 +28,13 @@ $(document).ready(function() {
     $shoppingList
         .find('.btn-add-item')
         .click(function addItemToList() {
-            $overlay.show();
-            $nameInput.focus();
-
-            console.log('Add item');
+            $('#addItemModal').modal('show');
         });
 
-    $overlay
-        .click(function hideOverlay(event) {
-            $overlay.hide();
-            $nameInput.val('');
-
-            event.stopPropagation();
-        });
-
-    $nameInput
-        .click(function(event) {
-            event.stopPropagation();
-        });
+    $nameInput.selectize({
+        placeholder: 'Name',
+        create: true
+    });
 
 
     var $shoppingListItems = $shoppingList.find('.shopping-list-item');
@@ -127,6 +115,21 @@ $(document).ready(function() {
             },
             error: ajaxErrorHandler
         });
+    }
+
+
+    function findItemTypesStartingWith(nameStart) {
+        var itemTypes = {
+            item_type: [{
+                id: 1,
+                name: 'Abc'
+            }, {
+                id: 2,
+                name: 'Def'
+            }]
+        };
+
+        return itemTypes;
     }
 
 
