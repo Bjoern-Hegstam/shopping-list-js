@@ -10,7 +10,7 @@ var ItemType = models.itemType;
 
 var responseFormatter = require("./responseFormatter.js");
 
-router.get("/", (req, res, next) => {
+router.get("/", (req, res) => {
     res.redirect("/shopping-lists");
 });
 
