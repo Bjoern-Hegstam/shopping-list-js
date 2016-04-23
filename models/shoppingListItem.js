@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         instanceMethods: {
             toSimpleJSON: function() {
                 return {
-                    id: this.id,
+                    id: this.id.toString(),
                     shopping_list_id: this.shoppingListId.toString(),
                     item_type_id: this.itemTypeId.toString(),
                     quantity: this.quantity.toString(),
