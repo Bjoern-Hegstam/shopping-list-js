@@ -133,4 +133,19 @@ router.post('/:listId/item/:itemId/cart', function(req, res) {
     );
 });
 
+router.delete('/:listId/cart', function(req, res) {
+    var listId = req.params.listId;
+    var itemId = req.params.itemId;
+
+    actions.findAndDestroy(
+        res,
+        ShoppingListItem, {
+            where: {
+                shoppingListId: listId,
+                inCart: true
+            }
+        }
+    );
+});
+
 module.exports = router;

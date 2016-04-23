@@ -66,16 +66,8 @@ exports.findAndUpdate = function(res, model, searchOptions, updateAttributes) {
 
 exports.findAndDestroy = function(res, model, searchOptions) {
     model
-        .findAll(searchOptions)
-        .then(function(objects) {
-            if (objects.length === 0) {
-                res.sendStatus(HttpStatus.NOT_FOUND);
-            } else {
-                objects[0]
-                    .destroy()
-                    .then(function() {
-                        res.sendStatus(HttpStatus.NO_CONTENT);
-                    });
-            }
+        .destroy(searchOptions)
+        .then(function(count) {
+            res.sendStatus(count === 0 ? HttpStatus.NOT_FOUND : HttpStatus.NO_CONTENT);
         });
 };
