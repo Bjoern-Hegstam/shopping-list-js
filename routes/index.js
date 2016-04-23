@@ -51,4 +51,12 @@ router.get("/shopping_list/:id", (req, res) => {
         });
 });
 
+router.get("/item-types", (req, res) => {
+    ItemType
+    .findAll()
+    .then(itemTypes => {
+        res.render('item_types', responseFormatter.formatCollectionResponse(ItemType, itemTypes));
+    });
+});
+
 module.exports = router;
