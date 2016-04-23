@@ -10,7 +10,6 @@ frisby
 .expectJSONTypes({
     item_type: Array
 })
-.expectJSONLength('item_type', 0)
 .toss();
 
 frisby
