@@ -35,10 +35,13 @@ var server = http.createServer(app);
 server.on('error', onError);
 server.on('listening', onListening);
 
-var forceSync = process.env.NODE_ENV === 'test';
-models.sequelize.sync({
-    force: forceSync
-}).then(function() {
+var syncOptions = {};
+if (process.env.NODE_ENV === 'test') {
+    syncOptions.forceSync = true;
+    syncOptions.match = /_test$/;
+}
+
+models.sequelize.sync(syncOptions).then(function() {
     server.listen(port);
 });
 
