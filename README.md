@@ -60,3 +60,5 @@ TODO
   Would be cool to do the, not uncommon feature, where you start with a dropdown with a selection of the most common item types. Then you can type to narrow down the selection.
 
 * Keep current error reponse for api requests, but add a proper error page for non-api requests.
+
+* Change all DB-calls in main.js to return $.ajax instead of baking in the callback in the success attribute.
