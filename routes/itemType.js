@@ -20,6 +20,10 @@ router.get('/', function(req, res) {
         };
     }
 
+    if (req.query.limit) {
+        searchOptions.limit = req.query.limit;
+    }
+
     actions.findAll(res, ItemType, searchOptions);
 });
 

@@ -134,9 +134,9 @@ $(document).ready(function() {
     }
 
 
-    function findItemTypesWithNameLike(nameStart, maxCount, callback) {
+    function findItemTypesWithNameLike(nameStart, limit, callback) {
         return $.ajax({
-            url: '../api/item_type?name=' + nameStart + '&maxCount=' + maxCount,
+            url: '../api/item_type?name=' + nameStart + '&limit=' + limit,
             type: 'GET',
             error: ajaxErrorHandler
         });
