@@ -36,7 +36,7 @@ API
 * POST - Add to cart
 * DELETE - Remove from cart
 
-Next step
+TODO
 ---------
 
 * Simplify data format for API.
@@ -51,3 +51,5 @@ Next step
   * or from a newly created item type
 
   Would be cool to do the, not uncommon feature, where you start with a dropdown with a selection of the most common item types. Then you can type to narrow down the selection.
+
+* Keep current error reponse for api requests, but add a proper error page for non-api requests.
