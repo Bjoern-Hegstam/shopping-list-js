@@ -14,9 +14,9 @@ frisby
     .toss();
 
 
-createItemType(function(itemTypeJSON) {
+createItemType(itemTypeJSON => {
     var itemTypeId = itemTypeJSON.item_type.id;
-    createShoppingList(function(shoppingListJSON) {
+    createShoppingList(shoppingListJSON => {
         var listId = shoppingListJSON.shopping_list.id;
         addItem(listId, itemTypeId);
     });
