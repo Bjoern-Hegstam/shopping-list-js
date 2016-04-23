@@ -62,3 +62,5 @@ TODO
 * Keep current error reponse for api requests, but add a proper error page for non-api requests.
 
 * Change all DB-calls in main.js to return $.ajax instead of baking in the callback in the success attribute.
+
+* Prevent creation of item types with same name
