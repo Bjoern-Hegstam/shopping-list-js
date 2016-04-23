@@ -43,7 +43,6 @@ $(document).ready(function() {
 
             findItemTypesWithNameLike(query, 5)
                 .done(function (result) {
-                    console.log(JSON.stringify(result.item_type, null, 2));
                     callback(result.item_type);
                 });
         },
