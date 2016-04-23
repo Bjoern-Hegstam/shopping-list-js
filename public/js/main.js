@@ -51,9 +51,9 @@ $(document).ready(function() {
             create: function(input, callback) {
                 var self = this;
                 createItemType(input)
-                    .done(function(itemType) {
+                    .done(function(result) {
                         $addItemModal.modal('hide');
-                        addToShoppingList(itemType.id);
+                        addToShoppingList(result.item_type.id);
                     });
             },
             onItemAdd: function(value, $item) {
