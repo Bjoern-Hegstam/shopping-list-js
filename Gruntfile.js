@@ -18,6 +18,15 @@ module.exports = function(grunt) {
                 options: {
                     logConcurrentOutput: true
                 }
+            },
+
+            apitest: {
+                tasks: [
+                    ['env:test', 'shell:nodemon'], 'watch'
+                ],
+                options: {
+                    logConcurrentOutput: true
+                }
             }
         },
 
@@ -93,6 +102,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-concurrent');
 
     grunt.registerTask('test', ['env:test', 'nodeunit:all']);
-    grunt.registerTask('apitest', ['env:test', 'shell:nodemon']);
-    grunt.registerTask('default', 'concurrent');
+    grunt.registerTask('apitest', 'concurrent:apitest');
+    grunt.registerTask('default', 'concurrent:dev');
 };
