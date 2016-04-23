@@ -18,7 +18,12 @@ createItemType()
         var id = body.item_type.id;
         createItemType(id)
             .after(function() {
-                deleteItemType(id).toss();
+                deleteItemType(id)
+                    .after(function() {
+                        tryGetMissingItemType(id)
+                            .toss();
+                    })
+                    .toss();
             })
             .toss();
     })
@@ -72,4 +77,12 @@ function deleteItemType(id) {
         .create('Delete item type')
         .delete(baseUrl + '/item_type/' + id)
         .expectStatus(HttpStatus.NO_CONTENT)
+}
+
+
+function tryGetMissingItemType(id) {
+    return frisby
+        .create('Try to get missing item type')
+        .get(baseUrl + '/item_type/' + id)
+        .expectStatus(HttpStatus.NOT_FOUND);
 }
