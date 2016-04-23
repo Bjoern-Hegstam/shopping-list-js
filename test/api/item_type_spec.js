@@ -12,24 +12,63 @@ frisby
     })
     .toss();
 
-frisby
-    .create('Create item type')
-    .post(baseUrl + '/item_type', {
-        item_type: {
-            name: 'TestItemType'
-        }
-    }, { json: true })
-    .expectStatus(201)
-    .expectHeaderContains('content-type', 'application/json')
-    .expectJSON({
-        item_type: {
-            name: 'TestItemType'
-        }
-    })
-    .expectJSONTypes({
-        item_type: {
-            id: Number,
-            name: String
-        }
+createItemType()
+    .afterJSON(function(body) {
+        var id = body.item_type.id;
+        createItemType(id)
+            .after(function() {
+                deleteItemType(id).toss();
+            })
+            .toss();
     })
     .toss();
+
+
+function createItemType() {
+    return frisby
+        .create('Create item type')
+        .post(baseUrl + '/item_type', {
+            item_type: {
+                name: 'TestItemType'
+            }
+        }, { json: true })
+        .expectStatus(201)
+        .expectHeaderContains('content-type', 'application/json')
+        .expectJSON({
+            item_type: {
+                name: 'TestItemType'
+            }
+        })
+        .expectJSONTypes({
+            item_type: {
+                id: Number,
+                name: String
+            }
+        });
+}
+
+function changeItemTypeName(id) {
+    return frisby
+        .create('Change item type name')
+        .patch(baseUrl + '/item_type/' + id, {
+            item_type: {
+                id: id,
+                name: 'NewName' + id
+            }
+        }, { json: true })
+        .expectStatus(200)
+        .expectHeaderContains('content-type', 'application/json')
+        .expectJSON({
+            item_type: {
+                id: id,
+                name: 'NewName' + id
+            }
+        })
+}
+
+function deleteItemType(id) {
+    return frisby
+    .create('Delete item type')
+    .delete(baseUrl + '/item_type/' + id)
+    .expectStatus(204)
+}
