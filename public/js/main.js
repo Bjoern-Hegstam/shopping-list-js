@@ -33,12 +33,23 @@ $(document).ready(function() {
 
 
     $nameInput.selectize({
+        valueField: 'id',
         labelField: 'name',
-        valueField: 'name',
-        create: function(input, callback) {
-            var itemType = createItemType(input);
+        searchField: 'name',
+        load: function(query, callback) {
+            if (!query.length) {
+                return callback();
+            }
 
-            callback({name: input});
+            findItemTypesWithNameLike(query, 5)
+                .done(function (result) {
+                    console.log(JSON.stringify(result.item_type, null, 2));
+                    callback(result.item_type);
+                });
+        },
+        create: function(input, callback) {
+            createItemType(input)
+                .done(callback);
         }
     });
 
@@ -124,36 +135,27 @@ $(document).ready(function() {
     }
 
 
-    function findItemTypesStartingWith(nameStart) {
-        var itemTypes = {
-            item_type: [{
-                id: 1,
-                name: 'Abc'
-            }, {
-                id: 2,
-                name: 'Def'
-            }]
-        };
-
-        return itemTypes;
+    function findItemTypesWithNameLike(nameStart, maxCount, callback) {
+        return $.ajax({
+            url: '../api/item_type?name=' + nameStart + '&maxCount=' + maxCount,
+            type: 'GET',
+            error: ajaxErrorHandler
+        });
     }
 
 
-    function createItemType(name) {
+    function createItemType(name, callback) {
         var data = {
             item_type: {
                 name: name
             }
         };
 
-        $.ajax({
+        return $.ajax({
             url: '../api/item_type',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
-            success: function(result) {
-                return result.item_type;
-            },
             error: ajaxErrorHandler
         });
     }

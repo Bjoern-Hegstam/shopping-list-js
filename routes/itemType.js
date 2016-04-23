@@ -11,7 +11,16 @@ var router = express.Router();
 var ItemType = models.itemType;
 
 router.get('/', function(req, res) {
-    actions.findAll(res, ItemType);
+    var where = {};
+    var searchOptions = {where: where};
+
+    if (req.query.name) {
+        where.name = {
+            like: '%' + req.query.name + '%'
+        };
+    }
+
+    actions.findAll(res, ItemType, searchOptions);
 });
 
 router.get('/:id', function(req, res, next) {
