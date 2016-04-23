@@ -5,13 +5,13 @@ module.exports = function(grunt) {
         'package.json',
         'models/*.js',
         'routes/*.js',
-        'test/*.js',
+        'test/**/*.js',
         'public/js/**/*.js'
     ];
 
     grunt.initConfig({
         concurrent: {
-            target: {
+            dev: {
                 tasks: [
                     ['env:dev', 'shell:nodemon'], 'watch'
                 ],
@@ -93,5 +93,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-concurrent');
 
     grunt.registerTask('test', ['env:test', 'nodeunit:all']);
+    grunt.registerTask('apitest', ['env:test', 'shell:nodemon']);
     grunt.registerTask('default', 'concurrent');
 };
