@@ -32,8 +32,6 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.post('/', function(req, res) {
-    console.log(JSON.stringify(req.body, null, 2));
-
     ItemType
         .create(req.body.item_type)
         .then(function(itemType) {
