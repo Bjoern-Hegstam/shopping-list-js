@@ -21,7 +21,7 @@ router.get('/:listId', function(req, res) {
 
 router.post('/', function(req, res) {
     ShoppingList
-        .create(req.body.data.attributes)
+        .create(req.body.shopping_list)
         .then(function(shoppingList) {
             res
                 .status(HttpStatus.CREATED)
