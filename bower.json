@@ -16,7 +16,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "^3.3.6"
+    "bootstrap": "^3.3.6",
+    "selectize": "^0.12.1"
   },
   "overrides": {
     "bootstrap": {
