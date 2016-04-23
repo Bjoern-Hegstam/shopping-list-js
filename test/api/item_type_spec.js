@@ -39,7 +39,7 @@ function createItemType(callbackJSON) {
             })
             .expectJSONTypes({
                 item_type: {
-                    id: Number,
+                    id: String,
                     name: String
                 }
             })
@@ -60,7 +60,7 @@ function getItemType(id, callback) {
             })
             .expectJSONTypes({
                 item_type: {
-                    id: Number,
+                    id: String,
                     name: String
                 }
             })

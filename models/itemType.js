@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
         instanceMethods: {
             toSimpleJSON: function() {
                 return {
-                    id: this.id,
+                    id: this.id.toString(),
                     name: this.name
                 };
             }

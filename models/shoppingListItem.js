@@ -17,11 +17,11 @@ module.exports = function(sequelize, DataTypes) {
         instanceMethods: {
             toSimpleJSON: function() {
                 return {
-                    id: this.id,
-                    shopping_list_id: this.shoppingListId,
-                    item_type_id: this.itemTypeId,
-                    quantity: this.quantity,
-                    in_cart: this.inCart
+                    id: this.id.toString(),
+                    shopping_list_id: this.shoppingListId.toString(),
+                    item_type_id: this.itemTypeId.toString(),
+                    quantity: this.quantity.toString(),
+                    in_cart: this.inCart.toString()
                 };
             }
         }

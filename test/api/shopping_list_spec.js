@@ -13,11 +13,37 @@ frisby
     })
     .toss();
 
-createShoppingList()
-    .toss();
 
-function createShoppingList() {
+createItemType(function(itemTypeJSON) {
+    var itemTypeId = itemTypeJSON.item_type.id;
+    createShoppingList(function(shoppingListJSON) {
+        var listId = shoppingListJSON.shopping_list.id;
+        addItem(listId, itemTypeId);
+    });
+});
+
+// Create item type (First thing for all tests)
+// Create shopping list
+// Add item
+// Try to re-add existing item, should give 409
+// Increase quantity
+// Decrease quantity
+// Decrease quantity below zero
+
+function createItemType(callbackJSON) {
     return frisby
+        .create('Create item type')
+        .post(baseUrl + '/item_type', {
+            item_type: {
+                name: 'TestItemType'
+            }
+        }, { json: true })
+        .afterJSON(callbackJSON || noop)
+        .toss();
+}
+
+function createShoppingList(callbackJSON) {
+    frisby
         .create('Create shopping list')
         .post(baseUrl + '/shopping_list', {
             shopping_list: {
@@ -33,8 +59,44 @@ function createShoppingList() {
         })
         .expectJSONTypes({
             shopping_list: {
-                id: Number,
+                id: String,
                 name: String
             }
-        });
+        })
+        .afterJSON(callbackJSON || noop)
+        .toss();
 }
+
+function addItem(listId, itemTypeId, callbackJSON) {
+    return frisby
+        .create('Add item')
+        .post(baseUrl + '/shopping_list/' + listId + '/item', {
+            shopping_list_item: {
+                item_type_id: itemTypeId,
+                quantity: 2
+            }
+        }, { json: true })
+        .expectStatus(HttpStatus.CREATED)
+        .expectHeaderContains('content-type', 'application/json')
+        .expectJSON({
+            shopping_list_item: {
+                shopping_list_id: listId,
+                item_type_id: itemTypeId,
+                quantity: "2",
+                in_cart: "false"
+            }
+        })
+        .expectJSONTypes({
+            shopping_list_item: {
+                id: String,
+                shopping_list_id: String,
+                item_type_id: String,
+                quantity: String,
+                in_cart: String
+            }
+        })
+        .afterJSON(callbackJSON || noop)
+        .toss();
+}
+
+function noop() {}
