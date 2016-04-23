@@ -1,4 +1,20 @@
 $(document).ready(function() {
+    var setActiveNavItem = function() {
+        var url = window.location;
+        console.log(url);
+
+        $('ul.nav a')
+            .filter(function() {
+                console.log(this.href);
+
+                return this.href == url;
+            })
+            .parent()
+            .addClass('active');
+    };
+    setActiveNavItem();
+
+    // Wire up shopping list buttons
     var $shoppingList = $('.shopping-list');
     var $overlay = $('.overlay');
     var $nameInput = $overlay.find('#nameInput');
