@@ -1,6 +1,13 @@
 API
 ---
 
+General data structure:
+{
+    class_name: {
+        key: 'value'
+    }
+}
+
 /api/item_type
 * GET - Get all
 * POST - Create new
