@@ -74,7 +74,7 @@ exports.findAndDestroy = function(res, model, searchOptions) {
                 objects[0]
                     .destroy()
                     .then(function() {
-                        res.sendStatus(HttpStatus.OK);
+                        res.sendStatus(HttpStatus.NO_CONTENT);
                     });
             }
         });

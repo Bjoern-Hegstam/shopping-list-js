@@ -18,7 +18,14 @@ createItemType(itemTypeJSON => {
     var itemTypeId = itemTypeJSON.item_type.id;
     createShoppingList(shoppingListJSON => {
         var listId = shoppingListJSON.shopping_list.id;
-        addItem(listId, itemTypeId);
+        addItem(listId, itemTypeId, (listItemJSON) => {
+            var itemId = listItemJSON.shopping_list_item.id;
+            tryAddItemTypeAlreadyInList(listId, itemTypeId, () => {
+                changeQuantity(listId, itemId, () => {
+                    deleteItem(listId, itemId);
+                });
+            });
+        });
     });
 });
 
@@ -28,6 +35,11 @@ createItemType(itemTypeJSON => {
 // Try to re-add existing item, should give 409
 // Change quantity
 // Delete item
+
+// Delete cart items, verify none remove
+
+// Add item to cart
+// Delete cart items, verify item removed
 
 function createItemType(callbackJSON) {
     return frisby
@@ -96,6 +108,45 @@ function addItem(listId, itemTypeId, callbackJSON) {
         })
         .afterJSON(callbackJSON || noop)
         .toss();
+}
+
+function tryAddItemTypeAlreadyInList(listId, itemTypeId, callback) {
+    return frisby
+    .create('Add same item type')
+    .post(baseUrl + '/shopping_list/' + listId + '/item', {
+        shopping_list_item: {
+            item_type_id: itemTypeId,
+            quantity: 1
+        }
+    }, {json: true})
+    .expectStatus(HttpStatus.CONFLICT)
+    .after(callback || noop)
+    .toss();
+}
+
+function changeQuantity(listId, itemId, callback) {
+    return frisby
+    .create('Change quantity')
+    .patch(baseUrl + '/shopping_list/' + listId + '/item/' + itemId, {
+        shopping_list_item: {
+            quantity: 17
+        }
+    }, {json: true})
+    .expectStatus(HttpStatus.OK)
+    .expectJSON('shopping_list_item', {
+        quantity: '17'
+    })
+    .after(callback || noop)
+    .toss();
+}
+
+function deleteItem(listId, itemId, callback) {
+    return frisby
+    .create('Delete item')
+    .delete(baseUrl + '/shopping_list/' + listId + '/item/' + listId)
+    .expectStatus(HttpStatus.NO_CONTENT)
+    .after(callback || noop)
+    .toss();
 }
 
 function noop() {}
