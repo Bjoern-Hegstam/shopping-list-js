@@ -16,11 +16,15 @@ frisby
 createItemType()
     .afterJSON(function(body) {
         var id = body.item_type.id;
-        createItemType(id)
+        getItemType(id)
             .after(function() {
-                deleteItemType(id)
+                changeItemTypeName(id)
                     .after(function() {
-                        tryGetMissingItemType(id)
+                        deleteItemType(id)
+                            .after(function() {
+                                tryGetMissingItemType(id)
+                                    .toss();
+                            })
                             .toss();
                     })
                     .toss();
@@ -44,6 +48,23 @@ function createItemType() {
             item_type: {
                 name: 'TestItemType'
             }
+        })
+        .expectJSONTypes({
+            item_type: {
+                id: Number,
+                name: String
+            }
+        });
+}
+
+function getItemType(id) {
+    return frisby
+        .create('Get existing item type')
+        .get(baseUrl + '/item_type/' + id)
+        .expectStatus(HttpStatus.OK)
+        .expectHeaderContains('content-type', 'application/json')
+        .expectJSON('item_type', {
+            id: id
         })
         .expectJSONTypes({
             item_type: {

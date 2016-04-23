@@ -46,7 +46,7 @@ router.post('/', function(req, res) {
 });
 
 router.patch('/:id', function(req, res) {
-    var newName = req.body.data.attributes.name;
+    var newName = req.body.item_type.name;
 
     ItemType
         .findById(req.params.id)
