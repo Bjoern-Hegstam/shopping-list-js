@@ -1,3 +1,4 @@
+var HttpStatus = require('http-status-codes');
 var frisby = require('frisby');
 
 var baseUrl = 'http://localhost:3000/api';
@@ -32,7 +33,7 @@ function createItemType() {
                 name: 'TestItemType'
             }
         }, { json: true })
-        .expectStatus(201)
+        .expectStatus(HttpStatus.CREATED)
         .expectHeaderContains('content-type', 'application/json')
         .expectJSON({
             item_type: {
@@ -56,7 +57,7 @@ function changeItemTypeName(id) {
                 name: 'NewName' + id
             }
         }, { json: true })
-        .expectStatus(200)
+        .expectStatus(HttpStatus.OK)
         .expectHeaderContains('content-type', 'application/json')
         .expectJSON({
             item_type: {
@@ -68,7 +69,7 @@ function changeItemTypeName(id) {
 
 function deleteItemType(id) {
     return frisby
-    .create('Delete item type')
-    .delete(baseUrl + '/item_type/' + id)
-    .expectStatus(204)
+        .create('Delete item type')
+        .delete(baseUrl + '/item_type/' + id)
+        .expectStatus(HttpStatus.NO_CONTENT)
 }
