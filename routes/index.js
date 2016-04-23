@@ -10,13 +10,16 @@ var ItemType = models.itemType;
 
 var responseFormatter = require("./responseFormatter.js");
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
+    res.redirect("/shopping-lists");
+});
+
+router.get("/shopping-lists", (req, res) => {
     ShoppingList
         .findAll()
         .then(shopppingLists => {
             res.render('home', responseFormatter.formatCollectionResponse(ShoppingList, shopppingLists));
         });
-
 });
 
 router.get("/shopping_list/:id", (req, res) => {
