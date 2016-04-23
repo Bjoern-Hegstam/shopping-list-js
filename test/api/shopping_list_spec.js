@@ -26,9 +26,8 @@ createItemType(itemTypeJSON => {
 // Create shopping list
 // Add item
 // Try to re-add existing item, should give 409
-// Increase quantity
-// Decrease quantity
-// Decrease quantity below zero
+// Change quantity
+// Delete item
 
 function createItemType(callbackJSON) {
     return frisby
