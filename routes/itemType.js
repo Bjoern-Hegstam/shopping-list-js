@@ -20,7 +20,7 @@ router.get('/:id', function(req, res, next) {
 
 router.post('/', function(req, res) {
     ItemType
-        .create(req.body.data.attributes)
+        .create(req.body.item_type)
         .then(function(itemType) {
             res
                 .status(HttpStatus.CREATED)

@@ -31,9 +31,15 @@ $(document).ready(function() {
             $('#addItemModal').modal('show');
         });
 
+
     $nameInput.selectize({
-        placeholder: 'Name',
-        create: true
+        labelField: 'name',
+        valueField: 'name',
+        create: function(input, callback) {
+            var itemType = createItemType(input);
+
+            callback({name: input});
+        }
     });
 
 
@@ -132,6 +138,25 @@ $(document).ready(function() {
         return itemTypes;
     }
 
+
+    function createItemType(name) {
+        var data = {
+            item_type: {
+                name: name
+            }
+        };
+
+        $.ajax({
+            url: '../api/item_type',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(result) {
+                return result.item_type;
+            },
+            error: ajaxErrorHandler
+        });
+    }
 
     function ajaxErrorHandler(xhr, status, error) {
         console.log(xhr.responseText);
