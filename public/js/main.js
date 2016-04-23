@@ -16,7 +16,8 @@ $(document).ready(function() {
 
     // Wire up shopping list buttons
     var $shoppingList = $('.shopping-list');
-    var $nameInput = $('#addItemModal').find('#nameInput');
+    var $addItemModal = $('#addItemModal');
+    var $nameInput = $addItemModal.find('#nameInput');
 
     $shoppingList
         .find('.btn-finish-shopping')
@@ -28,29 +29,38 @@ $(document).ready(function() {
     $shoppingList
         .find('.btn-add-item')
         .click(function addItemToList() {
-            $('#addItemModal').modal('show');
+            $addItemModal.modal('show');
         });
 
 
-    $nameInput.selectize({
-        valueField: 'id',
-        labelField: 'name',
-        searchField: 'name',
-        load: function(query, callback) {
-            if (!query.length) {
-                return callback();
-            }
+    $nameInput
+        .selectize({
+            valueField: 'id',
+            labelField: 'name',
+            searchField: 'name',
+            load: function(query, callback) {
+                if (!query.length) {
+                    return callback();
+                }
 
-            findItemTypesWithNameLike(query, 5)
-                .done(function (result) {
-                    callback(result.item_type);
-                });
-        },
-        create: function(input, callback) {
-            createItemType(input)
-                .done(callback);
-        }
-    });
+                findItemTypesWithNameLike(query, 5)
+                    .done(function(result) {
+                        callback(result.item_type);
+                    });
+            },
+            create: function(input, callback) {
+                var self = this;
+                createItemType(input)
+                    .done(function(itemType) {
+                        $addItemModal.modal('hide');
+                        addToShoppingList(itemType.id);
+                    });
+            },
+            onItemAdd: function(value, $item) {
+                $addItemModal.modal('hide');
+                addToShoppingList(value);
+            }
+        });
 
 
     var $shoppingListItems = $shoppingList.find('.shopping-list-item');
@@ -88,8 +98,32 @@ $(document).ready(function() {
             getId($shoppingListItem);
     }
 
+
     function getId($object) {
         return $object.attr('data-id');
+    }
+
+
+    function addToShoppingList(itemTypeId) {
+        var listId = getId($shoppingList);
+
+        var data = {
+            shopping_list_item: {
+                item_type_id: itemTypeId,
+                quantity: 1
+            }
+        };
+
+        $.ajax({
+            url: '../api/shopping_list/' + listId + '/item',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(result) {
+                console.log(JSON.stringify(result.shopping_list_item, null, 2));
+            },
+            error: ajaxErrorHandler
+        });
     }
 
 

@@ -54,13 +54,13 @@ router.get('/:listId/item/:itemId', function(req, res) {
 });
 
 router.post('/:listId/item', function(req, res) {
-    var data = req.body.data;
+    var data = req.body.shopping_list_item;
 
     ShoppingListItem
         .findAll({
             where: {
                 shoppingListId: req.params.listId,
-                itemTypeId: data.itemTypeId
+                itemTypeId: data.item_type_id
             }
         })
         .then(function(items) {
@@ -70,7 +70,7 @@ router.post('/:listId/item', function(req, res) {
                 return ShoppingListItem
                     .create({
                         shoppingListId: req.params.listId,
-                        itemTypeId: data.itemTypeId,
+                        itemTypeId: data.item_type_id,
                         quantity: data.quantity
                     })
                     .then(function(item) {
