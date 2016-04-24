@@ -62,6 +62,11 @@ $(document).ready(function() {
         });
 
 
+    $addItemModal
+        .on('hidden.bs.modal', function clearNameInput() {
+           $nameInputSelect[0].selectize.clear();
+        });
+
     var $shoppingListItems = $shoppingList.find('.shopping-list-item');
 
 
