@@ -53,6 +53,4 @@ TODO
 * Change all DB-calls in main.js to return $.ajax instead of baking in the callback in the success attribute.
   * Also extract all DB-calls to separate js-file
 
-* Prevent creation of item types with same name
-
 * Sanitize input
