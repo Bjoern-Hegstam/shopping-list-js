@@ -13,7 +13,7 @@ frisby
     })
     .toss();
 
-createItemType(json => {
+createItemType('apiTest_itemType_1', json => {
     var id = json.item_type.id;
     getItemType(id, () => {
         changeItemTypeName(id, () => {
@@ -24,19 +24,24 @@ createItemType(json => {
     });
 });
 
-function createItemType(callbackJSON) {
+
+createItemType('apiTest_itemType_2', () => {
+    tryToCreateItemTypeWithUsedName('apiTest_itemType_2');
+});
+
+function createItemType(name, callbackJSON) {
     frisby
-        .create('Create item type')
+        .create('Create item type: ' + name)
         .post(baseUrl + '/item_type', {
             item_type: {
-                name: 'TestItemType'
+                name: name
             }
         }, { json: true })
         .expectStatus(HttpStatus.CREATED)
         .expectHeaderContains('content-type', 'application/json')
         .expectJSON({
             item_type: {
-                name: 'TestItemType'
+                name: name
             }
         })
         .expectJSONTypes({
@@ -104,6 +109,19 @@ function tryGetMissingItemType(id, callback) {
         .create('Try to get missing item type')
         .get(baseUrl + '/item_type/' + id)
         .expectStatus(HttpStatus.NOT_FOUND)
+        .after(callback || noop)
+        .toss();
+}
+
+function tryToCreateItemTypeWithUsedName(name, callback) {
+   frisby
+        .create('Try to create item type with already taken name')
+        .post(baseUrl + '/item_type', {
+            item_type: {
+                name: name
+            }
+        }, { json: true })
+        .expectStatus(HttpStatus.CONFLICT)
         .after(callback || noop)
         .toss();
 }

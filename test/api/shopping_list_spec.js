@@ -14,7 +14,7 @@ frisby
     })
     .toss();
 
-createItemType(itemTypeJSON => {
+createItemType('apiTest_shoppingList_1', itemTypeJSON => {
     var itemTypeId = itemTypeJSON.item_type.id;
 
     setupListWithOneItem(itemTypeId, (listId, itemId) => {
@@ -27,7 +27,7 @@ createItemType(itemTypeJSON => {
 });
 
 
-createItemType(itemTypeJSON => {
+createItemType('apiTest_shoppingList_2', itemTypeJSON => {
     var itemTypeId = itemTypeJSON.item_type.id;
 
     setupListWithOneItem(itemTypeId, (listId, itemId) => {
@@ -38,7 +38,7 @@ createItemType(itemTypeJSON => {
 });
 
 
-createItemType(itemTypeJSON => {
+createItemType('apiTest_shoppingList_3', itemTypeJSON => {
     var itemTypeId = itemTypeJSON.item_type.id;
 
     setupListWithOneItem(itemTypeId, (listId, itemId) => {
@@ -62,12 +62,12 @@ function setupListWithOneItem(itemTypeId, callback) {
     });
 }
 
-function createItemType(callbackJSON) {
-    return frisby
-        .create('Create item type')
+function createItemType(name, callbackJSON) {
+    frisby
+        .create('Create item type: ' + name)
         .post(baseUrl + '/item_type', {
             item_type: {
-                name: 'TestItemType'
+                name: name
             }
         }, { json: true })
         .afterJSON(callbackJSON || noop)

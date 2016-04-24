@@ -32,14 +32,27 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.post('/', function(req, res) {
+    var name = req.body.item_type.name;
     ItemType
-        .create(req.body.item_type)
-        .then(function(itemType) {
-            res
-                .status(HttpStatus.CREATED)
-                .send(responseFormatter.formatSingleItemResponse(itemType));
-        }, function(err) {
-            res.sendStatus(HttpStatus.NOT_FOUND);
+        .findAll({
+            where: {
+                name: name
+            }
+        })
+        .then(function(itemTypes) {
+            if (itemTypes.length > 0) {
+                res.sendStatus(HttpStatus.CONFLICT);
+            } else {
+                ItemType
+                    .create(req.body.item_type)
+                    .then(function(itemType) {
+                        res
+                            .status(HttpStatus.CREATED)
+                            .send(responseFormatter.formatSingleItemResponse(itemType));
+                    }, function(err) {
+                        res.sendStatus(HttpStatus.NOT_FOUND);
+                    });
+            }
         });
 });
 
