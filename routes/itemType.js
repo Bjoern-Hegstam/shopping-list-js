@@ -36,7 +36,9 @@ router.post('/', function(req, res) {
     ItemType
         .findAll({
             where: {
-                name: name
+                name: {
+                    like: name
+                }
             }
         })
         .then(function(itemTypes) {

@@ -26,7 +26,7 @@ createItemType('apiTest_itemType_1', json => {
 
 
 createItemType('apiTest_itemType_2', () => {
-    tryToCreateItemTypeWithUsedName('apiTest_itemType_2');
+    tryToCreateItemTypeWithUsedName('ApiTest_itemType_2');
 });
 
 function createItemType(name, callbackJSON) {

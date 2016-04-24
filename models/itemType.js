@@ -4,7 +4,8 @@ module.exports = function(sequelize, DataTypes) {
     return sequelize.define("itemType", {
         name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         }
     }, {
         instanceMethods: {
