@@ -12,7 +12,7 @@ var ItemType = models.itemType;
 
 router.get('/', function(req, res) {
     var where = {};
-    var searchOptions = {where: where};
+    var searchOptions = { where: where };
 
     if (req.query.name) {
         where.name = {
