@@ -19,22 +19,6 @@ $(document).ready(function() {
     var $addItemModal = $('#addItemModal');
     var $nameInput = $addItemModal.find('#nameInput');
 
-    $shoppingList
-        .find('.btn-finish-shopping')
-        .click(function clearInCartItems() {
-            var $inCartItems = $shoppingList.find('.in-cart');
-            if ($inCartItems.length === 0) {
-                return;
-            }
-
-            Db.deleteItemsInCart(getId($shoppingList))
-                .done(function(result) {
-                    $shoppingList
-                        .find('.in-cart')
-                        .remove();
-                });
-        });
-
 
     $shoppingList
         .find('.btn-add-item')
@@ -144,6 +128,23 @@ $(document).ready(function() {
                 $quantity.html(result.shopping_list_item.quantity);
             });
     }
+
+
+    $shoppingList
+        .find('.btn-finish-shopping')
+        .click(function clearInCartItems() {
+            var $inCartItems = $shoppingList.find('.in-cart');
+            if ($inCartItems.length === 0) {
+                return;
+            }
+
+            Db.deleteItemsInCart(getId($shoppingList))
+                .done(function(result) {
+                    $shoppingList
+                        .find('.in-cart')
+                        .remove();
+                });
+        });
 
 
     /* AJAX CALLS */
