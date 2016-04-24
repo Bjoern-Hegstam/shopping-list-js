@@ -100,7 +100,7 @@ function createShoppingList(callbackJSON) {
 }
 
 function addItem(listId, itemTypeId, callbackJSON) {
-    return frisby
+    frisby
         .create('Add item')
         .post(baseUrl + '/shopping_list/' + listId + '/item', {
             shopping_list_item: {
@@ -132,7 +132,7 @@ function addItem(listId, itemTypeId, callbackJSON) {
 }
 
 function tryAddItemTypeAlreadyInList(listId, itemTypeId, callback) {
-    return frisby
+    frisby
         .create('Add same item type')
         .post(baseUrl + '/shopping_list/' + listId + '/item', {
             shopping_list_item: {
@@ -146,7 +146,7 @@ function tryAddItemTypeAlreadyInList(listId, itemTypeId, callback) {
 }
 
 function changeQuantity(listId, itemId, callback) {
-    return frisby
+    frisby
         .create('Change quantity')
         .patch(baseUrl + '/shopping_list/' + listId + '/item/' + itemId, {
             shopping_list_item: {
@@ -162,7 +162,7 @@ function changeQuantity(listId, itemId, callback) {
 }
 
 function deleteItem(listId, itemId, callback) {
-    return frisby
+    frisby
         .create('Delete item')
         .delete(baseUrl + '/shopping_list/' + listId + '/item/' + listId)
         .expectStatus(HttpStatus.NO_CONTENT)
@@ -171,7 +171,7 @@ function deleteItem(listId, itemId, callback) {
 }
 
 function addItemToCart(listId, itemId, callback) {
-    return frisby
+    frisby
         .create('Add item to cart')
         .patch(baseUrl + '/shopping_list/' + listId + '/item/' + itemId, {
             shopping_list_item: {
@@ -187,7 +187,7 @@ function addItemToCart(listId, itemId, callback) {
 }
 
 function deleteInCartItems(listId, callback) {
-    return frisby
+    frisby
         .create('Delete in cart items')
         .delete(baseUrl + '/shopping_list/' + listId + '/cart')
         .after(callback || noop)
@@ -195,7 +195,7 @@ function deleteInCartItems(listId, callback) {
 }
 
 function expectShoppingListEmpty(listId, expectedEmpty, callback) {
-    return frisby
+    frisby
         .create('Expect list to be ' + (expectedEmpty ? '' : 'not ') + 'empty')
         .get(baseUrl + '/shopping_list/' + listId + '/item')
         .afterJSON(json => {

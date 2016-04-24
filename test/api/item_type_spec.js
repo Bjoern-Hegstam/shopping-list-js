@@ -50,7 +50,7 @@ function createItemType(callbackJSON) {
 }
 
 function getItemType(id, callback) {
-    return frisby
+    frisby
         .create('Get existing item type')
         .get(baseUrl + '/item_type/' + id)
         .expectStatus(HttpStatus.OK)
@@ -69,7 +69,7 @@ function getItemType(id, callback) {
 }
 
 function changeItemTypeName(id, callback) {
-    return frisby
+    frisby
         .create('Change item type name')
         .patch(baseUrl + '/item_type/' + id, {
             item_type: {
@@ -90,7 +90,7 @@ function changeItemTypeName(id, callback) {
 }
 
 function deleteItemType(id, callback) {
-    return frisby
+    frisby
         .create('Delete item type')
         .delete(baseUrl + '/item_type/' + id)
         .expectStatus(HttpStatus.NO_CONTENT)
@@ -100,7 +100,7 @@ function deleteItemType(id, callback) {
 
 
 function tryGetMissingItemType(id, callback) {
-    return frisby
+    frisby
         .create('Try to get missing item type')
         .get(baseUrl + '/item_type/' + id)
         .expectStatus(HttpStatus.NOT_FOUND)
