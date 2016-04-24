@@ -85,7 +85,17 @@ router.post('/:listId/item', function(req, res) {
 router.patch('/:listId/item/:itemId', function(req, res) {
     var listId = req.params.listId;
     var itemId = req.params.itemId;
-    var newQuantity = req.body.shopping_list_item.quantity;
+
+    var reqItem = req.body.shopping_list_item;
+
+    var updateAttributes = {};
+    if (reqItem.quantity) {
+        updateAttributes.quantity = reqItem.quantity;
+    }
+
+    if (reqItem.in_cart) {
+        updateAttributes.inCart = reqItem.in_cart;
+    }
 
     actions.findAndUpdate(
         res,
@@ -94,9 +104,7 @@ router.patch('/:listId/item/:itemId', function(req, res) {
                 shoppingListId: req.params.listId,
                 id: req.params.itemId
             }
-        }, {
-            quantity: newQuantity
-        }
+        }, updateAttributes
     );
 });
 
@@ -111,24 +119,6 @@ router.delete('/:listId/item/:itemId', function(req, res) {
                 shoppingListId: req.params.listId,
                 id: req.params.itemId
             }
-        }
-    );
-});
-
-router.post('/:listId/item/:itemId/cart', function(req, res) {
-    var listId = req.params.listId;
-    var itemId = req.params.itemId;
-
-    actions.findAndUpdate(
-        res,
-        ShoppingListItem, {
-            where: {
-                shoppingListId: listId,
-                id: itemId,
-                inCart: false
-            }
-        }, {
-            inCart: true
         }
     );
 });

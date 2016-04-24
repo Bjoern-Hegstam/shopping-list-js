@@ -172,11 +172,18 @@ function deleteItem(listId, itemId, callback) {
 
 function addItemToCart(listId, itemId, callback) {
     return frisby
-    .create('Add item to cart')
-    .post(baseUrl + '/shopping_list/' + listId + '/item/' + itemId + '/cart')
-    .expectStatus(HttpStatus.OK)
-    .after(callback || noop)
-    .toss();
+        .create('Add item to cart')
+        .patch(baseUrl + '/shopping_list/' + listId + '/item/' + itemId, {
+            shopping_list_item: {
+                in_cart: true
+            }
+        }, { json: true })
+        .expectStatus(HttpStatus.OK)
+        .expectJSON('shopping_list_item', {
+            in_cart: 'true'
+        })
+        .after(callback || noop)
+        .toss();
 }
 
 function deleteInCartItems(listId, callback) {
