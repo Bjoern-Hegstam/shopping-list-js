@@ -50,6 +50,6 @@ TODO
 
 * Convert server-side code to ES6, checkout babel for client-side js?
 
-* Keep current error reponse for api requests, but add a proper error page for non-api requests.
+* Keep current error reponse for api requests, but add a proper error page for non-api requests. (Flash error message over navbar?)
 
 * Sanitize input
