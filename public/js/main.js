@@ -72,9 +72,9 @@ $(document).ready(function() {
             var isInCart = $shoppingListItem.hasClass('in-cart');
 
             updateShoppingListItem($shoppingListItem, { in_cart: !isInCart })
-            .done(function(result) {
-                $shoppingListItem.toggleClass('in-cart');
-            });
+                .done(function(result) {
+                    $shoppingListItem.toggleClass('in-cart');
+                });
         });
 
 
