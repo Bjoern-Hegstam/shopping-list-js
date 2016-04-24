@@ -26,7 +26,7 @@ $(document).ready(function() {
         });
 
 
-    var $selectNameInput = $nameInput
+    var $nameInputSelect = $nameInput
         .selectize({
             valueField: 'id',
             labelField: 'name',
@@ -58,7 +58,7 @@ $(document).ready(function() {
 
     $addItemModal
         .on('shown.bs.modal', function focusOnNameInput() {
-            $selectNameInput[0].selectize.focus();
+            $nameInputSelect[0].selectize.focus();
         });
 
 
