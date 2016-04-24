@@ -22,16 +22,16 @@ $(document).ready(function() {
     $shoppingList
         .find('.btn-finish-shopping')
         .click(function clearInCartItems() {
-            var $inCartItems = $shoppingList .find('.in-cart');
+            var $inCartItems = $shoppingList.find('.in-cart');
             if ($inCartItems.length === 0) {
                 return;
             }
 
-            deleteItemsInCart(getId($shoppingList))
+            Db.deleteItemsInCart(getId($shoppingList))
                 .done(function(result) {
                     $shoppingList
-                    .find('.in-cart')
-                    .remove();
+                        .find('.in-cart')
+                        .remove();
                 });
         });
 
@@ -53,14 +53,14 @@ $(document).ready(function() {
                     return callback();
                 }
 
-                findItemTypesWithNameLike(query, 5)
+                Db.findItemTypesWithNameLike(query, 5)
                     .done(function(result) {
                         callback(result.item_type);
                     });
             },
             create: function(input, callback) {
                 var self = this;
-                createItemType(input)
+                Db.createItemType(input)
                     .done(function(result) {
                         $addItemModal.modal('hide');
                         addToShoppingList(result.item_type.id);
@@ -81,7 +81,7 @@ $(document).ready(function() {
             var $shoppingListItem = $(this);
             var isInCart = $shoppingListItem.hasClass('in-cart');
 
-            updateShoppingListItem($shoppingListItem, { in_cart: !isInCart })
+            Db.updateShoppingListItem($shoppingListItem, { in_cart: !isInCart })
                 .done(function(result) {
                     $shoppingListItem.toggleClass('in-cart');
                 });
@@ -107,36 +107,16 @@ $(document).ready(function() {
         });
 
 
-    function shoppingListItemApiLink($shoppingListItem) {
-        return '../api/shopping_list/' + getId($shoppingList) + '/item/' + getId($shoppingListItem);
-    }
-
-
     function getId($object) {
         return $object.attr('data-id');
     }
 
 
     function addToShoppingList(itemTypeId) {
-        var listId = getId($shoppingList);
-
-        var data = {
-            shopping_list_item: {
-                item_type_id: itemTypeId,
-                quantity: 1
-            }
-        };
-
-        $.ajax({
-            url: '../api/shopping_list/' + listId + '/item',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            success: function(result) {
+        Db.addToShoppingList(getId($shoppingList), itemTypeId)
+            .done(function(result) {
                 console.log(JSON.stringify(result.shopping_list_item, null, 2));
-            },
-            error: ajaxErrorHandler
-        });
+            });
     }
 
 
@@ -146,85 +126,97 @@ $(document).ready(function() {
         var quantity = +($quantity.text());
 
         if (quantity + dQuantity <= 0) {
-            deleteShoppingListItem($shoppingListItem);
+            Db.deleteShoppingListItem($shoppingListItem)
+                .done(function() {
+                    $shoppingListItem.remove();
+                });
             return;
         }
 
-        var data = {
-            shopping_list_item: {
-                quantity: quantity + dQuantity
-            }
-        };
-
-        updateShoppingListItem($shoppingListItem, { quantity: quantity + dQuantity })
+        Db.updateShoppingListItem($shoppingListItem, { quantity: quantity + dQuantity })
             .done(function(result) {
                 $quantity.html(result.shopping_list_item.quantity);
             });
     }
 
 
-    function deleteShoppingListItem($shoppingListItem) {
-        $.ajax({
-            url: shoppingListItemApiLink($shoppingListItem),
-            type: 'DELETE',
-            success: function(result) {
-                $shoppingListItem.remove();
-            },
-            error: ajaxErrorHandler
-        });
-    }
-
-
-    function updateShoppingListItem($shoppingListItem, values) {
-        var data = {
-            shopping_list_item: values
-        };
-
-        return $.ajax({
-            url: shoppingListItemApiLink($shoppingListItem),
-            type: 'PATCH',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            error: ajaxErrorHandler
-        });
-    }
-
-
-    function deleteItemsInCart(listId) {
-        return $.ajax({
-            url: '../api/shopping_list/' + listId + '/cart',
-            type: 'DELETE',
-            error: ajaxErrorHandler
-        });
-    }
-
-
-    function findItemTypesWithNameLike(nameStart, limit, callback) {
-        return $.ajax({
-            url: '../api/item_type?name=' + nameStart + '&limit=' + limit,
-            type: 'GET',
-            error: ajaxErrorHandler
-        });
-    }
-
-
-    function createItemType(name, callback) {
-        var data = {
-            item_type: {
-                name: name
-            }
-        };
-
-        return $.ajax({
-            url: '../api/item_type',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            error: ajaxErrorHandler
-        });
-    }
-
+    /* AJAX CALLS */
     function ajaxErrorHandler(xhr, status, error) {
         console.log(xhr.responseText);
     }
+
+    var Db = {
+        addToShoppingList: function(listId, itemTypeId) {
+            var data = {
+                shopping_list_item: {
+                    item_type_id: itemTypeId,
+                    quantity: 1
+                }
+            };
+
+            return $.ajax({
+                url: '../api/shopping_list/' + listId + '/item',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                error: ajaxErrorHandler
+            });
+        },
+
+        deleteShoppingListItem: function($shoppingListItem) {
+            return $.ajax({
+                url: '../api/shopping_list/' + getId($shoppingList) + '/item/' + getId($shoppingListItem),
+                type: 'DELETE',
+                error: ajaxErrorHandler
+            });
+        },
+
+        updateShoppingListItem: function($shoppingListItem, values) {
+            var data = {
+                shopping_list_item: values
+            };
+
+            return $.ajax({
+                url: '../api/shopping_list/' + getId($shoppingList) + '/item/' + getId($shoppingListItem),
+                type: 'PATCH',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                error: ajaxErrorHandler
+            });
+        },
+
+        deleteItemsInCart: function(listId) {
+            return $.ajax({
+                url: '../api/shopping_list/' + listId + '/cart',
+                type: 'DELETE',
+                error: ajaxErrorHandler
+            });
+        },
+
+
+        findItemTypesWithNameLike: function(nameStart, limit, callback) {
+            return $.ajax({
+                url: '../api/item_type?name=' + nameStart + '&limit=' + limit,
+                type: 'GET',
+                error: ajaxErrorHandler
+            });
+        },
+
+
+        createItemType: function(name, callback) {
+            var data = {
+                item_type: {
+                    name: name
+                }
+            };
+
+            return $.ajax({
+                url: '../api/item_type',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                error: ajaxErrorHandler
+            });
+        }
+    };
 });
