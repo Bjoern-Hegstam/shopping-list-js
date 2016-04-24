@@ -39,11 +39,11 @@ $(document).ready(function() {
     $shoppingList
         .find('.btn-add-item')
         .click(function addItemToList() {
-            $addItemModal.modal('show');
+            $addItemModal.modal();
         });
 
 
-    $nameInput
+    var $selectNameInput = $nameInput
         .selectize({
             valueField: 'id',
             labelField: 'name',
@@ -70,6 +70,12 @@ $(document).ready(function() {
                 $addItemModal.modal('hide');
                 addToShoppingList(value);
             }
+        });
+
+
+    $addItemModal
+        .on('shown.bs.modal', function focusOnNameInput() {
+            $selectNameInput[0].selectize.focus();
         });
 
 
