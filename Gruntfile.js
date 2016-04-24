@@ -101,7 +101,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-wiredep');
     grunt.loadNpmTasks('grunt-concurrent');
 
-    grunt.registerTask('test', ['env:test', 'nodeunit:all']);
+    grunt.registerTask('test', 'nodeunit:all');
     grunt.registerTask('apitest', 'concurrent:apitest');
     grunt.registerTask('default', 'concurrent:dev');
 };
