@@ -22,7 +22,17 @@ $(document).ready(function() {
     $shoppingList
         .find('.btn-finish-shopping')
         .click(function clearInCartItems() {
-            console.log('Done shopping');
+            var $inCartItems = $shoppingList .find('.in-cart');
+            if ($inCartItems.length === 0) {
+                return;
+            }
+
+            deleteItemsInCart(getId($shoppingList))
+                .done(function(result) {
+                    $shoppingList
+                    .find('.in-cart')
+                    .remove();
+                });
         });
 
 
@@ -175,6 +185,15 @@ $(document).ready(function() {
             type: 'PATCH',
             contentType: 'application/json',
             data: JSON.stringify(data),
+            error: ajaxErrorHandler
+        });
+    }
+
+
+    function deleteItemsInCart(listId) {
+        return $.ajax({
+            url: '../api/shopping_list/' + listId + '/cart',
+            type: 'DELETE',
             error: ajaxErrorHandler
         });
     }
