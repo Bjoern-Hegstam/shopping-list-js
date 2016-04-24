@@ -68,10 +68,6 @@ $(document).ready(function() {
 
     $shoppingListItems
         .click(function toggleItemInCart(e) {
-            if (e.target != this) {
-                return;
-            }
-
             var $shoppingListItem = $(this);
             var isInCart = $shoppingListItem.hasClass('in-cart');
 
@@ -84,7 +80,9 @@ $(document).ready(function() {
 
     $shoppingListItems
         .find('.btn-item-inc')
-        .click(function incrementQuantity() {
+        .click(function incrementQuantity(e) {
+            e.stopPropagation();
+
             updateItemQuantity($(this).parents('.shopping-list-item'), 1);
         });
 
@@ -92,7 +90,9 @@ $(document).ready(function() {
 
     $shoppingListItems
         .find('.btn-item-dec')
-        .click(function decrementQuantity() {
+        .click(function decrementQuantity(e) {
+            e.stopPropagation();
+
             updateItemQuantity($(this).parents('.shopping-list-item'), -1);
         });
 
