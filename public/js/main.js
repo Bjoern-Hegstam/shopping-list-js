@@ -72,7 +72,13 @@ $(document).ready(function() {
                 return;
             }
 
-            console.log('Clicked item: ' + this.getAttribute('data-id'));
+            var $shoppingListItem = $(this);
+            var isInCart = $shoppingListItem.hasClass('in-cart');
+
+            updateShoppingListItem($shoppingListItem, { in_cart: !isInCart })
+            .done(function(result) {
+                $shoppingListItem.toggleClass('in-cart');
+            });
         });
 
 
@@ -92,10 +98,7 @@ $(document).ready(function() {
 
 
     function shoppingListItemApiLink($shoppingListItem) {
-        return '../api/shopping_list/' +
-            getId($shoppingList) +
-            '/item/' +
-            getId($shoppingListItem);
+        return '../api/shopping_list/' + getId($shoppingList) + '/item/' + getId($shoppingListItem);
     }
 
 
@@ -163,6 +166,21 @@ $(document).ready(function() {
             success: function(result) {
                 $shoppingListItem.remove();
             },
+            error: ajaxErrorHandler
+        });
+    }
+
+
+    function updateShoppingListItem($shoppingListItem, values) {
+        var data = {
+            shopping_list_item: values
+        };
+
+        return $.ajax({
+            url: shoppingListItemApiLink($shoppingListItem),
+            type: 'PATCH',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
             error: ajaxErrorHandler
         });
     }

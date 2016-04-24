@@ -93,7 +93,7 @@ router.patch('/:listId/item/:itemId', function(req, res) {
         updateAttributes.quantity = reqItem.quantity;
     }
 
-    if (reqItem.in_cart) {
+    if (typeof reqItem.in_cart === 'boolean') {
         updateAttributes.inCart = reqItem.in_cart;
     }
 
