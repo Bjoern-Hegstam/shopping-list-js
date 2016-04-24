@@ -46,11 +46,10 @@ General data structure:
 TODO
 ---------
 
+* Update list when adding new item. Look into handlebars rendering on the client.
+
 * Convert server-side code to ES6, checkout babel for client-side js?
 
 * Keep current error reponse for api requests, but add a proper error page for non-api requests.
-
-* Change all DB-calls in main.js to return $.ajax instead of baking in the callback in the success attribute.
-  * Also extract all DB-calls to separate js-file
 
 * Sanitize input
