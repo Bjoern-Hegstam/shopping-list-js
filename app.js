@@ -20,7 +20,15 @@ app.use('/api/item_type', itemTypeRoutes);
 app.use('/api/shopping_list', shoppingListRoutes);
 
 // views
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+var hbs = exphbs.create({
+    defaultLayout: 'main',
+    helpers: {
+        toggleClass: function(val, classTrue, classFalse) {
+            return val === 'true' ? classTrue : classFalse;
+        }
+    }
+});
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 // static
