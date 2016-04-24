@@ -37,7 +37,7 @@ server.on('listening', onListening);
 
 var syncOptions = {};
 if (process.env.NODE_ENV === 'test') {
-    syncOptions.forceSync = true;
+    syncOptions.force = true;
     syncOptions.match = /_test$/;
 }
 
