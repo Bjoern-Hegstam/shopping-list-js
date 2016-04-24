@@ -1,18 +1,18 @@
 "use strict";
 
-var models = require("../models");
-var express = require("express");
-var HttpStatus = require('http-status-codes');
-var responseFormatter = require("./responseFormatter.js");
-var actions = require('./actions.js');
+const models = require("../models");
+const express = require("express");
+const HttpStatus = require('http-status-codes');
+const responseFormatter = require("./responseFormatter.js");
+const actions = require('./actions.js');
 
-var router = express.Router();
+const router = express.Router();
 
-var ItemType = models.itemType;
+const ItemType = models.itemType;
 
-router.get('/', function(req, res) {
-    var where = {};
-    var searchOptions = { where: where };
+router.get('/', (req, res) => {
+    const where = {};
+    const searchOptions = { where: where };
 
     if (req.query.name) {
         where.name = {
@@ -27,12 +27,12 @@ router.get('/', function(req, res) {
     actions.findAll(res, ItemType, searchOptions);
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/:id', (req, res, next) => {
     actions.getById(res, ItemType, req.params.id);
 });
 
-router.post('/', function(req, res) {
-    var name = req.body.item_type.name;
+router.post('/', (req, res) => {
+    const name = req.body.item_type.name;
     ItemType
         .findAll({
             where: {
@@ -41,29 +41,29 @@ router.post('/', function(req, res) {
                 }
             }
         })
-        .then(function(itemTypes) {
+        .then(itemTypes => {
             if (itemTypes.length > 0) {
                 res.sendStatus(HttpStatus.CONFLICT);
             } else {
                 ItemType
                     .create(req.body.item_type)
-                    .then(function(itemType) {
+                    .then(itemType => {
                         res
                             .status(HttpStatus.CREATED)
                             .send(responseFormatter.formatSingleItemResponse(itemType));
-                    }, function(err) {
+                    }, err => {
                         res.sendStatus(HttpStatus.NOT_FOUND);
                     });
             }
         });
 });
 
-router.patch('/:id', function(req, res) {
-    var newName = req.body.item_type.name;
+router.patch('/:id', (req, res) => {
+    const newName = req.body.item_type.name;
 
     ItemType
         .findById(req.params.id)
-        .then(function(itemType) {
+        .then(itemType => {
             if (!itemType) {
                 res.sendStatus(HttpStatus.NOT_FOUND);
             } else {
@@ -71,7 +71,7 @@ router.patch('/:id', function(req, res) {
                     .update({
                         name: newName
                     })
-                    .then(function(savedItemType) {
+                    .then(savedItemType => {
                         res
                             .status(HttpStatus.OK)
                             .send(responseFormatter.formatSingleItemResponse(savedItemType));
@@ -80,16 +80,16 @@ router.patch('/:id', function(req, res) {
         });
 });
 
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', (req, res, next) => {
     ItemType
         .findById(req.params.id)
-        .then(function(itemType) {
+        .then(itemType => {
             if (!itemType) {
                 res.sendStatus(HttpStatus.NOT_FOUND);
             } else {
                 itemType
                     .destroy()
-                    .then(function() {
+                    .then(() => {
                         res.sendStatus(HttpStatus.NO_CONTENT);
                     });
             }

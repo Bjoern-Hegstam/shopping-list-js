@@ -1,7 +1,7 @@
-var HttpStatus = require('http-status-codes');
-var frisby = require('frisby');
+const HttpStatus = require('http-status-codes');
+const frisby = require('frisby');
 
-var baseUrl = 'http://localhost:3000/api';
+const baseUrl = 'http://localhost:3000/api';
 
 /* TESTS */
 frisby
@@ -15,7 +15,7 @@ frisby
     .toss();
 
 createItemType('apiTest_shoppingList_1', itemTypeJSON => {
-    var itemTypeId = itemTypeJSON.item_type.id;
+    const itemTypeId = itemTypeJSON.item_type.id;
 
     setupListWithOneItem(itemTypeId, (listId, itemId) => {
         tryAddItemTypeAlreadyInList(listId, itemTypeId, () => {
@@ -28,7 +28,7 @@ createItemType('apiTest_shoppingList_1', itemTypeJSON => {
 
 
 createItemType('apiTest_shoppingList_2', itemTypeJSON => {
-    var itemTypeId = itemTypeJSON.item_type.id;
+    const itemTypeId = itemTypeJSON.item_type.id;
 
     setupListWithOneItem(itemTypeId, (listId, itemId) => {
         deleteInCartItems(listId, () => {
@@ -39,7 +39,7 @@ createItemType('apiTest_shoppingList_2', itemTypeJSON => {
 
 
 createItemType('apiTest_shoppingList_3', itemTypeJSON => {
-    var itemTypeId = itemTypeJSON.item_type.id;
+    const itemTypeId = itemTypeJSON.item_type.id;
 
     setupListWithOneItem(itemTypeId, (listId, itemId) => {
         addItemToCart(listId, itemId, () => {
@@ -55,7 +55,7 @@ createItemType('apiTest_shoppingList_3', itemTypeJSON => {
 /* HELPERS */
 function setupListWithOneItem(itemTypeId, callback) {
     createShoppingList(shoppingListJSON => {
-        var listId = shoppingListJSON.shopping_list.id;
+        const listId = shoppingListJSON.shopping_list.id;
         addItem(listId, itemTypeId, (listItemJSON) => {
             callback(listId, listItemJSON.shopping_list_item.id);
         });

@@ -1,7 +1,7 @@
-var HttpStatus = require('http-status-codes');
-var frisby = require('frisby');
+const HttpStatus = require('http-status-codes');
+const frisby = require('frisby');
 
-var baseUrl = 'http://localhost:3000/api';
+const baseUrl = 'http://localhost:3000/api';
 
 frisby
     .create('Get all item types')
@@ -14,7 +14,7 @@ frisby
     .toss();
 
 createItemType('apiTest_itemType_1', json => {
-    var id = json.item_type.id;
+    const id = json.item_type.id;
     getItemType(id, () => {
         changeItemTypeName(id, () => {
             deleteItemType(id, () => {

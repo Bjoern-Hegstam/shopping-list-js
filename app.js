@@ -1,26 +1,26 @@
 'use strict';
 
 // Modules
-var express = require('express');
-var models = require('./models');
-var bodyParser = require('body-parser');
-var exphbs = require('express-handlebars');
+const express = require('express');
+const models = require('./models');
+const bodyParser = require('body-parser');
+const exphbs = require('express-handlebars');
 
-var app = express();
+const app = express();
 
 app.use(bodyParser.json());
 
 // Routes
-var routes = require('./routes/index');
-var itemTypeRoutes = require('./routes/itemType.js');
-var shoppingListRoutes = require('./routes/shoppingList.js');
+const routes = require('./routes/index');
+const itemTypeRoutes = require('./routes/itemType.js');
+const shoppingListRoutes = require('./routes/shoppingList.js');
 
 app.use('/', routes);
 app.use('/api/item_type', itemTypeRoutes);
 app.use('/api/shopping_list', shoppingListRoutes);
 
 // views
-var hbs = exphbs.create({
+const hbs = exphbs.create({
     defaultLayout: 'main',
     helpers: {
         toggleClass: function(val, classTrue, classFalse) {
@@ -37,8 +37,8 @@ app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+app.use((req, res, next) => {
+    const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
@@ -48,14 +48,14 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development' || app.get('env') === 'test') {
-    app.use(function(err, req, res, next) {
+    app.use((err, req, res, next) => {
         res.status(err.status || 500).send(JSON.stringify(err));
     });
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
     res.status(err.status || 500).send(err.message);
 });
 

@@ -1,14 +1,14 @@
 "use strict";
 
-var models = require("../models");
-var express = require("express");
-var router = express.Router();
+const models = require("../models");
+const express = require("express");
+const router = express.Router();
 
-var ShoppingList = models.shoppingList;
-var ShoppingListItem = models.shoppingListItem;
-var ItemType = models.itemType;
+const ShoppingList = models.shoppingList;
+const ShoppingListItem = models.shoppingListItem;
+const ItemType = models.itemType;
 
-var responseFormatter = require("./responseFormatter.js");
+const responseFormatter = require("./responseFormatter.js");
 
 router.get("/", (req, res) => {
     res.redirect("/shopping-lists");
@@ -23,7 +23,7 @@ router.get("/shopping-lists", (req, res) => {
 });
 
 router.get("/shopping_list/:id", (req, res) => {
-    var respData;
+    let respData;
 
     ShoppingList
         .findById(req.params.id)
@@ -41,7 +41,7 @@ router.get("/shopping_list/:id", (req, res) => {
         })
         .then(items => {
             respData.shopping_list.items = items.map(item => {
-                var itemData = item.toSimpleJSON();
+                const itemData = item.toSimpleJSON();
                 itemData.item_type = item.itemType.toSimpleJSON();
 
                 return itemData;

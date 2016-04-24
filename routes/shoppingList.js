@@ -1,37 +1,37 @@
 "use strict";
 
-var models = require("../models");
-var express = require("express");
-var HttpStatus = require('http-status-codes');
-var responseFormatter = require("./responseFormatter.js");
-var actions = require('./actions.js');
+const models = require("../models");
+const express = require("express");
+const HttpStatus = require('http-status-codes');
+const responseFormatter = require("./responseFormatter.js");
+const actions = require('./actions.js');
 
-var router = express.Router();
+const router = express.Router();
 
-var ShoppingList = models.shoppingList;
-var ShoppingListItem = models.shoppingListItem;
+const ShoppingList = models.shoppingList;
+const ShoppingListItem = models.shoppingListItem;
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
     actions.findAll(res, ShoppingList);
 });
 
-router.get('/:listId', function(req, res) {
+router.get('/:listId', (req, res) => {
     actions.getById(res, ShoppingList, req.params.listId);
 });
 
-router.post('/', function(req, res) {
+router.post('/', (req, res) => {
     ShoppingList
         .create(req.body.shopping_list)
-        .then(function(shoppingList) {
+        .then(shoppingList => {
             res
                 .status(HttpStatus.CREATED)
                 .send(responseFormatter.formatSingleItemResponse(shoppingList));
-        }, function(err) {
+        }, err => {
             res.sendStatus(HttpStatus.NOT_FOUND);
         });
 });
 
-router.get('/:listId/item', function(req, res) {
+router.get('/:listId/item', (req, res) => {
     actions.findAll(
         res,
         ShoppingListItem, {
@@ -41,7 +41,7 @@ router.get('/:listId/item', function(req, res) {
         });
 });
 
-router.get('/:listId/item/:itemId', function(req, res) {
+router.get('/:listId/item/:itemId', (req, res) => {
     actions.findOne(
         res,
         ShoppingListItem, {
@@ -53,8 +53,8 @@ router.get('/:listId/item/:itemId', function(req, res) {
     );
 });
 
-router.post('/:listId/item', function(req, res) {
-    var data = req.body.shopping_list_item;
+router.post('/:listId/item', (req, res) => {
+    const data = req.body.shopping_list_item;
 
     ShoppingListItem
         .findAll({
@@ -63,7 +63,7 @@ router.post('/:listId/item', function(req, res) {
                 itemTypeId: data.item_type_id
             }
         })
-        .then(function(items) {
+        .then(items => {
             if (items.length > 0) {
                 res.sendStatus(HttpStatus.CONFLICT);
             } else {
@@ -73,7 +73,7 @@ router.post('/:listId/item', function(req, res) {
                         itemTypeId: data.item_type_id,
                         quantity: data.quantity
                     })
-                    .then(function(item) {
+                    .then(item => {
                         res
                             .status(HttpStatus.CREATED)
                             .send(responseFormatter.formatSingleItemResponse(item));
@@ -82,13 +82,13 @@ router.post('/:listId/item', function(req, res) {
         });
 });
 
-router.patch('/:listId/item/:itemId', function(req, res) {
-    var listId = req.params.listId;
-    var itemId = req.params.itemId;
+router.patch('/:listId/item/:itemId', (req, res) => {
+    const listId = req.params.listId;
+    const itemId = req.params.itemId;
 
-    var reqItem = req.body.shopping_list_item;
+    const reqItem = req.body.shopping_list_item;
 
-    var updateAttributes = {};
+    const updateAttributes = {};
     if (reqItem.quantity) {
         updateAttributes.quantity = reqItem.quantity;
     }
@@ -108,9 +108,9 @@ router.patch('/:listId/item/:itemId', function(req, res) {
     );
 });
 
-router.delete('/:listId/item/:itemId', function(req, res) {
-    var listId = req.params.listId;
-    var itemId = req.params.itemId;
+router.delete('/:listId/item/:itemId', (req, res) => {
+    const listId = req.params.listId;
+    const itemId = req.params.itemId;
 
     actions.findAndDestroy(
         res,
@@ -123,9 +123,9 @@ router.delete('/:listId/item/:itemId', function(req, res) {
     );
 });
 
-router.delete('/:listId/cart', function(req, res) {
-    var listId = req.params.listId;
-    var itemId = req.params.itemId;
+router.delete('/:listId/cart', (req, res) => {
+    const listId = req.params.listId;
+    const itemId = req.params.itemId;
 
     actions.findAndDestroy(
         res,

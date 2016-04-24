@@ -1,13 +1,13 @@
 "use strict";
 
-var fs = require("fs");
-var path = require("path");
-var Sequelize = require("sequelize");
-var env = process.env.NODE_ENV || "development";
-var debug = require("debug")("models:index");
-var config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
-var sequelize = new Sequelize(config.database, config.username, config.password, config);
-var db = {};
+const fs = require("fs");
+const path = require("path");
+const Sequelize = require("sequelize");
+const env = process.env.NODE_ENV || "development";
+const debug = require("debug")("models:index");
+const config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
+const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const db = {};
 
 debug('db config: ' + JSON.stringify(config, null, 2));
 
@@ -16,7 +16,7 @@ fs
     .filter(isModelFile)
     .forEach(loadModel);
 
-Object.keys(db).forEach(function(modelName) {
+Object.keys(db).forEach(modelName => {
     if ("associate" in db[modelName]) {
         db[modelName].associate(db);
     }
@@ -33,6 +33,6 @@ function isModelFile(file) {
 
 function loadModel(file) {
     debug("Loading: " + file);
-    var model = sequelize.import(path.join(__dirname, file));
+    const model = sequelize.import(path.join(__dirname, file));
     db[model.name] = model;
 }
