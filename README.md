@@ -46,18 +46,7 @@ General data structure:
 TODO
 ---------
 
-* Simplify data format for API.
-  * Checkout frisby for migrating postman tests to pure code
-
 * Convert server-side code to ES6, checkout babel for client-side js?
-
-* Implement DELETE /api/shopping_list/1/cart
-
-* Add option to add item type to shopping list
-  * from existing item types
-  * or from a newly created item type
-
-  Would be cool to do the, not uncommon feature, where you start with a dropdown with a selection of the most common item types. Then you can type to narrow down the selection.
 
 * Keep current error reponse for api requests, but add a proper error page for non-api requests.
 
@@ -65,3 +54,5 @@ TODO
   * Also extract all DB-calls to separate js-file
 
 * Prevent creation of item types with same name
+
+* Sanitize input
