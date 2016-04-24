@@ -146,16 +146,10 @@ $(document).ready(function() {
             }
         };
 
-        $.ajax({
-            url: shoppingListItemApiLink($shoppingListItem),
-            type: 'PATCH',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            success: function(result) {
+        updateShoppingListItem($shoppingListItem, { quantity: quantity + dQuantity })
+            .done(function(result) {
                 $quantity.html(result.shopping_list_item.quantity);
-            },
-            error: ajaxErrorHandler
-        });
+            });
     }
 
 
