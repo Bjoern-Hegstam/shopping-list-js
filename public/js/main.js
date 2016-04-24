@@ -1,11 +1,10 @@
 $(document).ready(function() {
+    // Navigation bar
     var setActiveNavItem = function() {
         var url = window.location;
 
         $('ul.nav a')
             .filter(function() {
-                console.log(this.href);
-
                 return this.href == url;
             })
             .parent()
