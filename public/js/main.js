@@ -64,14 +64,16 @@ $(document).ready(function() {
 
     $addItemModal
         .on('hidden.bs.modal', function clearNameInput() {
-           $nameInputSelect[0].selectize.clear();
+            $nameInputSelect[0].selectize.clear();
         });
 
-    var $shoppingListItems = $shoppingList.find('.shopping-list-item');
 
+    // Shopping list item event handlers are attached to the wrapping ul-tag to
+    // keep triggering the handlers for dynamically added items.
+    var $shoppingListItems = $('.shopping-list-items');
 
     $shoppingListItems
-        .click(function toggleItemInCart(e) {
+        .on('click', '.shopping-list-item', function toggleItemInCart(e) {
             var $shoppingListItem = $(this);
             var isInCart = $shoppingListItem.hasClass('in-cart');
 
@@ -83,18 +85,14 @@ $(document).ready(function() {
 
 
     $shoppingListItems
-        .find('.btn-item-inc')
-        .click(function incrementQuantity(e) {
+        .on('click', '.btn-item-inc', function incrementQuantity(e) {
             e.stopPropagation();
 
             updateItemQuantity($(this).parents('.shopping-list-item'), 1);
         });
 
-
-
     $shoppingListItems
-        .find('.btn-item-dec')
-        .click(function decrementQuantity(e) {
+        .on('click', '.btn-item-dec', function decrementQuantity(e) {
             e.stopPropagation();
 
             updateItemQuantity($(this).parents('.shopping-list-item'), -1);
