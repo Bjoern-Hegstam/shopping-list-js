@@ -41,8 +41,6 @@ General data structure:
 TODO
 ---------
 
-* Update list when adding new item. Look into handlebars rendering on the client.
-
 * Keep current error reponse for api requests, but add a proper error page for non-api requests. (Flash error message over navbar?)
 
 * Sanitize input
