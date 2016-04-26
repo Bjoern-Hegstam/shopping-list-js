@@ -74,9 +74,22 @@ router.post('/:listId/item', (req, res) => {
                         quantity: data.quantity
                     })
                     .then(item => {
-                        res
-                            .status(HttpStatus.CREATED)
-                            .send(responseFormatter.formatSingleItemResponse(item));
+                        const responseData = responseFormatter.formatSingleItemResponse(item);
+                        if (req.accepts('html')) {
+                            item.getItemType()
+                                .then(itemType => {
+                                    const context = responseData.shopping_list_item;
+                                    context.item_type = responseFormatter
+                                        .formatSingleItemResponse(itemType)
+                                        .item_type;
+                                    context.layout = false;
+                                    res.render('partials/shopping_list_item', context);
+                                });
+
+                        } else {
+                            res.status(HttpStatus.CREATED)
+                                .send(responseData);
+                        }
                     });
             }
         });

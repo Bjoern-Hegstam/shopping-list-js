@@ -109,7 +109,7 @@ $(document).ready(function() {
     function addToShoppingList(itemTypeId) {
         Db.addToShoppingList(getId($shoppingList), itemTypeId)
             .done(function(result) {
-                console.log(JSON.stringify(result.shopping_list_item, null, 2));
+                $('.shopping-list-items').append(result);
             });
     }
 
@@ -169,6 +169,7 @@ $(document).ready(function() {
                 url: '../api/shopping_list/' + listId + '/item',
                 type: 'POST',
                 contentType: 'application/json',
+                accept: 'text/html',
                 data: JSON.stringify(data),
                 error: ajaxErrorHandler
             });
