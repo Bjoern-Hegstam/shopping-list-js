@@ -41,6 +41,14 @@ General data structure:
 TODO
 ---------
 
+* Administration tools for
+  * Shopping lists
+  * Item types
+
+* Bug: Have to reload page to add new item after a new item type was created.
+
+* Make navbar collapsible
+
 * Keep current error reponse for api requests, but add a proper error page for non-api requests. (Flash error message over navbar?)
 
 * Sanitize input
