@@ -47,6 +47,10 @@ $(document).ready(function() {
                     .done(function(result) {
                         $addItemModal.modal('hide');
                         addToShoppingList(result.item_type.id);
+
+                        // Must be called or the selectized input can't be used
+                        // again without a reload.
+                        callback();
                     });
             },
             onItemAdd: function(value, $item) {
