@@ -4,7 +4,7 @@ const itemTypeRoutes = require('./api/itemType.js');
 const shoppingListRoutes = require('./api/shoppingList.js');
 
 exports.use = function(app, checkAuth) {
-    app.use('/login', login);
+    app.use('/', login);
 
     app.use('/', checkAuth, routes);
     app.use('/api/item_type', checkAuth, itemTypeRoutes);

@@ -24,8 +24,6 @@ app.use('/static', express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 function checkAuth(req, res, next) {
-    console.log('checkAuth');
-
     if (req.session.userId) {
         return next();
     }

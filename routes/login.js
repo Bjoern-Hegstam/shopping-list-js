@@ -4,14 +4,17 @@ const models = require("models");
 const express = require("express");
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    console.log('login');
+router.get('/login', (req, res) => {
     res.render('login');
 });
 
-router.post('/', (req, res) => {
-    console.log('Logging in');
+router.post('/login', (req, res) => {
     req.session.userId = 42;
+    res.redirect('/');
+});
+
+router.get('/logout', (req, res) => {
+    req.session.destroy();
     res.redirect('/');
 });
 
