@@ -2,13 +2,19 @@
 
 // Modules
 const express = require('express');
-const models = require('./models');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
+
+const models = require('./models');
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(session({
+    name: 'sessionId',
+    secret: 'verysecret'
+}));
 
 // Routes
 const routes = require('./routes/index');
