@@ -19,10 +19,20 @@ app.use(session({
     secret: 'verysecret'
 }));
 
-// Routes
-const routesManager = require('./routes/routesManager.js');
+// static
+app.use('/static', express.static(__dirname + '/public'));
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
-routesManager.use(app);
+// Routes
+app.use((req, res, next) => {
+    if (!req.session.userId) {
+        res.render('login');
+    } else {
+        next();
+    }
+});
+
+require('./routes/routesManager.js').use(app);
 
 // views
 const hbs = exphbs.create({
@@ -35,10 +45,6 @@ const hbs = exphbs.create({
 });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-
-// static
-app.use('/static', express.static(__dirname + '/public'));
-app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 
 // catch 404 and forward to error handler
