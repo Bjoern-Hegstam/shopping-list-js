@@ -12,11 +12,6 @@ $(document).ready(function() {
     };
     setActiveNavItem();
 
-    /* LOGIN */
-    $('#form-login') .on('submit', function() {
-        console.log('Log in');
-    });
-
 
     /* SHOPPING LIST */
     // Wire up shopping list buttons

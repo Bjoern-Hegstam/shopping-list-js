@@ -23,16 +23,18 @@ app.use(session({
 app.use('/static', express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
-// Routes
-app.use((req, res, next) => {
-    if (!req.session.userId) {
-        res.render('login');
-    } else {
-        next();
-    }
-});
+function checkAuth(req, res, next) {
+    console.log('checkAuth');
 
-require('./routes/routesManager.js').use(app);
+    if (req.session.userId) {
+        return next();
+    }
+
+    res.redirect('/login');
+}
+
+// Routes
+require('./routes/routesManager.js').use(app, checkAuth);
 
 // views
 const hbs = exphbs.create({

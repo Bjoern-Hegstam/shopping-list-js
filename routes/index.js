@@ -11,7 +11,7 @@ const ItemType = models.itemType;
 const responseFormatter = require("./responseFormatter.js");
 
 router.get("/", (req, res) => {
-    res.redirect("/shopping-lists");
+    res.redirect('/shopping-lists');
 });
 
 router.get("/shopping-lists", (req, res) => {
