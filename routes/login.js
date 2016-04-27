@@ -5,6 +5,11 @@ const express = require("express");
 const router = express.Router();
 
 router.get('/login', (req, res) => {
+    if (req.session.userId) {
+        res.redirect('/');
+        return;
+    }
+
     res.render('login');
 });
 
