@@ -26,7 +26,7 @@ router.get("/shopping-lists", (req, res) => {
         });
 });
 
-router.get("/shopping_list/:id", (req, res) => {
+router.get("/shopping-list/:id", (req, res) => {
     let respData;
 
     ShoppingList
