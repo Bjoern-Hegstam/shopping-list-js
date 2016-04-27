@@ -10,10 +10,6 @@ const ItemType = models.itemType;
 
 const responseFormatter = require("./responseFormatter.js");
 
-router.get("/login", (req, res) => {
-    res.render('login');
-});
-
 router.get("/", (req, res) => {
     res.redirect("/shopping-lists");
 });
