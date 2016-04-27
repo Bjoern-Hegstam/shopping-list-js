@@ -11,6 +11,7 @@
     "author": "Björn Hegstam (bjorn.hegstam@gmail.com)",
     "license": "ISC",
     "dependencies": {
+        "app-module-path": "^1.0.6",
         "async": "^2.0.0-rc.3",
         "body-parser": "^1.15.0",
         "debug": "^2.2.0",

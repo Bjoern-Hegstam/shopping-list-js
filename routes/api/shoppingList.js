@@ -1,10 +1,10 @@
 "use strict";
 
-const models = require("../models");
-const express = require("express");
+const models = require('models');
+const express = require('express');
 const HttpStatus = require('http-status-codes');
-const responseFormatter = require("./responseFormatter.js");
-const actions = require('./actions.js');
+const responseFormatter = require("./../responseFormatter.js");
+const actions = require('./../actions.js');
 
 const router = express.Router();
 

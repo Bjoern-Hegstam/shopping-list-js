@@ -1,5 +1,8 @@
 'use strict';
 
+// Add base path
+require('app-module-path').addPath(__dirname);
+
 // Modules
 const express = require('express');
 const session = require('express-session');
