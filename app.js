@@ -17,13 +17,9 @@ app.use(session({
 }));
 
 // Routes
-const routes = require('./routes/index');
-const itemTypeRoutes = require('./routes/itemType.js');
-const shoppingListRoutes = require('./routes/shoppingList.js');
+const routesManager = require('./routes/routesManager.js');
 
-app.use('/', routes);
-app.use('/api/item_type', itemTypeRoutes);
-app.use('/api/shopping_list', shoppingListRoutes);
+routesManager.use(app);
 
 // views
 const hbs = exphbs.create({
