@@ -103,5 +103,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('test', 'nodeunit:all');
     grunt.registerTask('apitest', 'concurrent:apitest');
+
+    grunt.registerTask('build', ['less', 'wiredep']);
     grunt.registerTask('default', 'concurrent:dev');
 };
