@@ -3,6 +3,9 @@
     "version": "1.0.0",
     "description": "",
     "main": "bin/www",
+    "engine": {
+        "node": "4.4.1"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/Bjoern-Hegstam/shopping-list-js",
