@@ -8,6 +8,9 @@
         "url": "https://github.com/Bjoern-Hegstam/shopping-list-js",
         "private": true
     },
+    "scripts": {
+        "start": "node bin/www"
+    },
     "author": "Björn Hegstam (bjorn.hegstam@gmail.com)",
     "license": "ISC",
     "dependencies": {
