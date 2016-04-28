@@ -3,10 +3,17 @@
     "version": "1.0.0",
     "description": "",
     "main": "bin/www",
+    "engine": {
+        "node": "4.4.1"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/Bjoern-Hegstam/shopping-list-js",
         "private": true
+    },
+    "scripts": {
+        "start": "node bin/www",
+        "postinstall": "bower install"
     },
     "author": "Björn Hegstam (bjorn.hegstam@gmail.com)",
     "license": "ISC",
@@ -14,6 +21,7 @@
         "app-module-path": "^1.0.6",
         "async": "^2.0.0-rc.3",
         "body-parser": "^1.15.0",
+        "bower": "^1.7.9",
         "debug": "^2.2.0",
         "express": "^4.13.4",
         "express-handlebars": "^3.0.0",
@@ -22,6 +30,7 @@
         "http": "0.0.0",
         "http-status-codes": "^1.0.6",
         "path": "^0.12.7",
+        "pg": "4.5.5",
         "sequelize": "^3.21.0",
         "sqlite3": "^3.1.3",
         "underscore": "^1.8.3",

@@ -6,7 +6,21 @@ const Sequelize = require("sequelize");
 const env = process.env.NODE_ENV || "development";
 const debug = require("debug")("models:index");
 const config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+
+
+let sequelize;
+if (process.env.HEROKU_POSTGRESQL_BRONZE_URL) {
+    sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
+        dialect: 'postgres',
+        protocol: 'postgres',
+        port: match[4],
+        host: match[3],
+        logging: true
+    });
+} else {
+    sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
+
 const db = {};
 
 debug('db config: ' + JSON.stringify(config, null, 2));
