@@ -9,7 +9,8 @@
         "private": true
     },
     "scripts": {
-        "start": "node bin/www"
+        "start": "node bin/www",
+        "postinstall": "bower install"
     },
     "author": "Björn Hegstam (bjorn.hegstam@gmail.com)",
     "license": "ISC",
