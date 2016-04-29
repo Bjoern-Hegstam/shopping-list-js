@@ -21,19 +21,31 @@
                 <a href="/" class="navbar-brand">shopping-list-js</a>
             </div>
             <ul class="nav navbar-nav">
+                {{#if user}}
                 <li>
                     <a href="/shopping-lists">Lists</a>
                 </li>
                 <li>
                     <a href="/item-types">Item types</a>
                 </li>
+                {{else}}
+                    <li>
+                        <a href="/login">Login</a>
+                    </li>
+                    <li>
+                        <a href="/register">Register</a>
+                    </li>
+                {{/if}}
+
 
             </ul>
+            {{#if user}}
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="/logout">Log out</a>
                 </li>
             </ul>
+            {{/if}}
         </div>
     </nav>
 

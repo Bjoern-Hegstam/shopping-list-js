@@ -4,6 +4,15 @@ const models = require("models");
 const express = require("express");
 const router = express.Router();
 
+router.get('/register', (req, res) => {
+    if (req.session.userId) {
+        res.redirect('/');
+        return;
+    }
+
+    res.render('register');
+});
+
 router.get('/login', (req, res) => {
     if (req.session.userId) {
         res.redirect('/');
