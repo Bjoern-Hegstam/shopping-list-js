@@ -13,6 +13,13 @@ module.exports = (sequelize, DataTypes) => sequelize.define('user', {
     salt: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            isEmail: true
+        }
     }
 }, {
     instanceMethods: {
@@ -21,6 +28,11 @@ module.exports = (sequelize, DataTypes) => sequelize.define('user', {
                 id: this.id.toString(),
                 name: this.username
             };
+        }
+    },
+    setterMethods: {
+        password: function(value) {
+            this.setDataValue('password', value);
         }
     }
 });
