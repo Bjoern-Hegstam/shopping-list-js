@@ -16,8 +16,15 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-    console.log(JSON.stringify(req.body, null, 2));
-    res.redirect('/');
+    User.create({
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email
+        })
+        .then(user => {
+            req.session.userId = user.id;
+            res.redirect('/');
+        });
 });
 
 router.get('/login', (req, res) => {
@@ -30,8 +37,25 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    req.session.userId = 42;
-    res.redirect('/');
+    if (!req.body.username) {
+        res.redirect('/');
+        return;
+    }
+
+    User.findAll({
+            where: {
+                username: req.body.username
+            }
+        })
+        .then(users => {
+            if (users.length == 1 && users[0].password == req.body.password) {
+                req.session.userId = users[0].id;
+            }
+            res.redirect('/');
+        }, err => {
+            console.log('Login failed');
+            res.redirect('/');
+        });
 });
 
 router.get('/logout', (req, res) => {
