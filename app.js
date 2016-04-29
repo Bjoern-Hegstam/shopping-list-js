@@ -14,6 +14,8 @@ const models = require('./models');
 const app = express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 app.use(session({
     name: 'sessionId',
     secret: 'verysecret'
@@ -23,16 +25,8 @@ app.use(session({
 app.use('/static', express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
-function authenticate(req, res, next) {
-    if (req.session.userId) {
-        return next();
-    }
-
-    res.redirect('/login');
-}
-
 // Routes
-require('./routes/routesManager.js').use(app, authenticate);
+require('./routes/routesManager.js').use(app);
 
 // views
 const hbs = exphbs.create({
