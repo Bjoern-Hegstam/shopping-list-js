@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('user', {
     },
     setterMethods: {
         password: function(value) {
+            this.setDataValue('salt', 'mySalt');
             this.setDataValue('password', value);
         }
     }
