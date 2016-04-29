@@ -13,9 +13,7 @@ if (process.env.HEROKU_POSTGRESQL_BRONZE_URL) {
     sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
         dialect: 'postgres',
         protocol: 'postgres',
-        port: match[4],
-        host: match[3],
-        logging: true
+        logging: false
     });
 } else {
     sequelize = new Sequelize(config.database, config.username, config.password, config);
