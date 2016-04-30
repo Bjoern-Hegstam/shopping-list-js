@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('user', {
             isEmail: true
         }
     },
-    confirmed: {
+    verified: {
         type: DataTypes.BOOLEAN,
         allowNull: false
     },
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('user', {
                 id: this.id.toString(),
                 name: this.username,
                 email: this.email,
-                confirmed: this.confirmed.toString(),
+                verified: this.verified.toString(),
                 role: this.role
             };
         }
