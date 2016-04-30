@@ -7,6 +7,15 @@ const router = express.Router();
 const userManagement = require('./../user_management');
 const User = models.user;
 
+router.get('/', (req, res) => {
+    if (req.session.userId) {
+        res.redirect('/shopping-list');
+    } else {
+        console.log('Need to log in');
+        res.redirect('/login');
+    }
+});
+
 router.get('/register', (req, res) => {
     if (req.session.userId) {
         res.redirect('/');
@@ -51,6 +60,7 @@ router.post('/login', (req, res) => {
         })
         .then(users => {
             if (users.length == 1 && users[0].password == req.body.password) {
+                console.log('Logging in');
                 userManagement.login(req, users[0]);
             }
             res.redirect('/');

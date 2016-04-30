@@ -11,10 +11,6 @@ const ItemType = models.itemType;
 const responseFormatter = require("./responseFormatter.js");
 
 router.get("/", (req, res) => {
-    res.redirect('/shopping-lists');
-});
-
-router.get("/shopping-lists", (req, res) => {
     ShoppingList
         .findAll()
         .then(shopppingLists => {
@@ -22,7 +18,7 @@ router.get("/shopping-lists", (req, res) => {
         });
 });
 
-router.get("/shopping-list/:id", (req, res) => {
+router.get("/:id", (req, res) => {
     let respData;
 
     ShoppingList

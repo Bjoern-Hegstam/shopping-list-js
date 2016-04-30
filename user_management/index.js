@@ -11,6 +11,8 @@ exports.logout = (req) => {
 
 exports.loadUserForSession = (req, res, next) => {
     if (req.session.userId) {
+        console.log('Loading user');
+
         User.findById(req.session.userId)
             .then(user => {
                 res.locals.current_user = user.toSimpleJSON();
@@ -28,7 +30,6 @@ exports.authIsLoggedIn = (req, res, next) => {
     if (res.locals.current_user) {
         return next();
     }
-
     res.redirect('/login');
 };
 
