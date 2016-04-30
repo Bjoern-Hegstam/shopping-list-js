@@ -1,5 +1,7 @@
 "use strict";
 
+var debug = require('debug')('login');
+
 const models = require("models");
 const express = require("express");
 const router = express.Router();
@@ -8,12 +10,10 @@ const userManagement = require('./../user_management');
 const User = models.user;
 
 router.get('/', (req, res) => {
-    console.log(res.locals);
-
     if (req.session.userId) {
         res.redirect('/shopping-list');
     } else {
-        console.log('Need to log in');
+        debug('Need to log in');
         res.redirect('/login');
     }
 });
@@ -62,19 +62,13 @@ router.post('/login', (req, res) => {
         })
         .then(users => {
             if (users.length == 1 && users[0].password == req.body.password) {
-                console.log('Logging in');
+                debug('Logging in');
                 userManagement.login(req, users[0]);
             } else {
                 req.session.error = 'Login failed';
                 res.redirect('/login');
             }
 
-        }, err => {
-            res.render('/login', {
-                error: {
-                    message: 'Something went wrong, please try again'
-                }
-            });
         });
 });
 
