@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('user', {
         allowNull: false
     },
     role: {
-        type: DataTypes.Enum('USER', 'ADMIN'),
+        type: DataTypes.ENUM('USER', 'ADMIN'),
     }
 }, {
     instanceMethods: {
