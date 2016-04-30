@@ -74,6 +74,24 @@
     </div>
     {{/if}}
 
+    {{#if info}}
+    <div class="container">
+        <div class="alert alert-info fade in">
+            <a href="#" data-dismiss="alert" aria-label="close" class="close">&times;</a>
+            <strong class="message">{{info}}</strong>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if success}}
+    <div class="container">
+        <div class="alert alert-success fade in">
+            <a href="#" data-dismiss="alert" aria-label="close" class="close">&times;</a>
+            <strong class="message">{{success}}</strong>
+        </div>
+    </div>
+    {{/if}}
+
     {{{body}}}
 
     <!-- bower:js -->

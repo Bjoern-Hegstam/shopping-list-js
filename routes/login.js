@@ -32,11 +32,12 @@ router.post('/register', (req, res) => {
             username: req.body.username,
             password: req.body.password,
             email: req.body.email,
-            confirmed: false,
+            verified: false,
             role: 'USER'
         })
         .then(user => {
-            res.redirect('/');
+            req.session.info = 'User created. Verification by admin needed before login possible.';
+            res.redirect('/login');
         });
 });
 
@@ -61,7 +62,9 @@ router.post('/login', (req, res) => {
             }
         })
         .then(users => {
-            if (users.length == 1 && users[0].password == req.body.password) {
+            if (users.length == 1 &&
+                users[0].password == req.body.password &&
+                users[0].verified) {
                 debug('Logging in');
                 userManagement.login(req, users[0]);
                 res.redirect('/');
