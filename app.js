@@ -8,6 +8,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
+const viewHelpers = require('./view_helpers');
 
 const userManagement = require('./user_management');
 const models = require('./models');
@@ -35,11 +36,7 @@ require('./routes/routesManager.js').use(app);
 // views
 const hbs = exphbs.create({
     defaultLayout: 'main',
-    helpers: {
-        toggleClass: function(val, classTrue, classFalse) {
-            return val === 'true' ? classTrue : classFalse;
-        }
-    }
+    helpers: viewHelpers
 });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
