@@ -5,12 +5,12 @@
             <ul class="users">
                 
                 {{#each user}}
-                        <li>
-                            <span>
+                        <li class="user-list-item">
+                            <span class="name">
                                 {{name}}
                             </span>
-                            <span>
-                                {{role}}
+                            <span class="role">
+                                ({{role}})
                             </span>
                         </li>
                 {{/each}}
