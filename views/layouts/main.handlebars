@@ -21,11 +21,11 @@
                 <a href="/" class="navbar-brand">shopping-list-js</a>
             </div>
             <ul class="nav navbar-nav">
-                {{#if user}}
+                {{#if current_user}}
                 <li>
                     <a href="/shopping-lists">Lists</a>
                 </li>
-                    {{#isAdmin user}}
+                    {{#isAdmin current_user}}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin
                             <span class="caret"></span>
@@ -52,10 +52,10 @@
 
 
             </ul>
-            {{#if user}}
+            {{#if current_user}}
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">{{user.name}}</a>
+                    <a href="#">{{current_user.name}}</a>
                 </li>
                 <li>
                     <a href="/logout">Log out</a>

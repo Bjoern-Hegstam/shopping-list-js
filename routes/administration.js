@@ -23,7 +23,7 @@ router.get('/users', (req, res) => {
     .findAll()
     .then(users => {
         res.render('users', responseFormatter.formatCollectionResponse(User, users));
-    })
+    });
 });
 
 module.exports = router;

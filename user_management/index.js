@@ -13,7 +13,7 @@ exports.loadUserForSession = (req, res, next) => {
     if (req.session.userId) {
         User.findById(req.session.userId)
             .then(user => {
-                res.locals.user = user.toSimpleJSON();
+                res.locals.current_user = user.toSimpleJSON();
                 next();
             }, err => {
                 console.log('User error');
@@ -21,4 +21,21 @@ exports.loadUserForSession = (req, res, next) => {
     } else {
         next();
     }
+};
+
+
+exports.authIsLoggedIn = (req, res, next) => {
+    if (res.locals.current_user) {
+        return next();
+    }
+
+    res.redirect('/login');
+};
+
+exports.authIsAdmin = (req, res, next) => {
+    if (res.locals.current_user && res.locals.current_user.role == 'ADMIN') {
+        return next();
+    }
+
+    res.redirect('/');
 };
