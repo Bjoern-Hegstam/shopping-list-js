@@ -63,7 +63,7 @@ router.post('/login', (req, res) => {
         })
         .then(users => {
             if (users.length == 1 &&
-                users[0].password == req.body.password &&
+                users[0].isCorrectPassword(req.body.password) &&
                 users[0].verified) {
                 debug('Logging in');
                 userManagement.login(req, users[0]);
