@@ -38,6 +38,11 @@ General data structure:
 /api/shopping_list/1/cart
 * DELETE - Delete all items in cart (removes them from the shopping list)
 
+* User flow
+  * New user is registered
+  * Needs to be confirmed by admin before able to login
+  * Once logged in, can create new lists, add item types, add/remove items
+
 TODO
 ---------
 
@@ -45,20 +50,9 @@ TODO
   * Shopping lists
   * Item types
 
-* User flow
-  * New user is registered
-  * Needs to be confirmed by admin before able to login
-  * Once logged in, can create new lists, add item types, add/remove items
-
-
 * User management - Available for admin users
-  * Navbar dropdown for admin [ItemTypes, Users]
   * Admin can edit item types, delete users, change user role and confirm new users
 
 * Make navbar collapsible
-
-* Keep current error reponse for api requests, but add a proper error page for non-api requests. (Flash error message over navbar?)
-
-* Sanitize input
 
 * For the future: Look into rebuild using React
