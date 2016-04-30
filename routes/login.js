@@ -19,7 +19,9 @@ router.post('/register', (req, res) => {
     User.create({
             username: req.body.username,
             password: req.body.password,
-            email: req.body.email
+            email: req.body.email,
+            confirmed: false,
+            role: 'USER'
         })
         .then(user => {
             req.session.userId = user.id;

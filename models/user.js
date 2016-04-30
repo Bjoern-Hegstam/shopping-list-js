@@ -20,13 +20,23 @@ module.exports = (sequelize, DataTypes) => sequelize.define('user', {
         validate: {
             isEmail: true
         }
+    },
+    confirmed: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    role: {
+        type: DataTypes.Enum('USER', 'ADMIN'),
     }
 }, {
     instanceMethods: {
         toSimpleJSON: function() {
             return {
                 id: this.id.toString(),
-                name: this.username
+                name: this.username,
+                email: this.email,
+                confirmed: this.confirmed.toString(),
+                role: this.role
             };
         }
     },
