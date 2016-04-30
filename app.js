@@ -25,17 +25,16 @@ app.use(session({
 
 // Session-persisted message middleware
 app.use(function(req, res, next) {
-    const error = req.session.error;
-    const notice = req.session.notice;
-    const success = req.session.success;
+    const transferMessage = (name) => {
+        if (req.session[name]) {
+            res.locals[name] = req.session[name];
+            delete req.session[name];
+        }
+    };
 
-    delete req.session.error;
-    delete req.session.success;
-    delete req.session.notice;
-
-    if (error) res.locals.error = error;
-    if (notice) res.locals.notice = notice;
-    if (success) res.locals.success = success;
+    transferMessage('error');
+    transferMessage('notice');
+    transferMessage('success');
 
     next();
 });
