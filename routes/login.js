@@ -10,7 +10,7 @@ const userManagement = require('./../user_management');
 const User = models.user;
 
 router.get('/', (req, res) => {
-    if (req.session.userId) {
+    if (userManagement.isLoggedIn(req)) {
         res.redirect('/shopping-list');
     } else {
         debug('Need to log in');
@@ -64,11 +64,11 @@ router.post('/login', (req, res) => {
             if (users.length == 1 && users[0].password == req.body.password) {
                 debug('Logging in');
                 userManagement.login(req, users[0]);
+                res.redirect('/');
             } else {
                 req.session.error = 'Login failed';
                 res.redirect('/login');
             }
-
         });
 });
 

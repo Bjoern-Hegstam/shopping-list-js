@@ -1,9 +1,15 @@
 const models = require("models");
 const User = models.user;
 
+function isLoggedIn(req) {
+    return process.env.USER_AUTH_DISABLED || req.session.userId;
+}
+
 exports.login = (req, user) => {
     req.session.userId = user.id;
-}
+};
+
+exports.isLoggedIn = isLoggedIn;
 
 exports.logout = (req) => {
     req.session.destroy();
@@ -25,9 +31,8 @@ exports.loadUserForSession = (req, res, next) => {
     }
 };
 
-
 exports.authIsLoggedIn = (req, res, next) => {
-    if (res.locals.current_user) {
+    if (isLoggedIn(req)) {
         return next();
     }
     res.redirect('/login');

@@ -33,12 +33,13 @@ module.exports = function(grunt) {
         env: {
             dev: {
                 NODE_ENV: 'development',
-                DEBUG: 'nodetest:server models:index'
+                DEBUG: 'nodetest:server models:index login'
             },
 
             test: {
                 NODE_ENV: 'test',
-                DEBUG: ''
+                DEBUG: '',
+                USER_AUTH_DISABLED: true
             }
         },
 
