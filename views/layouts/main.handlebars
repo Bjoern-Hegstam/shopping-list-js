@@ -25,9 +25,11 @@
                 <li>
                     <a href="/shopping-lists">Lists</a>
                 </li>
+                    {{#isAdmin user}}
                 <li>
                     <a href="/item-types">Item types</a>
                 </li>
+                    {{/isAdmin}}
                 {{else}}
                     <li>
                         <a href="/login">Login</a>
