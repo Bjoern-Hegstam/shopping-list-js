@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
     };
 
     transferMessage('error');
-    transferMessage('notice');
+    transferMessage('info');
     transferMessage('success');
 
     next();
