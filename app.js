@@ -23,6 +23,23 @@ app.use(session({
     secret: 'verysecret'
 }));
 
+// Session-persisted message middleware
+app.use(function(req, res, next) {
+    const error = req.session.error;
+    const notice = req.session.notice;
+    const success = req.session.success;
+
+    delete req.session.error;
+    delete req.session.success;
+    delete req.session.notice;
+
+    if (error) res.locals.error = error;
+    if (notice) res.locals.notice = notice;
+    if (success) res.locals.success = success;
+
+    next();
+});
+
 // static
 app.use('/static', express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));

@@ -8,6 +8,8 @@ const userManagement = require('./../user_management');
 const User = models.user;
 
 router.get('/', (req, res) => {
+    console.log(res.locals);
+
     if (req.session.userId) {
         res.redirect('/shopping-list');
     } else {
@@ -62,11 +64,17 @@ router.post('/login', (req, res) => {
             if (users.length == 1 && users[0].password == req.body.password) {
                 console.log('Logging in');
                 userManagement.login(req, users[0]);
+            } else {
+                req.session.error = 'Login failed';
+                res.redirect('/login');
             }
-            res.redirect('/');
+
         }, err => {
-            console.log('Login failed');
-            res.redirect('/');
+            res.render('/login', {
+                error: {
+                    message: 'Something went wrong, please try again'
+                }
+            });
         });
 });
 
