@@ -61,7 +61,7 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-    userManagement.logout();
+    userManagement.logout(req);
     res.redirect('/');
 });
 
