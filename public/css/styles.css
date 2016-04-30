@@ -1,3 +1,9 @@
+.add-object-panel {
+  border: 3px solid #aaa;
+  border-radius: 5px;
+  background-color: #ddd;
+  color: #666;
+}
 .shopping-list {
   border: 1px solid black;
   border-radius: 10px;

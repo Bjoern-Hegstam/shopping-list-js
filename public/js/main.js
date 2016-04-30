@@ -12,20 +12,35 @@ $(document).ready(function() {
     };
     setActiveNavItem();
 
+    /* SHOPPING LISTS */
+    var $createShoppingListModal = $('#createShoppingListModal');
+    var $listNameInput = $createShoppingListModal.find('#nameInput');
+
+        $createShoppingListModal
+        .on('shown.bs.modal', function focusOnNameInput() {
+            $listNameInput.focus();
+        });
+
+
+    $createShoppingListModal
+        .on('hidden.bs.modal', function clearNameInput() {
+            $listNameInput.clear();
+        });
+
+    $listNameInput.keypress(function(e) {
+        if (e.which == 13) {
+            e.stopPropagation();
+            $createShoppingListModal.modal('hide');
+
+            Db.createShoppingList($listNameInput.val());
+        }
+    });
 
     /* SHOPPING LIST */
     // Wire up shopping list buttons
     var $shoppingList = $('.shopping-list');
     var $addItemModal = $('#addItemModal');
     var $nameInput = $addItemModal.find('#nameInput');
-
-
-    $shoppingList
-        .find('.btn-add-item')
-        .click(function addItemToList() {
-            $addItemModal.modal();
-        });
-
 
     var $nameInputSelect = $nameInput
         .selectize({
@@ -160,6 +175,22 @@ $(document).ready(function() {
     }
 
     var Db = {
+        createShoppingList: function(name) {
+            var data = {
+                shopping_list: {
+                    name: name
+                }
+            };
+
+            return $.ajax({
+                url: '../api/shopping_list',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                error: ajaxErrorHandler
+            });
+        },
+
         addToShoppingList: function(listId, itemTypeId) {
             var data = {
                 shopping_list_item: {
