@@ -9,6 +9,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 
+const userManagement = require('./user_management');
 const models = require('./models');
 
 const app = express();
@@ -26,21 +27,7 @@ app.use('/static', express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 // User
-app.use((req, res, next) => {
-    if (req.session.userId) {
-        models
-            .user
-            .findById(req.session.userId)
-            .then(user => {
-                res.locals.user = user.toSimpleJSON();
-                next();
-            }, err => {
-                console.log('User error');
-            });
-    } else {
-        next();
-    }
-});
+app.use(userManagement.loadUserForSession);
 
 // Routes
 require('./routes/routesManager.js').use(app);

@@ -4,6 +4,7 @@ const models = require("models");
 const express = require("express");
 const router = express.Router();
 
+const userManagement = require('./../user_management');
 const User = models.user;
 
 router.get('/register', (req, res) => {
@@ -24,7 +25,6 @@ router.post('/register', (req, res) => {
             role: 'USER'
         })
         .then(user => {
-            req.session.userId = user.id;
             res.redirect('/');
         });
 });
@@ -51,7 +51,7 @@ router.post('/login', (req, res) => {
         })
         .then(users => {
             if (users.length == 1 && users[0].password == req.body.password) {
-                req.session.userId = users[0].id;
+                userManagement.login(req, users[0]);
             }
             res.redirect('/');
         }, err => {
@@ -61,7 +61,7 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-    req.session.destroy();
+    userManagement.logout();
     res.redirect('/');
 });
 
