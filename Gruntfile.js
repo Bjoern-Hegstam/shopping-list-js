@@ -1,4 +1,10 @@
 module.exports = function(grunt) {
+    var serverScriptPaths = [
+        'src/app.js',
+        'src/models/*.js',
+        'src/routes/*.js',
+    ];
+
     var scriptPaths = [
         'Gruntfile.js',
         'src/app.js',
@@ -59,6 +65,11 @@ module.exports = function(grunt) {
                 tasks: 'jshint'
             },
 
+            babel: {
+                files: serverScriptPaths,
+                tasks: 'babel'
+            },
+
             styles: {
                 files: 'public/less/*.less',
                 tasks: 'less'
@@ -99,7 +110,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src/',
-                    src: ['*.js'],
+                    src: ['**/*.js'],
                     dest: 'dist/'
                 }]
             }
