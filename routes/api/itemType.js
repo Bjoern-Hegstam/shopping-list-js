@@ -14,9 +14,13 @@ router.get('/', (req, res) => {
     const where = {};
     const searchOptions = { where: where };
 
-    if (req.query.name) {
+    var queryName = req.query.name;
+    if (queryName) {
         where.name = {
-            like: '%' + req.query.name + '%'
+            $or: [
+                {$like: '%' + queryName + '%'},
+                {$like: queryName.charAt(0).toUpperCase() + queryName.slice(1) + '%'}
+            ]
         };
     }
 
@@ -37,10 +41,7 @@ router.post('/', (req, res) => {
         .findAll({
             where: {
                 name: {
-                    $or: {
-                        $like: '%' + name + '%',
-                        $like: name.charAt(0).toUppercase() + name.slice(1) + '%'
-                    }
+                    $like: name
                 }
             }
         })
