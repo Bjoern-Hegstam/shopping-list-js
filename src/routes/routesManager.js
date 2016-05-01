@@ -13,4 +13,4 @@ export function use(app) {
     app.use('/api/shopping_list', authIsLoggedIn, shoppingListRoutes);
 
     app.use('/admin', authIsLoggedIn, authIsAdmin, administration);
-};
+}

@@ -13,7 +13,7 @@ export function getById(res, model, id) {
                     .send(responseFormatter.formatSingleItemResponse(object));
             }
         });
-};
+}
 
 export function findAll(res, model, searchOptions) {
     searchOptions = searchOptions || {};
@@ -27,7 +27,7 @@ export function findAll(res, model, searchOptions) {
         }, err => {
             res.sendStatus(HttpStatus.NOT_FOUND);
         });
-};
+}
 
 export function findOne(res, model, searchOptions) {
     searchOptions = searchOptions || {};
@@ -44,7 +44,7 @@ export function findOne(res, model, searchOptions) {
                     .send(responseFormatter.formatCollectionResponse(model, objects));
             }
         });
-};
+}
 
 export function findAndUpdate(res, model, searchOptions, updateAttributes) {
     model
@@ -62,7 +62,7 @@ export function findAndUpdate(res, model, searchOptions, updateAttributes) {
                     });
             }
         });
-};
+}
 
 export function findAndDestroy(res, model, searchOptions) {
     model
@@ -70,4 +70,4 @@ export function findAndDestroy(res, model, searchOptions) {
         .then(count => {
             res.sendStatus(count === 0 ? HttpStatus.NOT_FOUND : HttpStatus.NO_CONTENT);
         });
-};
+}
