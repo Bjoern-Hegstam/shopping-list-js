@@ -18,9 +18,16 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Session handling
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
 app.use(session({
     name: 'sessionId',
-    secret: 'verysecret'
+    secret: 'verysecret',
+    store: new SequelizeStore({
+        db: models.sequelize,
+        table: 'Session'
+    })
 }));
 
 // Session-persisted message middleware
