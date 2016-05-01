@@ -23,7 +23,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 app.use(session({
     name: 'sessionId',
-    secret: 'verysecret',
+    secret: process.env.SESSION_SECRET || 'verysecret',
     store: new SequelizeStore({
         db: models.sequelize,
         table: 'Session'
