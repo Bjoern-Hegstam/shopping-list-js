@@ -21,14 +21,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Session handling
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-app.use(session({
+const sessionSettings = {
     name: 'sessionId',
-    secret: process.env.SESSION_SECRET || 'verysecret',
-    store: new SequelizeStore({
+    secret: process.env.SESSION_SECRET || 'verysecret'
+};
+
+if (process.env.NODE_ENV == 'production') {
+    sessionSettings.store = new SequelizeStore({
         db: models.sequelize,
         table: 'Session'
-    })
-}));
+    });
+}
+
+app.use(session(sessionSettings));
 
 // Session-persisted message middleware
 app.use(function(req, res, next) {
