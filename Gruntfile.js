@@ -89,6 +89,20 @@ module.exports = function(grunt) {
             task: {
                 src: ['views/**/*.handlebars']
             }
+        },
+
+        babel: {
+            options: {
+                babelrc: '.babelrc'
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/',
+                    src: ['*.js'],
+                    dest: 'dist/'
+                }]
+            }
         }
     });
 
@@ -101,10 +115,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-wiredep');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-babel');
 
     grunt.registerTask('test', 'nodeunit:all');
     grunt.registerTask('apitest', 'concurrent:apitest');
 
-    grunt.registerTask('build', ['less', 'wiredep']);
+    grunt.registerTask('build', ['babel', 'less', 'wiredep']);
     grunt.registerTask('default', 'concurrent:dev');
 };
