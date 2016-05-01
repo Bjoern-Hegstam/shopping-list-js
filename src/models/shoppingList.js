@@ -1,6 +1,6 @@
 'use strict';
 
-const _ = require('underscore');
+import _ from 'underscore';
 
 const instanceMethodsDb = models => ({
     add: function(itemTypeId, quantity) {
@@ -14,7 +14,7 @@ const instanceMethodsDb = models => ({
     }
 });
 
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
     const ShoppingList = sequelize.define("shoppingList", {
         name: DataTypes.STRING
     }, {

@@ -1,13 +1,9 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
-var app = require('../app');
-var debug = require('debug')('nodetest:server');
-var models = require('../models');
-var http = require('http');
+import app from '../app';
+const debug = require('debug')('nodetest:server');
+import models from '../models';
+import http from 'http';
 
 /**
  * Debug info
@@ -19,14 +15,14 @@ debug('DEBUG: ' + process.env.DEBUG);
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -35,13 +31,13 @@ var server = http.createServer(app);
 server.on('error', onError);
 server.on('listening', onListening);
 
-var syncOptions = {};
+const syncOptions = {};
 if (process.env.NODE_ENV === 'test') {
     syncOptions.force = true;
     syncOptions.match = /_test$/;
 }
 
-models.sequelize.sync(syncOptions).then(function() {
+models.sequelize.sync(syncOptions).then(() => {
     server.listen(port);
 });
 
@@ -50,7 +46,7 @@ models.sequelize.sync(syncOptions).then(function() {
  */
 
 function normalizePort(val) {
-    var port = parseInt(val, 10);
+    const port = parseInt(val, 10);
 
     if (isNaN(port)) {
         // named pipe
@@ -74,7 +70,7 @@ function onError(error) {
         throw error;
     }
 
-    var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+    const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
     // handle specific listen errors with friendly messages
     switch (error.code) {
@@ -96,7 +92,7 @@ function onError(error) {
  */
 
 function onListening() {
-    var addr = server.address();
-    var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+    const addr = server.address();
+    const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
     debug('Listening on ' + bind);
 }

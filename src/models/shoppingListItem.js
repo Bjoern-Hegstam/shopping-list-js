@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
     const ShoppingListItem = sequelize.define("shoppingListItem", {
         quantity: DataTypes.INTEGER,
         inCart: {

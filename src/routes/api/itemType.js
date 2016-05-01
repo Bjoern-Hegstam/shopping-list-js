@@ -1,10 +1,10 @@
 "use strict";
 
-const models = require("models");
-const express = require("express");
-const HttpStatus = require('http-status-codes');
-const responseFormatter = require("./../responseFormatter.js");
-const actions = require('./../actions.js');
+import models from "models";
+import express from "express";
+import HttpStatus from 'http-status-codes';
+import responseFormatter from "./../responseFormatter.js";
+import actions from './../actions.js';
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     const where = {};
     const searchOptions = { where: where };
 
-    var queryName = req.query.name;
+    const queryName = req.query.name;
     if (queryName) {
         where.name = {
             $or: [
@@ -100,4 +100,4 @@ router.delete('/:id', (req, res, next) => {
         });
 });
 
-module.exports = router;
+export default router;

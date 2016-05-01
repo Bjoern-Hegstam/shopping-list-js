@@ -1,12 +1,12 @@
 "use strict";
 
-var debug = require('debug')('login');
+const debug = require('debug')('login');
 
-const models = require("models");
-const express = require("express");
+import models from "models";
+import express from "express";
 const router = express.Router();
 
-const userManagement = require('./../user_management');
+import userManagement from './../user_management';
 const User = models.user;
 
 router.get('/', (req, res) => {
@@ -80,4 +80,4 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
-module.exports = router;
+export default router;

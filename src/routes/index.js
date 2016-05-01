@@ -1,14 +1,14 @@
 "use strict";
 
-const models = require("models");
-const express = require("express");
+import models from "models";
+import express from "express";
 const router = express.Router();
 
 const ShoppingList = models.shoppingList;
 const ShoppingListItem = models.shoppingListItem;
 const ItemType = models.itemType;
 
-const responseFormatter = require("./responseFormatter.js");
+import responseFormatter from "./responseFormatter.js";
 
 router.get("/", (req, res) => {
     ShoppingList
@@ -47,4 +47,4 @@ router.get("/:id", (req, res) => {
         });
 });
 
-module.exports = router;
+export default router;

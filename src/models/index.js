@@ -1,8 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
+import fs from 'fs';
+import path from 'path';
+import Sequelize from 'sequelize';
 const env = process.env.NODE_ENV || 'development';
 const debug = require('debug')('models:index');
 const config = require('./../../config/config.json')[env];
@@ -37,7 +37,7 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+export default db;
 
 function isModelFile(file) {
     return (file.indexOf('.') !== 0) && (file !== 'index.js');

@@ -3,15 +3,13 @@
 // Add base path
 require('app-module-path').addPath(__dirname);
 
-// Modules
-const express = require('express');
-const session = require('express-session');
-const bodyParser = require('body-parser');
-const exphbs = require('express-handlebars');
-const viewHelpers = require('./view_helpers');
-
-const userManagement = require('./user_management');
-const models = require('./models');
+import express from 'express';
+import session from 'express-session';
+import bodyParser from 'body-parser';
+import exphbs from 'express-handlebars';
+import viewHelpers from './view_helpers';
+import {loadUserForSession} from './user_management';
+import models from './models';
 
 const app = express();
 
@@ -36,7 +34,7 @@ if (process.env.NODE_ENV == 'production') {
 app.use(session(sessionSettings));
 
 // Session-persisted message middleware
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     const transferMessage = (name) => {
         if (req.session[name]) {
             res.locals[name] = req.session[name];
@@ -56,7 +54,7 @@ app.use('/static', express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 // User
-app.use(userManagement.loadUserForSession);
+app.use(loadUserForSession);
 
 // Routes
 require('./routes/routesManager.js').use(app);
@@ -93,4 +91,4 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500).send(err.message);
 });
 
-module.exports = app;
+export default app;

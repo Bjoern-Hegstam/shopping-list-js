@@ -1,10 +1,10 @@
 "use strict";
 
-const models = require('models');
-const express = require('express');
-const HttpStatus = require('http-status-codes');
-const responseFormatter = require("./../responseFormatter.js");
-const actions = require('./../actions.js');
+import models from 'models';
+import express from 'express';
+import HttpStatus from 'http-status-codes';
+import responseFormatter from "./../responseFormatter.js";
+import actions from './../actions.js';
 
 const router = express.Router();
 
@@ -151,4 +151,4 @@ router.delete('/:listId/cart', (req, res) => {
     );
 });
 
-module.exports = router;
+export default router;

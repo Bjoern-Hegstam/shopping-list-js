@@ -1,11 +1,11 @@
 "use strict";
 
-const models = require("models");
-const express = require("express");
+import models from "models";
+import express from "express";
 const router = express.Router();
 
-const actions = require('./actions.js');
-const responseFormatter = require("./responseFormatter.js");
+import actions from './actions.js';
+import responseFormatter from "./responseFormatter.js";
 
 const ItemType = models.itemType;
 const User = models.user;
@@ -26,4 +26,4 @@ router.get('/users', (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;

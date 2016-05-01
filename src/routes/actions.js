@@ -1,7 +1,7 @@
-const HttpStatus = require('http-status-codes');
-const responseFormatter = require("./responseFormatter.js");
+import HttpStatus from 'http-status-codes';
+import responseFormatter from "./responseFormatter.js";
 
-exports.getById = (res, model, id) => {
+export function getById(res, model, id) {
     model
         .findById(id)
         .then(object => {
@@ -15,7 +15,7 @@ exports.getById = (res, model, id) => {
         });
 };
 
-exports.findAll = (res, model, searchOptions) => {
+export function findAll(res, model, searchOptions) {
     searchOptions = searchOptions || {};
 
     model
@@ -29,7 +29,7 @@ exports.findAll = (res, model, searchOptions) => {
         });
 };
 
-exports.findOne = (res, model, searchOptions) => {
+export function findOne(res, model, searchOptions) {
     searchOptions = searchOptions || {};
 
     model
@@ -46,7 +46,7 @@ exports.findOne = (res, model, searchOptions) => {
         });
 };
 
-exports.findAndUpdate = (res, model, searchOptions, updateAttributes) => {
+export function findAndUpdate(res, model, searchOptions, updateAttributes) {
     model
         .findAll(searchOptions)
         .then(objects => {
@@ -64,7 +64,7 @@ exports.findAndUpdate = (res, model, searchOptions, updateAttributes) => {
         });
 };
 
-exports.findAndDestroy = (res, model, searchOptions) => {
+export function findAndDestroy(res, model, searchOptions) {
     model
         .destroy(searchOptions)
         .then(count => {

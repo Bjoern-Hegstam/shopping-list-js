@@ -1,16 +1,16 @@
-const routes = require('./index');
-const login = require('./login.js');
-const itemTypeRoutes = require('./api/itemType.js');
-const shoppingListRoutes = require('./api/shoppingList.js');
-const administration = require('./administration.js');
-const userManagement = require('./../user_management');
+import routes from './index';
+import login from './login.js';
+import itemTypeRoutes from './api/itemType.js';
+import shoppingListRoutes from './api/shoppingList.js';
+import administration from './administration.js';
+import {authIsLoggedIn, authIsAdmin} from './../user_management';
 
-exports.use = function(app) {
+export function use(app) {
     app.use('/', login);
 
-    app.use('/shopping-list', userManagement.authIsLoggedIn, routes);
-    app.use('/api/item_type', userManagement.authIsLoggedIn, itemTypeRoutes);
-    app.use('/api/shopping_list', userManagement.authIsLoggedIn, shoppingListRoutes);
+    app.use('/shopping-list', authIsLoggedIn, routes);
+    app.use('/api/item_type', authIsLoggedIn, itemTypeRoutes);
+    app.use('/api/shopping_list', authIsLoggedIn, shoppingListRoutes);
 
-    app.use('/admin', userManagement.authIsLoggedIn, userManagement.authIsAdmin, administration);
+    app.use('/admin', authIsLoggedIn, authIsAdmin, administration);
 };
