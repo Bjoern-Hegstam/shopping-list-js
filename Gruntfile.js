@@ -1,10 +1,10 @@
 module.exports = function(grunt) {
     var scriptPaths = [
         'Gruntfile.js',
-        'app.js',
+        'src/app.js',
         'package.json',
-        'models/*.js',
-        'routes/*.js',
+        'src/models/*.js',
+        'src/routes/*.js',
         'test/**/*.js',
         'public/js/**/*.js'
     ];
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
 
         shell: {
             nodemon: {
-                command: 'nodemon -e js,handlebars ./bin/www',
+                command: 'nodemon -e js,handlebars dist/bin/server.js',
                 options: {
                     stdout: true,
                     stderr: true
@@ -75,13 +75,13 @@ module.exports = function(grunt) {
         less: {
             development: {
                 files: {
-                    "./public/css/styles.css": "./public/less/styles.less"
+                    "public/css/styles.css": "public/less/styles.less"
                 }
             }
         },
 
         nodeunit: {
-            all: ['./test/**/*Test.js']
+            all: ['test/**/*Test.js']
         },
 
 
