@@ -33,7 +33,8 @@ module.exports = function(grunt) {
         env: {
             dev: {
                 NODE_ENV: 'development',
-                DEBUG: 'nodetest:server models:index login'
+                //DEBUG: 'nodetest:server models:index login'
+                DEBUG: '*'
             },
 
             test: {
@@ -103,6 +104,16 @@ module.exports = function(grunt) {
                     dest: 'dist/'
                 }]
             }
+        },
+
+        copy: {
+            views: {
+                files: [{
+                    expand: true,
+                    src: ['views/**'],
+                    dest: 'dist/'
+                }]
+            }
         }
     });
 
@@ -110,6 +121,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-shell');
@@ -120,6 +132,6 @@ module.exports = function(grunt) {
     grunt.registerTask('test', 'nodeunit:all');
     grunt.registerTask('apitest', 'concurrent:apitest');
 
-    grunt.registerTask('build', ['babel', 'less', 'wiredep']);
+    grunt.registerTask('build', ['babel', 'less', 'wiredep', 'copy:views']);
     grunt.registerTask('default', 'concurrent:dev');
 };
