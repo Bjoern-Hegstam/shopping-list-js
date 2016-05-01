@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
         .findAll({
             where: {
                 name: {
-                    like: name
+                    $iLike: '%' + name + '%'
                 }
             }
         })
