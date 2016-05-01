@@ -1,6 +1,6 @@
 "use strict";
 
-import models from "models";
+import models from "../models";
 import express from "express";
 const router = express.Router();
 

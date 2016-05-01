@@ -16,6 +16,7 @@ if (process.env.DATABASE_URL) {
         logging: false
     });
 } else {
+    console.log('Loading db');
     sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 

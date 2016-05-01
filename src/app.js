@@ -50,14 +50,16 @@ app.use((req, res, next) => {
 });
 
 // static
-app.use('/static', express.static(__dirname + '/public'));
-app.use('/bower_components', express.static(__dirname + '/bower_components'));
+app.use('/static', express.static(__dirname + '/../public'));
+app.use('/bower_components', express.static(__dirname + '/../bower_components'));
 
 // User
 app.use(loadUserForSession);
 
 // Routes
-require('./routes/routesManager.js').use(app);
+import * as routesManager from './routes/routesManager.js';
+routesManager.use(app);
+//require('./routes/routesManager.js').use(app);
 
 // views
 const hbs = exphbs.create({
