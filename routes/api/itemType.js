@@ -37,7 +37,10 @@ router.post('/', (req, res) => {
         .findAll({
             where: {
                 name: {
-                    $iLike: '%' + name + '%'
+                    $or: {
+                        $like: '%' + name + '%',
+                        $like: name.charAt(0).toUppercase() + name.slice(1) + '%'
+                    }
                 }
             }
         })
