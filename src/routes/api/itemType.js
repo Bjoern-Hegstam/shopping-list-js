@@ -3,7 +3,7 @@
 import models from "../../models";
 import express from "express";
 import HttpStatus from 'http-status-codes';
-import responseFormatter from "./../responseFormatter.js";
+import {formatSingleItemResponse} from "./../responseFormatter.js";
 import actions from './../actions.js';
 
 const router = express.Router();
@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
                     .then(itemType => {
                         res
                             .status(HttpStatus.CREATED)
-                            .send(responseFormatter.formatSingleItemResponse(itemType));
+                            .send(formatSingleItemResponse(itemType));
                     }, err => {
                         res.sendStatus(HttpStatus.NOT_FOUND);
                     });
@@ -78,7 +78,7 @@ router.patch('/:id', (req, res) => {
                     .then(savedItemType => {
                         res
                             .status(HttpStatus.OK)
-                            .send(responseFormatter.formatSingleItemResponse(savedItemType));
+                            .send(formatSingleItemResponse(savedItemType));
                     });
             }
         });

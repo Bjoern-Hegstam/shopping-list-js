@@ -1,7 +1,7 @@
-import stringUtil from './../util/stringUtil.js';
+import {camelCaseToSnakeCase} from './../util/stringUtil.js';
 
 function getKey(model) {
-    return stringUtil.camelCaseToSnakeCase(model.name);
+    return camelCaseToSnakeCase(model.name);
 }
 
 export function formatSingleItemResponse(instance) {

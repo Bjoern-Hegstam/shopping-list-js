@@ -8,13 +8,13 @@ const ShoppingList = models.shoppingList;
 const ShoppingListItem = models.shoppingListItem;
 const ItemType = models.itemType;
 
-import responseFormatter from "./responseFormatter.js";
+import {formatCollectionResponse} from "./responseFormatter.js";
 
 router.get("/", (req, res) => {
     ShoppingList
         .findAll()
         .then(shopppingLists => {
-            res.render('shopping_lists', responseFormatter.formatCollectionResponse(ShoppingList, shopppingLists));
+            res.render('shopping_lists', formatCollectionResponse(ShoppingList, shopppingLists));
         });
 });
 

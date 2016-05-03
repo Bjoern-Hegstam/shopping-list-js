@@ -7,7 +7,7 @@ import express from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 import exphbs from 'express-handlebars';
-import viewHelpers from './view_helpers';
+import * as viewHelpers from './view_helpers';
 import {loadUserForSession} from './user_management';
 import models from './models';
 
@@ -59,7 +59,6 @@ app.use(loadUserForSession);
 // Routes
 import * as routesManager from './routes/routesManager.js';
 routesManager.use(app);
-//require('./routes/routesManager.js').use(app);
 
 // views
 const hbs = exphbs.create({
@@ -81,7 +80,7 @@ app.use((req, res, next) => {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development' || app.get('env') === 'test') {
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
     app.use((err, req, res, next) => {
         res.status(err.status || 500).send(JSON.stringify(err));
     });

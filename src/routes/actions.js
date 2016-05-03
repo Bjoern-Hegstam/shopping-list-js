@@ -1,5 +1,5 @@
 import HttpStatus from 'http-status-codes';
-import responseFormatter from "./responseFormatter.js";
+import {formatSingleItemResponse, formatCollectionResponse} from "./responseFormatter.js";
 
 export function getById(res, model, id) {
     model
@@ -10,7 +10,7 @@ export function getById(res, model, id) {
             } else {
                 res
                     .status(HttpStatus.OK)
-                    .send(responseFormatter.formatSingleItemResponse(object));
+                    .send(formatSingleItemResponse(object));
             }
         });
 }
@@ -23,7 +23,7 @@ export function findAll(res, model, searchOptions) {
         .then(objects => {
             res
                 .status(HttpStatus.OK)
-                .send(responseFormatter.formatCollectionResponse(model, objects));
+                .send(formatCollectionResponse(model, objects));
         }, err => {
             res.sendStatus(HttpStatus.NOT_FOUND);
         });
@@ -41,7 +41,7 @@ export function findOne(res, model, searchOptions) {
 
                 res
                     .status(HttpStatus.OK)
-                    .send(responseFormatter.formatCollectionResponse(model, objects));
+                    .send(formatCollectionResponse(model, objects));
             }
         });
 }
@@ -58,7 +58,7 @@ export function findAndUpdate(res, model, searchOptions, updateAttributes) {
                     .then(savedObject => {
                         res
                             .status(HttpStatus.OK)
-                            .send(responseFormatter.formatSingleItemResponse(savedObject));
+                            .send(formatSingleItemResponse(savedObject));
                     });
             }
         });
