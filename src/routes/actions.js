@@ -1,7 +1,7 @@
-const HttpStatus = require('http-status-codes');
-const responseFormatter = require("./responseFormatter.js");
+import HttpStatus from 'http-status-codes';
+import {formatSingleItemResponse, formatCollectionResponse} from "./responseFormatter.js";
 
-exports.getById = (res, model, id) => {
+export function getById(res, model, id) {
     model
         .findById(id)
         .then(object => {
@@ -10,12 +10,12 @@ exports.getById = (res, model, id) => {
             } else {
                 res
                     .status(HttpStatus.OK)
-                    .send(responseFormatter.formatSingleItemResponse(object));
+                    .send(formatSingleItemResponse(object));
             }
         });
-};
+}
 
-exports.findAll = (res, model, searchOptions) => {
+export function findAll(res, model, searchOptions) {
     searchOptions = searchOptions || {};
 
     model
@@ -23,13 +23,13 @@ exports.findAll = (res, model, searchOptions) => {
         .then(objects => {
             res
                 .status(HttpStatus.OK)
-                .send(responseFormatter.formatCollectionResponse(model, objects));
+                .send(formatCollectionResponse(model, objects));
         }, err => {
             res.sendStatus(HttpStatus.NOT_FOUND);
         });
-};
+}
 
-exports.findOne = (res, model, searchOptions) => {
+export function findOne(res, model, searchOptions) {
     searchOptions = searchOptions || {};
 
     model
@@ -41,12 +41,12 @@ exports.findOne = (res, model, searchOptions) => {
 
                 res
                     .status(HttpStatus.OK)
-                    .send(responseFormatter.formatCollectionResponse(model, objects));
+                    .send(formatCollectionResponse(model, objects));
             }
         });
-};
+}
 
-exports.findAndUpdate = (res, model, searchOptions, updateAttributes) => {
+export function findAndUpdate(res, model, searchOptions, updateAttributes) {
     model
         .findAll(searchOptions)
         .then(objects => {
@@ -58,16 +58,16 @@ exports.findAndUpdate = (res, model, searchOptions, updateAttributes) => {
                     .then(savedObject => {
                         res
                             .status(HttpStatus.OK)
-                            .send(responseFormatter.formatSingleItemResponse(savedObject));
+                            .send(formatSingleItemResponse(savedObject));
                     });
             }
         });
-};
+}
 
-exports.findAndDestroy = (res, model, searchOptions) => {
+export function findAndDestroy(res, model, searchOptions) {
     model
         .destroy(searchOptions)
         .then(count => {
             res.sendStatus(count === 0 ? HttpStatus.NOT_FOUND : HttpStatus.NO_CONTENT);
         });
-};
+}

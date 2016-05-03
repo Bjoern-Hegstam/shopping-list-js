@@ -1,10 +1,10 @@
 "use strict";
 
-const models = require("models");
-const express = require("express");
-const HttpStatus = require('http-status-codes');
-const responseFormatter = require("./../responseFormatter.js");
-const actions = require('./../actions.js');
+import models from "../../models";
+import express from "express";
+import HttpStatus from 'http-status-codes';
+import {formatSingleItemResponse} from "./../responseFormatter.js";
+import {findAll, getById} from './../actions.js';
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     const where = {};
     const searchOptions = { where: where };
 
-    var queryName = req.query.name;
+    const queryName = req.query.name;
     if (queryName) {
         where.name = {
             $or: [
@@ -28,11 +28,11 @@ router.get('/', (req, res) => {
         searchOptions.limit = req.query.limit;
     }
 
-    actions.findAll(res, ItemType, searchOptions);
+    findAll(res, ItemType, searchOptions);
 });
 
 router.get('/:id', (req, res, next) => {
-    actions.getById(res, ItemType, req.params.id);
+    getById(res, ItemType, req.params.id);
 });
 
 router.post('/', (req, res) => {
@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
                     .then(itemType => {
                         res
                             .status(HttpStatus.CREATED)
-                            .send(responseFormatter.formatSingleItemResponse(itemType));
+                            .send(formatSingleItemResponse(itemType));
                     }, err => {
                         res.sendStatus(HttpStatus.NOT_FOUND);
                     });
@@ -78,7 +78,7 @@ router.patch('/:id', (req, res) => {
                     .then(savedItemType => {
                         res
                             .status(HttpStatus.OK)
-                            .send(responseFormatter.formatSingleItemResponse(savedItemType));
+                            .send(formatSingleItemResponse(savedItemType));
                     });
             }
         });
@@ -100,4 +100,4 @@ router.delete('/:id', (req, res, next) => {
         });
 });
 
-module.exports = router;
+export default router;

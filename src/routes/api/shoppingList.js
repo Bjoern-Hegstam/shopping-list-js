@@ -1,10 +1,10 @@
 "use strict";
 
-const models = require('models');
-const express = require('express');
-const HttpStatus = require('http-status-codes');
-const responseFormatter = require("./../responseFormatter.js");
-const actions = require('./../actions.js');
+import models from '../../models';
+import express from 'express';
+import HttpStatus from 'http-status-codes';
+import { formatSingleItemResponse } from "./../responseFormatter.js";
+import {getById, findOne, findAll, findAndUpdate, findAndDestroy} from './../actions.js';
 
 const router = express.Router();
 
@@ -12,11 +12,11 @@ const ShoppingList = models.shoppingList;
 const ShoppingListItem = models.shoppingListItem;
 
 router.get('/', (req, res) => {
-    actions.findAll(res, ShoppingList);
+    findAll(res, ShoppingList);
 });
 
 router.get('/:listId', (req, res) => {
-    actions.getById(res, ShoppingList, req.params.listId);
+    getById(res, ShoppingList, req.params.listId);
 });
 
 router.post('/', (req, res) => {
@@ -25,14 +25,14 @@ router.post('/', (req, res) => {
         .then(shoppingList => {
             res
                 .status(HttpStatus.CREATED)
-                .send(responseFormatter.formatSingleItemResponse(shoppingList));
+                .send(formatSingleItemResponse(shoppingList));
         }, err => {
             res.sendStatus(HttpStatus.NOT_FOUND);
         });
 });
 
 router.get('/:listId/item', (req, res) => {
-    actions.findAll(
+    findAll(
         res,
         ShoppingListItem, {
             where: {
@@ -42,7 +42,7 @@ router.get('/:listId/item', (req, res) => {
 });
 
 router.get('/:listId/item/:itemId', (req, res) => {
-    actions.findOne(
+    findOne(
         res,
         ShoppingListItem, {
             where: {
@@ -74,14 +74,12 @@ router.post('/:listId/item', (req, res) => {
                         quantity: data.quantity
                     })
                     .then(item => {
-                        const responseData = responseFormatter.formatSingleItemResponse(item);
+                        const responseData = formatSingleItemResponse(item);
                         if (req.accepts('html')) {
                             item.getItemType()
                                 .then(itemType => {
                                     const context = responseData.shopping_list_item;
-                                    context.item_type = responseFormatter
-                                        .formatSingleItemResponse(itemType)
-                                        .item_type;
+                                    context.item_type = formatSingleItemResponse(itemType).item_type;
                                     context.layout = false;
                                     res.render('partials/shopping_list_item', context);
                                 });
@@ -110,7 +108,7 @@ router.patch('/:listId/item/:itemId', (req, res) => {
         updateAttributes.inCart = reqItem.in_cart;
     }
 
-    actions.findAndUpdate(
+    findAndUpdate(
         res,
         ShoppingListItem, {
             where: {
@@ -125,7 +123,7 @@ router.delete('/:listId/item/:itemId', (req, res) => {
     const listId = req.params.listId;
     const itemId = req.params.itemId;
 
-    actions.findAndDestroy(
+    findAndDestroy(
         res,
         ShoppingListItem, {
             where: {
@@ -140,7 +138,7 @@ router.delete('/:listId/cart', (req, res) => {
     const listId = req.params.listId;
     const itemId = req.params.itemId;
 
-    actions.findAndDestroy(
+    findAndDestroy(
         res,
         ShoppingListItem, {
             where: {
@@ -151,4 +149,4 @@ router.delete('/:listId/cart', (req, res) => {
     );
 });
 
-module.exports = router;
+export default router;

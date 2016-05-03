@@ -1,20 +1,20 @@
 "use strict";
 
-const models = require("models");
-const express = require("express");
+import models from "../models";
+import express from "express";
 const router = express.Router();
 
 const ShoppingList = models.shoppingList;
 const ShoppingListItem = models.shoppingListItem;
 const ItemType = models.itemType;
 
-const responseFormatter = require("./responseFormatter.js");
+import {formatCollectionResponse} from "./responseFormatter.js";
 
 router.get("/", (req, res) => {
     ShoppingList
         .findAll()
         .then(shopppingLists => {
-            res.render('shopping_lists', responseFormatter.formatCollectionResponse(ShoppingList, shopppingLists));
+            res.render('shopping_lists', formatCollectionResponse(ShoppingList, shopppingLists));
         });
 });
 
@@ -47,4 +47,4 @@ router.get("/:id", (req, res) => {
         });
 });
 
-module.exports = router;
+export default router;

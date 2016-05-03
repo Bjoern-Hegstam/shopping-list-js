@@ -1,21 +1,20 @@
-const models = require("models");
+import models from "../models";
 const User = models.user;
 
-function isLoggedIn(req) {
-    return process.env.USER_AUTH_DISABLED || req.session.userId;
-}
 
-exports.login = (req, user) => {
+export function login(req, user) {
     req.session.userId = user.id;
 };
 
-exports.isLoggedIn = isLoggedIn;
+export function isLoggedIn(req) {
+    return process.env.USER_AUTH_DISABLED || req.session.userId;
+};
 
-exports.logout = (req) => {
+export function logout(req) {
     req.session.destroy();
 };
 
-exports.loadUserForSession = (req, res, next) => {
+export function loadUserForSession(req, res, next) {
     if (req.session.userId) {
         User.findById(req.session.userId)
             .then(user => {
@@ -29,14 +28,14 @@ exports.loadUserForSession = (req, res, next) => {
     }
 };
 
-exports.authIsLoggedIn = (req, res, next) => {
+export function authIsLoggedIn(req, res, next) {
     if (isLoggedIn(req)) {
         return next();
     }
     res.redirect('/login');
 };
 
-exports.authIsAdmin = (req, res, next) => {
+export function authIsAdmin(req, res, next) {
     if (res.locals.current_user && res.locals.current_user.role == 'ADMIN') {
         return next();
     }

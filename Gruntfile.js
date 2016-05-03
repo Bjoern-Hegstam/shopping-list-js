@@ -1,10 +1,12 @@
 module.exports = function(grunt) {
+    var serverScriptPaths = [
+        'src/**/*.js'
+    ];
+
     var scriptPaths = [
-        'Gruntfile.js',
-        'app.js',
         'package.json',
-        'models/*.js',
-        'routes/*.js',
+        'Gruntfile.js',
+        'src/**/*app.js',
         'test/**/*.js',
         'public/js/**/*.js'
     ];
@@ -45,7 +47,7 @@ module.exports = function(grunt) {
 
         shell: {
             nodemon: {
-                command: 'nodemon -e js,handlebars ./bin/www',
+                command: 'nodemon -e js,handlebars dist/bin/server.js',
                 options: {
                     stdout: true,
                     stderr: true
@@ -57,6 +59,11 @@ module.exports = function(grunt) {
             scripts: {
                 files: scriptPaths,
                 tasks: 'jshint'
+            },
+
+            babel: {
+                files: serverScriptPaths,
+                tasks: 'babel'
             },
 
             styles: {
@@ -75,19 +82,43 @@ module.exports = function(grunt) {
         less: {
             development: {
                 files: {
-                    "./public/css/styles.css": "./public/less/styles.less"
+                    "public/css/styles.css": "public/less/styles.less"
                 }
             }
         },
 
         nodeunit: {
-            all: ['./test/**/*Test.js']
+            all: ['test/**/*Test.js']
         },
 
 
         wiredep: {
             task: {
                 src: ['views/**/*.handlebars']
+            }
+        },
+
+        babel: {
+            options: {
+                babelrc: '.babelrc'
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/',
+                    src: ['**/*.js'],
+                    dest: 'dist/'
+                }]
+            }
+        },
+
+        copy: {
+            views: {
+                files: [{
+                    expand: true,
+                    src: ['views/**'],
+                    dest: 'dist/'
+                }]
             }
         }
     });
@@ -96,15 +127,17 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-wiredep');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-babel');
 
     grunt.registerTask('test', 'nodeunit:all');
     grunt.registerTask('apitest', 'concurrent:apitest');
 
-    grunt.registerTask('build', ['less', 'wiredep']);
+    grunt.registerTask('build', ['babel', 'less', 'wiredep', 'copy:views']);
     grunt.registerTask('default', 'concurrent:dev');
 };

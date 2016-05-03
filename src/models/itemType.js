@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = (sequelize, DataTypes) => sequelize.define("itemType", {
+export default (sequelize, DataTypes) => sequelize.define("itemType", {
     name: {
         type: DataTypes.STRING,
         allowNull: false,

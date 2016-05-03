@@ -1,16 +1,16 @@
 "use strict";
 
-var debug = require('debug')('login');
+const debug = require('debug')('login');
 
-const models = require("models");
-const express = require("express");
+import models from "../models";
+import express from "express";
 const router = express.Router();
 
-const userManagement = require('./../user_management');
+import {isLoggedIn, login, logout} from './../user_management';
 const User = models.user;
 
 router.get('/', (req, res) => {
-    if (userManagement.isLoggedIn(req)) {
+    if (isLoggedIn(req)) {
         res.redirect('/shopping-list');
     } else {
         debug('Need to log in');
@@ -66,7 +66,7 @@ router.post('/login', (req, res) => {
                 users[0].isCorrectPassword(req.body.password) &&
                 users[0].verified) {
                 debug('Logging in');
-                userManagement.login(req, users[0]);
+                login(req, users[0]);
                 res.redirect('/');
             } else {
                 req.session.error = 'Login failed';
@@ -76,8 +76,8 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-    userManagement.logout(req);
+    logout(req);
     res.redirect('/');
 });
 
-module.exports = router;
+export default router;
