@@ -1,16 +1,12 @@
 module.exports = function(grunt) {
     var serverScriptPaths = [
-        'src/app.js',
-        'src/models/*.js',
-        'src/routes/*.js',
+        'src/**/*.js'
     ];
 
     var scriptPaths = [
-        'Gruntfile.js',
-        'src/app.js',
         'package.json',
-        'src/models/*.js',
-        'src/routes/*.js',
+        'Gruntfile.js',
+        'src/**/*app.js',
         'test/**/*.js',
         'public/js/**/*.js'
     ];
