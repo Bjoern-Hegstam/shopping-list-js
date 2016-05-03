@@ -4,7 +4,7 @@ import models from '../../models';
 import express from 'express';
 import HttpStatus from 'http-status-codes';
 import { formatSingleItemResponse } from "./../responseFormatter.js";
-import actions from './../actions.js';
+import {getById, findOne, findAll, findAndUpdate, findAndDestroy} from './../actions.js';
 
 const router = express.Router();
 
@@ -12,11 +12,11 @@ const ShoppingList = models.shoppingList;
 const ShoppingListItem = models.shoppingListItem;
 
 router.get('/', (req, res) => {
-    actions.findAll(res, ShoppingList);
+    findAll(res, ShoppingList);
 });
 
 router.get('/:listId', (req, res) => {
-    actions.getById(res, ShoppingList, req.params.listId);
+    getById(res, ShoppingList, req.params.listId);
 });
 
 router.post('/', (req, res) => {
@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
 });
 
 router.get('/:listId/item', (req, res) => {
-    actions.findAll(
+    findAll(
         res,
         ShoppingListItem, {
             where: {
@@ -42,7 +42,7 @@ router.get('/:listId/item', (req, res) => {
 });
 
 router.get('/:listId/item/:itemId', (req, res) => {
-    actions.findOne(
+    findOne(
         res,
         ShoppingListItem, {
             where: {
@@ -108,7 +108,7 @@ router.patch('/:listId/item/:itemId', (req, res) => {
         updateAttributes.inCart = reqItem.in_cart;
     }
 
-    actions.findAndUpdate(
+    findAndUpdate(
         res,
         ShoppingListItem, {
             where: {
@@ -123,7 +123,7 @@ router.delete('/:listId/item/:itemId', (req, res) => {
     const listId = req.params.listId;
     const itemId = req.params.itemId;
 
-    actions.findAndDestroy(
+    findAndDestroy(
         res,
         ShoppingListItem, {
             where: {
@@ -138,7 +138,7 @@ router.delete('/:listId/cart', (req, res) => {
     const listId = req.params.listId;
     const itemId = req.params.itemId;
 
-    actions.findAndDestroy(
+    findAndDestroy(
         res,
         ShoppingListItem, {
             where: {

@@ -4,7 +4,7 @@ import models from "../../models";
 import express from "express";
 import HttpStatus from 'http-status-codes';
 import {formatSingleItemResponse} from "./../responseFormatter.js";
-import actions from './../actions.js';
+import {findAll, getById} from './../actions.js';
 
 const router = express.Router();
 
@@ -28,11 +28,11 @@ router.get('/', (req, res) => {
         searchOptions.limit = req.query.limit;
     }
 
-    actions.findAll(res, ItemType, searchOptions);
+    findAll(res, ItemType, searchOptions);
 });
 
 router.get('/:id', (req, res, next) => {
-    actions.getById(res, ItemType, req.params.id);
+    getById(res, ItemType, req.params.id);
 });
 
 router.post('/', (req, res) => {

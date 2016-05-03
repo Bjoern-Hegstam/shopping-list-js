@@ -4,7 +4,6 @@ import models from "../models";
 import express from "express";
 const router = express.Router();
 
-import actions from './actions.js';
 import {formatCollectionResponse} from "./responseFormatter.js";
 
 const ItemType = models.itemType;
