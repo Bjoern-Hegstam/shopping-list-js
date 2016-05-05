@@ -46,6 +46,14 @@ General data structure:
 TODO
 ---------
 
+* Setup migration framework
+  * Create migration files for existing models
+  * Script production DB to think it already ran the base migrations
+    * Create migration meta data table
+    * Insert records for migrations that should be ignored
+    * Migration name format looks like: yyyyMMddHHmmss-{{name}}.js
+  * Figure out how to handle data migration, e.g. when adding new columns that need to be filled with data.
+
 * Administration tools for
   * Shopping lists
   * Item types
