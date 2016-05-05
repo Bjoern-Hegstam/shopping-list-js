@@ -48,6 +48,7 @@ TODO
 
 * Setup migration framework
   * Create migration files for existing models
+  * Add call to sequelize db:migrate in 'npm start'
   * Script production DB to think it already ran the base migrations
     * Create migration meta data table
     * Insert records for migrations that should be ignored
