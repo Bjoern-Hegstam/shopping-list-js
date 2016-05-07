@@ -2,7 +2,10 @@
 
 export default (sequelize, DataTypes) => {
     const ShoppingListItem = sequelize.define("shoppingListItem", {
-        quantity: DataTypes.INTEGER,
+        quantity: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
         inCart: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
