@@ -25,6 +25,7 @@ export default (sequelize, DataTypes) => sequelize.define('user', {
     },
     role: {
         type: DataTypes.ENUM('USER', 'ADMIN'),
+        allowNull: false
     }
 }, {
     instanceMethods: {
