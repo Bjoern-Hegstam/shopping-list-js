@@ -8,6 +8,15 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
+            shoppingListId: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: 'shoppingLists',
+                    key: 'id'
+                },
+                onUpdate: 'cascade',
+                onDelete: 'cascade'
+            },
             quantity: {
                 type: Sequelize.INTEGER,
                 allowNull: false
