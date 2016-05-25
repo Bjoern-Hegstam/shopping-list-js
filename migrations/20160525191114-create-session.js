@@ -2,12 +2,6 @@
 module.exports = {
     up: function(queryInterface, Sequelize) {
         return queryInterface.createTable('Sessions', {
-            id: {
-                allowNull: false,
-                autoIncrement: true,
-                primaryKey: true,
-                type: Sequelize.INTEGER
-            },
             sid: {
                 type: Sequelize.STRING,
                 primaryKey: true
