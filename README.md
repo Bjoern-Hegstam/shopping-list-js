@@ -62,6 +62,4 @@ TODO
 * User management - Available for admin users
   * Admin can edit item types, delete users, change user role and confirm new users
 
-* Make navbar collapsible
-
 * For the future: Look into rebuild using React
