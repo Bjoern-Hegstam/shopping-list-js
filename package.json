@@ -12,7 +12,7 @@
         "private": true
     },
     "scripts": {
-        "start": "node dist/bin/server.js",
+        "start": "sequelize db:migrate && node dist/bin/server.js",
         "postinstall": "bower install && grunt build"
     },
     "author": "Björn Hegstam (bjorn.hegstam@gmail.com)",
