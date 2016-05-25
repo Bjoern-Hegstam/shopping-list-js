@@ -47,13 +47,13 @@ TODO
 ---------
 
 * Setup migration framework
-  * Create migration files for existing models
-  * Add call to sequelize db:migrate in 'npm start'
-  * Script production DB to think it already ran the base migrations
+- [x] Create migration files for existing models
+- [ ] Add call to sequelize db:migrate in 'npm start'
+- [ ] Script production DB to think it already ran the base migrations
     * Create migration meta data table
     * Insert records for migrations that should be ignored
     * Migration name format looks like: yyyyMMddHHmmss-{{name}}.js
-  * Figure out how to handle data migration, e.g. when adding new columns that need to be filled with data.
+- [ ] Figure out how to handle data migration, e.g. when adding new columns that need to be filled with data.
 
 * Administration tools for
   * Shopping lists
