@@ -13,8 +13,8 @@ const db        = {};
 debug('db config:');
 debug(JSON.stringify(config, null, 2));
 
-if (config.user_env_variable) {
-  var sequelize = new Sequelize(process.env[config.user_env_variable]);
+if (config.use_env_variable) {
+  var sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
   var sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
