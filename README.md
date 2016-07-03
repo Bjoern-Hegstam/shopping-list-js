@@ -50,7 +50,7 @@ TODO
 - [x] Create migration files for existing models
 - [x] Add call to sequelize db:migrate in 'npm start'
 - [x] Do clean install on new database and verify that migration scripts work
-- [ ] Script production DB to think it already ran the base migrations
+- [x] Script production DB to think it already ran the base migrations
     * Create migration meta data table
     * Insert records for migrations that should be ignored
     * Migration name format looks like: yyyyMMddHHmmss-{{name}}.js
