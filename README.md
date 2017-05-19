@@ -51,6 +51,10 @@ To start app in development mode:
 1. `export DATABASE_URL=sqlite://database.sqlite`
 2. `grunt`
 
+To run api tests:
+1. `grunt apitest`
+2. In a different terminal `jasmine-node test/api`
+
 To start for production:
 1. `npm start`
 
