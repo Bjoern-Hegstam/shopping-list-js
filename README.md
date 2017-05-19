@@ -43,6 +43,18 @@ General data structure:
   * Needs to be confirmed by admin before able to login
   * Once logged in, can create new lists, add item types, add/remove items
 
+
+Notes
+-----
+
+To start app in development mode:
+1. `export DATABASE_URL=sqlite://database.sqlite`
+2. `grunt`
+
+To start for production:
+1. `npm start`
+
+
 TODO
 ---------
 
