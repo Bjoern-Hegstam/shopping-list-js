@@ -66,6 +66,12 @@
   list-style-type: none;
   text-align: center;
 }
+.item-type .buttons {
+  margin: 0 4px 0 0;
+}
+.item-type .buttons .btn {
+  margin: 0 2px;
+}
 .user-list-item {
   border: 1px solid black;
   margin: 10px 0 10px 0;

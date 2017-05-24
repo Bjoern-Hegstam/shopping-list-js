@@ -9,6 +9,7 @@ import {findAll, getById} from './../actions.js';
 const router = express.Router();
 
 const ItemType = models.itemType;
+const ShoppingListItem = models.shoppingListItem;
 
 router.get('/', (req, res) => {
     const where = {};
@@ -85,17 +86,23 @@ router.patch('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res, next) => {
-    ItemType
-        .findById(req.params.id)
-        .then(itemType => {
-            if (!itemType) {
-                res.sendStatus(HttpStatus.NOT_FOUND);
+    ShoppingListItem
+        .destroy({
+            where: {
+                itemTypeId: req.params.id
+            }
+        }).then(affectedRows => {
+            return ItemType.destroy({
+                where: {
+                    id: req.params.id
+                }
+            });
+        }).then(affectedRows => {
+            if (affectedRows > 0) {
+                // Item type was found and deleted
+                res.sendStatus(HttpStatus.NO_CONTENT);
             } else {
-                itemType
-                    .destroy()
-                    .then(() => {
-                        res.sendStatus(HttpStatus.NO_CONTENT);
-                    });
+                res.sendStatus(HttpStatus.NOT_FOUND);
             }
         });
 });

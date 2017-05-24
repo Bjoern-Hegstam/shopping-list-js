@@ -168,6 +168,16 @@ $(document).ready(function() {
                 });
         });
 
+    /* ITEM TYPE ADMINISTRATION */
+    $('.item-type')
+        .on('click', '.btn-item-type-delete', function deleteItemType(e) {
+            var itemType = $(this).closest('.item-type');
+            var itemTypeId = itemType.attr('data-id');
+            Db.deleteItemType(itemTypeId)
+                .done(function() {
+                    itemType.remove();
+                });
+        });
 
     /* AJAX CALLS */
     function ajaxErrorHandler(xhr, status, error) {
@@ -240,7 +250,7 @@ $(document).ready(function() {
         },
 
 
-        findItemTypesWithNameLike: function(nameStart, limit, callback) {
+        findItemTypesWithNameLike: function(nameStart, limit) {
             return $.ajax({
                 url: '../api/item_type?name=' + nameStart + '&limit=' + limit,
                 type: 'GET',
@@ -249,7 +259,7 @@ $(document).ready(function() {
         },
 
 
-        createItemType: function(name, callback) {
+        createItemType: function(name) {
             var data = {
                 item_type: {
                     name: name
@@ -261,6 +271,14 @@ $(document).ready(function() {
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(data),
+                error: ajaxErrorHandler
+            });
+        },
+
+        deleteItemType: function(itemTypeId) {
+            return $.ajax({
+                url: '../api/item_type/' + itemTypeId,
+                type: 'DELETE',
                 error: ajaxErrorHandler
             });
         }
