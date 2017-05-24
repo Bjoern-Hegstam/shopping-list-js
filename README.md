@@ -48,7 +48,9 @@ Notes
 -----
 
 To start app in development mode:
-1. `export DATABASE_URL=sqlite://database.sqlite`
+1. `export DATABASE_URL=<url>` where `url` is of the form:
+  * for sqlite: `sqlite://database.sqlite`
+  * for postgresql: `postgresql://<user>:<password>@<host>/<database>`
 2. `grunt`
 
 To run api tests:
